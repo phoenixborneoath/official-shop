@@ -1060,18 +1060,15 @@
     // ------- DATA PRODUK (EDIT DI SINI) ---------
     const products = [
       {
-        id: 1,
-        name: "REBORN FROM ASHES TEE",
-        slug: "reborn-from-ashes-tee",
-        category: "limited",
-        price: 289000,
-        originalPrice: 339000,
-        badge: "New Drop",
-        isNew: true,
-        discount: "SAVE 15%",
-        sizes: ["S", "M", "L", "XL", "XXL"],
-        stockStatus: "Low stock"
-      },
+  id: 1,
+  name: "REBORN FROM ASHES TEE",
+  category: "limited",
+  price: 289000,
+  image: "images/phoenix1.jpg",
+  sizes: ["S","M","L","XL"],
+  stockStatus: "Low stock"
+},
+
       {
         id: 2,
         name: "VOIDWALKER BASIC TEE",
@@ -1190,7 +1187,10 @@
 
         card.innerHTML = `
           <div class="${badgeClass}">${badgeLabel}</div>
-          <div class="product-media"></div>
+          <div class="product-media">
+  <img src="images/phoenix1.jpg" alt="produk">
+</div>
+
           <div class="product-body">
             <div class="product-name">${prod.name}</div>
             <div class="product-meta-row">
