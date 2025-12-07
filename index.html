@@ -1364,17 +1364,23 @@
     }
 
     checkoutBtn.addEventListener("click", () => {
-      if (cart.length === 0) {
-        alert("Keranjang masih kosong.");
-        return;
-      }
+  if (cart.length === 0) {
+    alert("Keranjang masih kosong.");
+    return;
+  }
 
-      // --- DI SINI NANTI BISA DIARAHKAN KE PAYMENT / WHATSAPP ---
-      // Misal: window.location.href = "https://link-whatsapp-kamu";
-      alert(
-        "Contoh saja:\n\nDi tahap ini kamu bisa arahkan customer ke halaman pembayaran,\nform alamat, atau WhatsApp dengan detail pesanan.\n\nUntuk sekarang ini hanya demo."
-      );
-    });
+  // Simpan cart ke localStorage
+  try {
+    localStorage.setItem("pbo_cart", JSON.stringify(cart));
+  } catch (e) {
+    console.error("Gagal menyimpan cart:", e);
+    alert("Maaf, ada masalah menyimpan data keranjang.");
+    return;
+  }
+
+  // Arahkan ke halaman checkout
+  window.location.href = "checkout.html";
+});
 
     // Scroll ke section shop
     const scrollToShopBtn = document.getElementById("scrollToShopBtn");
