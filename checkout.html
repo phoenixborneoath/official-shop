@@ -495,19 +495,19 @@
       const total = subtotal + shippingCost;
 
       const itemsHtml = cart.map(entry => `
-        <div class="order-item">
-          <div class="order-item-info">
-            <div class="order-item-name">${entry.product.name}</div>
-            <div class="order-item-meta">
-              Size: M (contoh) · ${formatRupiah(entry.product.price)}
-            </div>
-            <div class="order-item-qty">Qty: ${entry.qty}</div>
-          </div>
-          <div class="order-item-price">
-            <div>${formatRupiah(entry.product.price * entry.qty)}</div>
-          </div>
-        </div>
-      `).join("");
+  <div class="order-item">
+    <div class="order-item-info">
+      <div class="order-item-name">${entry.product.name}</div>
+      <div class="order-item-meta">
+        Size: ${entry.size || "-"} · ${formatRupiah(entry.product.price)}
+      </div>
+      <div class="order-item-qty">Qty: ${entry.qty}</div>
+    </div>
+    <div class="order-item-price">
+      <div>${formatRupiah(entry.product.price * entry.qty)}</div>
+    </div>
+  </div>
+`).join("");
 
       orderContentEl.innerHTML = `
         <div class="order-items">
@@ -562,9 +562,9 @@
       const shippingCost = 30000; // sama dengan di atas
       const total = subtotal + shippingCost;
 
-      const itemsText = cart.map(entry => {
-        return `- ${entry.product.name} | Qty: ${entry.qty} | ${formatRupiah(entry.product.price * entry.qty)}`;
-      }).join("%0A");
+     const itemsText = cart.map(entry => {
+  return `- ${entry.product.name} | Size: ${entry.size || "-"} | Qty: ${entry.qty} | ${formatRupiah(entry.product.price * entry.qty)}`;
+}).join("%0A");
 
       const message =
         `Halo admin Phoenixborne Oath,%0A%0A` +
