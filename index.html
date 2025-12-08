@@ -621,6 +621,12 @@
       letter-spacing: 0.12em;
       color: var(--muted);
     }
+    
+    .size-pill.active {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: #fecaca;
+   }
 
     .product-footer {
       display: flex;
@@ -1191,6 +1197,7 @@
       filtered.forEach(prod => {
         const card = document.createElement("article");
         card.className = "product-card";
+        card.dataset.id = prod.id;
 
         const badgeClass = prod.isNew ? "product-tag product-tag-new" : "product-tag";
         const badgeLabel = prod.badge || (prod.isNew ? "New" : "Drop");
@@ -1219,9 +1226,14 @@
                   : ""
               }
             </div>
-            <div class="sizes-row">
-              ${prod.sizes.map(s => `<span class="size-pill">${s}</span>`).join("")}
-            </div>
+           <div class="sizes-row">
+  ${prod.sizes
+    .map(
+      s =>
+        `<span class="size-pill" data-size="${s}" data-product-id="${prod.id}">${s}</span>`
+    )
+    .join("")}
+</div>
           </div>
           <div class="product-footer">
             <button class="btn-add-cart" data-id="${prod.id}">
@@ -1261,6 +1273,7 @@
 
     // ------- CART LOGIC ----------
     let cart = [];
+    const selectedSizes = {};
 
     const cartDrawer = document.getElementById("cartDrawer");
     const cartBackdrop = document.getElementById("cartBackdrop");
@@ -1311,8 +1324,8 @@
               <div>
                 <div class="cart-name">${entry.product.name}</div>
                 <div class="cart-meta">
-                  Size: <strong>M</strong> (contoh) · ${formatRupiah(entry.product.price)}
-                </div>
+  Size: <strong>${entry.size || "-"}</strong> · ${formatRupiah(entry.product.price)}
+               </div>
               </div>
               <button class="cart-remove" data-id="${entry.product.id}">✕</button>
             </div>
@@ -1346,18 +1359,29 @@
       });
     }
 
-    function addToCart(productId) {
-      const product = products.find(p => p.id === productId);
-      if (!product) return;
-      const existing = cart.find(c => c.product.id === productId);
-      if (existing) {
-        existing.qty += 1;
-      } else {
-        cart.push({ product, qty: 1 });
-      }
-      updateCartUI();
-      openCart();
-    }
+   function addToCart(productId) {
+  const product = products.find(p => p.id === productId);
+  if (!product) return;
+
+  const size = selectedSizes[productId];
+  if (!size) {
+    alert("Silakan pilih size terlebih dahulu.");
+    return;
+  }
+
+  const existing = cart.find(
+    c => c.product.id === productId && c.size === size
+  );
+
+  if (existing) {
+    existing.qty += 1;
+  } else {
+    cart.push({ product, qty: 1, size });
+  }
+
+  updateCartUI();
+  openCart();
+}
 
     function changeQty(productId, delta) {
       const index = cart.findIndex(c => c.product.id === productId);
@@ -1402,6 +1426,25 @@
 
     // Render awal
     renderProducts("all");
+    // Event klik size (pakai event delegation di productsGrid)
+productsGrid.addEventListener("click", (e) => {
+  const pill = e.target.closest(".size-pill");
+  if (!pill) return;
+
+  const productId = Number(pill.getAttribute("data-product-id"));
+  const size = pill.getAttribute("data-size");
+
+  // hilangkan active di semua size di produk yang sama
+  const sizesRow = pill.parentElement;
+  sizesRow.querySelectorAll(".size-pill").forEach(el => el.classList.remove("active"));
+
+  // aktifkan size yang diklik
+  pill.classList.add("active");
+
+  // simpan ke state global
+  selectedSizes[productId] = size;
+});
+
     updateCartUI();
   </script>
 
