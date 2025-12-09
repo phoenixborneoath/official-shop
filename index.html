@@ -949,6 +949,28 @@
   border-color: rgba(148,163,184,0.3) !important;
   background: rgba(2,6,23,0.8) !important;
 }
+
+.hero-product {
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-product::before,
+.hero-product::after {
+  display: none !important;
+  content: none !important;
+}
+
+.hero-product-img,
+.hero-product img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: inherit; 
+}
   </style>
 </head>
 <body>
@@ -1004,9 +1026,9 @@
         <div class="hero-glow"></div>
         <div class="hero-card">
          <div class="hero-product">
-         <img src="images/highlight.jpg"
-          alt="Reborn From Ashes Tee"
-          class="hero-product-img">
+          <img src="images/highlight.jpg"
+           alt="Reborn From Ashes Tee"
+           class="hero-product-img">
           </div>
           <div>
             <div class="hero-tag">COMING SOON PRODUCT</div>
