@@ -5,6 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Checkout — Phoenixborne Oath</title>
   <style>
+    .logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
     :root {
       --bg: #020617;
       --bg-soft: #0b1120;
@@ -337,16 +348,16 @@
 </head>
 <body>
   <div class="page">
-    <header>
-      <div class="logo">
-        <div class="logo-mark">P</div>
-        <span>PHOENIXBORNE OATH</span>
-      </div>
-      <a href="index.html" class="back-link">
-        <span class="arrow">←</span>
-        <span>Back to Shop</span>
-      </a>
-    </header>
+    <header class="navbar">
+  <div class="nav-inner">
+    <div class="logo">
+      <img src="images/logo.jpg" alt="Phoenixborne Oath Logo" class="logo-img">
+      <span>PHOENIXBORNE OATH</span>
+    </div>
+
+    <a href="index.html" class="back-btn">← Back to Shop</a>
+  </div>
+</header>
 
     <div class="checkout-grid">
       <!-- ORDER SUMMARY -->
