@@ -1004,69 +1004,6 @@
 .hero-note p {
   margin: 0 !important;
 }
-    /* ========== IMAGE MODAL / LIGHTBOX ========== */
-
-.image-modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.85);
-  display: none;              /* default sembunyi */
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-}
-
-.image-modal.is-open {
-  display: flex;
-}
-
-.image-modal-inner {
-  position: relative;
-  max-width: 90vw;
-  max-height: 90vh;
-}
-
-.image-modal-img {
-  max-width: 100%;
-  max-height: 100%;
-  border-radius: 16px;
-  box-shadow: 0 30px 80px rgba(0,0,0,0.9);
-}
-
-/* tombol close (X) */
-
-.image-modal-close {
-  position: absolute;
-  top: -40px;
-  right: 0;
-  font-size: 1.8rem;
-  cursor: pointer;
-  color: #e5e7eb;
-}
-
-/* tombol next / prev (dipakai nanti untuk slide) */
-
-.image-modal-nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 2rem;
-  cursor: pointer;
-  color: #e5e7eb;
-  padding: 0.3rem 0.7rem;
-  border-radius: 999px;
-  background: rgba(15,23,42,0.7);
-}
-
-.image-modal-prev { left: -3rem; }
-.image-modal-next { right: -3rem; }
-
-@media (max-width: 640px) {
-  .image-modal-prev { left: 0.5rem; }
-  .image-modal-next { right: 0.5rem; }
-  .image-modal-close { top: 0.5rem; right: 0.8rem; }
-}
-    
   </style>
 </head>
 <body>
@@ -1609,82 +1546,15 @@ productsGrid.addEventListener("click", (e) => {
 });
 
     updateCartUI();
-    // ========== IMAGE MODAL LOGIC ==========
-
-let currentGallery = [];
-let currentGalleryIndex = 0;
-
-const imageModal      = document.getElementById("imageModal");
-const imageModalImg   = document.getElementById("imageModalImg");
-const imageModalClose = document.getElementById("imageModalClose");
-const imageModalPrev  = document.getElementById("imageModalPrev");
-const imageModalNext  = document.getElementById("imageModalNext");
-
-function updateImageModal() {
-  if (!currentGallery.length) return;
-  imageModalImg.src = currentGallery[currentGalleryIndex];
-}
-
-function openImageModalWithSingle(src) {
-  currentGallery = [src];
-  currentGalleryIndex = 0;
-  updateImageModal();
-  imageModal.classList.add("is-open");
-}
-
-// navigasi (nanti kepakai untuk 3 foto)
-function nextImage() {
-  if (!currentGallery.length) return;
-  currentGalleryIndex = (currentGalleryIndex + 1) % currentGallery.length;
-  updateImageModal();
-}
-
-function prevImage() {
-  if (!currentGallery.length) return;
-  currentGalleryIndex =
-    (currentGalleryIndex - 1 + currentGallery.length) % currentGallery.length;
-  updateImageModal();
-}
-
-function closeImageModal() {
-  imageModal.classList.remove("is-open");
-}
-
-imageModalClose.addEventListener("click", closeImageModal);
-imageModalNext.addEventListener("click", nextImage);
-imageModalPrev.addEventListener("click", prevImage);
-imageModal.addEventListener("click", (e) => {
-  if (e.target === imageModal) closeImageModal();
-});
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") closeImageModal();
-});
-
-// === JADIKAN SEMUA FOTO PRODUK BISA DIKLIK ===
-// pakai selector umum: gambar di dalam .product-card
-
-document.querySelectorAll(".product-card .product-media img").forEach(img => {
-  img.style.cursor = "zoom-in";
-  img.addEventListener("click", () => {
-    openImageModalWithSingle(img.src);
-  });
-});
-
   </script>
 
   <footer>
     <span>© <span id="yearSpan"></span> PHOENIXBORNE OATH. All Rights Reserved.</span>
     <span>
   </footer>
-<!-- IMAGE MODAL -->
-<div class="image-modal" id="imageModal">
-  <div class="image-modal-inner">
-    <span class="image-modal-close" id="imageModalClose">&times;</span>
-    <span class="image-modal-nav image-modal-prev" id="imageModalPrev">&#10094;</span>
-    <img src="" alt="" class="image-modal-img" id="imageModalImg">
-    <span class="image-modal-nav image-modal-next" id="imageModalNext">&#10095;</span>
-  </div>
-</div>
 
+  <script>
+    document.getElementById("yearSpan").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
