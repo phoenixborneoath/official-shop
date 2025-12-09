@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -7,6 +5,64 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PHOENIXBORNE OATH — Official Store</title>
   <style>
+    /* === MODAL GAMBAR PRODUK === */
+.image-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.image-modal.show {
+  display: flex;
+}
+
+.image-modal-content {
+  position: relative;
+  max-width: 92vw;
+  max-height: 92vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-modal img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.7);
+}
+
+.image-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  font-size: 30px;
+  border: none;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+
+.image-modal-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  font-size: 42px;
+  color: #fff;
+  cursor: pointer;
+  padding: 8px 12px;
+}
+
+.image-modal-prev { left: 16px; }
+.image-modal-next { right: 16px; }
+
     .hero-product,
 .hero-left {
   width: 100%;
@@ -1166,24 +1222,38 @@
     </div>
   </aside>
   <div class="cart-drawer-backdrop" id="cartBackdrop"></div>
+  <!-- MODAL PREVIEW GAMBAR -->
+<div id="imageModal" class="image-modal">
+  <div class="image-modal-content">
+    <button class="image-modal-close" id="closeImageModal">&times;</button>
+    <button class="image-modal-nav image-modal-prev" id="prevImage">&#10094;</button>
+    <img id="modalImage" src="" alt="Preview product">
+    <button class="image-modal-nav image-modal-next" id="nextImage">&#10095;</button>
+  </div>
+</div>
 
   <script>
     // ------- DATA PRODUK (EDIT DI SINI) ---------
     const products = [
   {
-    id: 1,
-    name: "PHOENIXBORNE TEE",
-    slug: "phoenix-borne-tee",
-    category: "limited",
-    price: 289000,
-    originalPrice: null,
-    badge: "Frist article",
-    isNew: true,
-    discount: "SAVE 15%",
-    sizes: ["S", "M", "L", "XL", "XXL"],
-    stockStatus: "Limited stock",
-    image: "images/pborne.jpg"
-  },
+  id: 1,
+  name: "PHOENIXBORNE TEE",
+  slug: "phoenix-borne-tee",
+  category: "limited",
+  price: 289000,
+  originalPrice: null,
+  badge: "Frist article",
+  isNew: true,
+  discount: "SAVE 15%",
+  sizes: ["S", "M", "L", "XL", "XXL"],
+  stockStatus: "Limited stock",
+  image: "images/pborne.jpg",
+  images: [
+    "images/pborne.jpg",
+    "images/pborne.jpg",
+    "images/pborne.jpg"
+  ]
+},
   {
     id: 2,
     name: "COMING SOON TEE",
@@ -1196,8 +1266,12 @@
     discount: "",
     sizes: ["S", "M", "L", "XL", "XXL"],
     stockStatus: "Ready stock",
-    image: "images/cooming.jpg"
-  },
+    images: [
+    "images/coming.jpg",
+    "images/coming.jpg",
+    "images/coming.jpg"
+  ]
+},
   {
     id: 3,
     name: "COMING SOON TEE",
@@ -1210,8 +1284,12 @@
     discount: "Marble Edition",
     sizes: ["S", "M", "L", "XL", "XXL"],
     stockStatus: "Very limited",
-    image: "images/cooming.jpg"
-  },
+    images: [
+    "images/coming.jpg",
+    "images/coming.jpg",
+    "images/coming.jpg"
+  ]
+},
   {
     id: 4,
     name: "COMING SOON TEE",
@@ -1224,8 +1302,12 @@
     discount: "",
     sizes: ["S", "M", "L", "XL", "XXL"],
     stockStatus: "Ready stock",
-    image: "images/cooming.jpg"
-  },
+    images: [
+    "images/coming.jpg",
+    "images/coming.jpg",
+    "images/coming.jpg"
+  ]
+},
   {
     id: 5,
     name: "COMING SOON TEE",
@@ -1238,8 +1320,12 @@
     discount: "Daily Wear",
     sizes: ["S", "M", "L", "XL", "XXL"],
     stockStatus: "Ready stock",
-    image: "images/cooming.jpg"
-  },
+   images: [
+    "images/coming.jpg",
+    "images/coming.jpg",
+    "images/coming.jpg"
+  ]
+},
   {
     id: 6,
     name: "COMING SOON TEE",
@@ -1252,8 +1338,12 @@
     discount: "Limited Run",
     sizes: ["S", "M", "L", "XL", "XXL"],
     stockStatus: "Low stock",
-    image: "images/cooming.jpg"
-  },
+   images: [
+    "images/coming.jpg",
+    "images/coming.jpg",
+    "images/coming.jpg"
+  ]
+},
   {
     id: 7,
     name: "COMING SOON TEE",
@@ -1266,8 +1356,12 @@
     discount: "",
     sizes: ["S", "M", "L", "XL", "XXL"],
     stockStatus: "Ready stock",
-    image: "images/cooming.jpg"
-  },
+    images: [
+    "images/coming.jpg",
+    "images/coming.jpg",
+    "images/coming.jpg"
+  ]
+},
   {
     id: 8,
     name: "COMING SOON TEE",
@@ -1280,8 +1374,12 @@
     discount: "",
     sizes: ["S", "M", "L", "XL", "XXL"],
     stockStatus: "Ready stock",
-    image: "images/cooming.jpg"
-  }
+    images: [
+    "images/coming.jpg",
+    "images/coming.jpg",
+    "images/coming.jpg"
+  ]
+},
 ];
 
     // ------- UTIL: FORMAT RUPIAH ----------
@@ -1295,25 +1393,142 @@
     // ------- RENDER PRODUK ----------
     const productsGrid = document.getElementById("productsGrid");
     const filterButtons = document.querySelectorAll(".tag-filter");
+    const imageModal = document.getElementById("imageModal");
+const modalImage = document.getElementById("modalImage");
+const closeImageModal = document.getElementById("closeImageModal");
+const prevImageBtn = document.getElementById("prevImage");
+const nextImageBtn = document.getElementById("nextImage");
+
+let modalImages = [];
+let modalIndex = 0;
+
+function openImageModal(images, startIndex = 0) {
+  modalImages = images;
+  modalIndex = startIndex;
+  modalImage.src = modalImages[modalIndex];
+  imageModal.classList.add("show");
+}
+
+function closeImage() {
+  imageModal.classList.remove("show");
+}
+
+function changeImage(step) {
+  if (!modalImages.length) return;
+  modalIndex = (modalIndex + step + modalImages.length) % modalImages.length;
+  modalImage.src = modalImages[modalIndex];
+}
+
+closeImageModal.addEventListener("click", closeImage);
+imageModal.addEventListener("click", (e) => {
+  if (e.target === imageModal) closeImage();
+});
+prevImageBtn.addEventListener("click", (e) => {
+  e.stopPropagation();
+  changeImage(-1);
+});
+nextImageBtn.addEventListener("click", (e) => {
+  e.stopPropagation();
+  changeImage(1);
+});
+
+// dipanggil setiap selesai renderProducts()
+function initImageClick() {
+  document.querySelectorAll(".product-image").forEach(box => {
+    const imgs = box.dataset.images
+      .split(",")
+      .map(s => s.trim())
+      .filter(Boolean);
+
+    box.addEventListener("click", () => {
+      openImageModal(imgs, 0);
+    });
+  });
+}
 
     function renderProducts(filter = "all") {
-      productsGrid.innerHTML = "";
-      const filtered = products.filter(p => filter === "all" ? true : p.category === filter);
+  productsGrid.innerHTML = "";
+  const filtered = products.filter(p => filter === "all" ? true : p.category === filter);
 
-      filtered.forEach(prod => {
-        const card = document.createElement("article");
-        card.className = "product-card";
-        card.dataset.id = prod.id;
+  filtered.forEach(prod => {
+    const card = document.createElement("article");
+    card.className = "product-card";
+    card.dataset.id = prod.id;
 
-        const badgeClass = prod.isNew ? "product-tag product-tag-new" : "product-tag";
-        const badgeLabel = prod.badge || (prod.isNew ? "New" : "Drop");
+    const badgeClass = prod.isNew ? "product-tag product-tag-new" : "product-tag";
+    const badgeLabel = prod.badge || (prod.isNew ? "New" : "Drop");
 
-        card.innerHTML = `
-          <div class="${badgeClass}">${badgeLabel}</div>
-          <div class="product-media">
-  <img src="${prod.image}" alt="${prod.name}">
-</div>
-</div>
+    // ambil list gambar: pakai prod.images kalau ada, kalau tidak pakai prod.image
+    const imageList = (Array.isArray(prod.images) && prod.images.length)
+      ? prod.images
+      : [prod.image];
+
+    card.innerHTML = `
+      <div class="${badgeClass}">${badgeLabel}</div>
+
+      <!-- KOTAK FOTO YANG BISA DI-KLIK -->
+      <div class="product-media product-image"
+           data-images="${imageList.join(',')}">
+        <img src="${imageList[0]}" alt="${prod.name}">
+      </div>
+
+      <div class="product-body">
+        <div class="product-name">${prod.name}</div>
+        <div class="product-meta-row">
+          <div>
+            <span class="price">${formatRupiah(prod.price)}</span>
+            ${
+              prod.originalPrice
+                ? `<span class="price-original">${formatRupiah(prod.originalPrice)}</span>`
+                : ""
+            }
+          </div>
+          ${
+            prod.discount
+              ? `<span class="discount">${prod.discount}</span>`
+              : ""
+          }
+        </div>
+        <div class="sizes-row">
+          ${prod.sizes
+            .map(
+              s =>
+                `<span class="size-pill" data-size="${s}" data-product-id="${prod.id}">${s}</span>`
+            )
+            .join("")}
+        </div>
+      </div>
+      <div class="product-footer">
+        <button class="btn-add-cart" data-id="${prod.id}">
+          <span>Add to Cart</span>
+          <span>+</span>
+        </button>
+        <div class="stock-text ${
+          prod.stockStatus.toLowerCase().includes("low") ||
+          prod.stockStatus.toLowerCase().includes("very")
+            ? "stock-low"
+            : ""
+        }">
+          ${prod.stockStatus}
+        </div>
+      </div>
+    `;
+
+    productsGrid.appendChild(card);
+  });
+
+  // event tombol add to cart (ini sama seperti punyamu tadi)
+  productsGrid.querySelectorAll(".btn-add-cart").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const id = Number(btn.getAttribute("data-id"));
+      addToCart(id);
+    });
+  });
+
+  // >>> penting: setelah kartu jadi, aktifkan klik gambar
+  initImageClick();
+}
+
 
           <div class="product-body">
             <div class="product-name">${prod.name}</div>
