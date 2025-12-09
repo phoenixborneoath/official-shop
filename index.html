@@ -1182,11 +1182,7 @@
     discount: "SAVE 15%",
     sizes: ["S", "M", "L", "XL", "XXL"],
     stockStatus: "Limited stock",
-    images: [
-  "images/pborne.jpg",
-  "images/pborne.jpg",
-  "images/pborne.jpg"
-]
+    image: "images/pborne.jpg"
   },
   {
     id: 2,
@@ -1200,13 +1196,8 @@
     discount: "",
     sizes: ["S", "M", "L", "XL", "XXL"],
     stockStatus: "Ready stock",
-    
-    images: [
-    "images/coming.jpg",
-    "images/coming.jpg",
-    "images/coming.jpg"
-  ]
-},
+    image: "images/cooming.jpg"
+  },
   {
     id: 3,
     name: "COMING SOON TEE",
@@ -1219,13 +1210,8 @@
     discount: "Marble Edition",
     sizes: ["S", "M", "L", "XL", "XXL"],
     stockStatus: "Very limited",
-    
-    images: [
-    "images/coming.jpg",
-    "images/coming.jpg",
-    "images/coming.jpg"
-  ]
-},
+    image: "images/cooming.jpg"
+  },
   {
     id: 4,
     name: "COMING SOON TEE",
@@ -1238,13 +1224,8 @@
     discount: "",
     sizes: ["S", "M", "L", "XL", "XXL"],
     stockStatus: "Ready stock",
-    
-    images: [  
-    "images/coming.jpg",
-    "images/coming.jpg",
-    "images/coming.jpg"
-  ]
-},
+    image: "images/cooming.jpg"
+  },
   {
     id: 5,
     name: "COMING SOON TEE",
@@ -1257,13 +1238,8 @@
     discount: "Daily Wear",
     sizes: ["S", "M", "L", "XL", "XXL"],
     stockStatus: "Ready stock",
-    
-   images: [
-    "images/coming.jpg",
-    "images/coming.jpg",
-    "images/coming.jpg"
-  ]
-},
+    image: "images/cooming.jpg"
+  },
   {
     id: 6,
     name: "COMING SOON TEE",
@@ -1276,13 +1252,8 @@
     discount: "Limited Run",
     sizes: ["S", "M", "L", "XL", "XXL"],
     stockStatus: "Low stock",
-    
-    images: [
-    "images/coming.jpg",
-    "images/coming.jpg",
-    "images/coming.jpg"
-  ]
-},
+    image: "images/cooming.jpg"
+  },
   {
     id: 7,
     name: "COMING SOON TEE",
@@ -1295,13 +1266,8 @@
     discount: "",
     sizes: ["S", "M", "L", "XL", "XXL"],
     stockStatus: "Ready stock",
-    
-    images: [
-    "images/coming.jpg",
-    "images/coming.jpg",
-    "images/coming.jpg"
-  ]
-},
+    image: "images/cooming.jpg"
+  },
   {
     id: 8,
     name: "COMING SOON TEE",
@@ -1314,12 +1280,8 @@
     discount: "",
     sizes: ["S", "M", "L", "XL", "XXL"],
     stockStatus: "Ready stock",
-    
-    images: [
-    "images/coming.jpg",
-    "images/coming.jpg",
-    "images/coming.jpg"
-  ]
+    image: "images/cooming.jpg"
+  }
 ];
 
     // ------- UTIL: FORMAT RUPIAH ----------
@@ -1348,13 +1310,13 @@
 
         card.innerHTML = `
           <div class="${badgeClass}">${badgeLabel}</div>
-           <div class="product-media product-image"
-              data-images="${prod.images.join(',')}">
-            <img src="${prod.images[0]}" alt="${prod.name}">
-         </div>
+          <div class="product-media">
+  <img src="${prod.image}" alt="${prod.name}">
+</div>
+</div>
 
-     <div class="product-body">
-    <div class="product-name">${prod.name}</div>
+          <div class="product-body">
+            <div class="product-name">${prod.name}</div>
             <div class="product-meta-row">
               <div>
                 <span class="price">${formatRupiah(prod.price)}</span>
