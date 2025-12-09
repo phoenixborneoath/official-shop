@@ -537,7 +537,7 @@
 
       .hero {
         margin-top: 1.2rem;
-        margin-bottom: 2.3rem;
+        margin-bottom: 1.5rem;
       }
 
       .products-grid {
@@ -1047,7 +1047,7 @@
             <div class="hero-mini-row">
               <div style="display:flex;align-items:center;gap:0.4rem;">
                 <div class="dot-pulse"></div>
-                <span>Open for orders</span>
+                <span>Next Article</span>
               </div>
               <span style="color:#a1a1aa;">Est. ship 3–5 hari kerja</span>
             </div>
@@ -1143,24 +1143,24 @@
     const products = [
   {
     id: 1,
-    name: "REBORN FROM ASHES TEE",
-    slug: "reborn-from-ashes-tee",
+    name: "PHOENIXBORNE TEE",
+    slug: "phoenix-borne-tee",
     category: "limited",
     price: 289000,
-    originalPrice: 339000,
-    badge: "New Drop",
+    originalPrice: null,
+    badge: "Frist article",
     isNew: true,
     discount: "SAVE 15%",
     sizes: ["S", "M", "L", "XL", "XXL"],
-    stockStatus: "Low stock",
+    stockStatus: "Limited stock",
     image: "images/pborne.jpg"
   },
   {
     id: 2,
-    name: "VOIDWALKER BASIC TEE",
-    slug: "voidwalker-basic-tee",
+    name: "COMING SOON TEE",
+    slug: "coming-soon-tee",
     category: "essentials",
-    price: 239000,
+    price: 0,
     originalPrice: null,
     badge: "Essentials",
     isNew: false,
@@ -1171,11 +1171,11 @@
   },
   {
     id: 3,
-    name: "HELLFIRE MARBLE TEE",
-    slug: "hellfire-marble-tee",
+    name: "COMING SOON TEE",
+    slug: "coming-soon-tee",
     category: "special",
-    price: 329000,
-    originalPrice: 359000,
+    price: 0,
+    originalPrice: 0,
     badge: "Special Material",
     isNew: true,
     discount: "Marble Edition",
@@ -1185,10 +1185,10 @@
   },
   {
     id: 4,
-    name: "GRAVEBOUND OVERSIZED TEE",
-    slug: "gravebound-oversized-tee",
+    name: "COMING SOON TEE",
+    slug: "coming-soon-tee",
     category: "limited",
-    price: 299000,
+    price: 0,
     originalPrice: null,
     badge: "Limited",
     isNew: false,
@@ -1199,11 +1199,11 @@
   },
   {
     id: 5,
-    name: "ASHEN ESSENTIALS TEE",
-    slug: "ashen-essentials-tee",
+    name: "COMING SOON TEE",
+    slug: "coming-soon-tee",
     category: "essentials",
-    price: 219000,
-    originalPrice: 249000,
+    price: 0,
+    originalPrice: null,
     badge: "Essentials",
     isNew: false,
     discount: "Daily Wear",
@@ -1213,11 +1213,11 @@
   },
   {
     id: 6,
-    name: "OBLIVION NIGHT TEE",
-    slug: "oblivion-night-tee",
+    name: "COMING SOON TEE",
+    slug: "coming-soon-tee",
     category: "limited",
-    price: 309000,
-    originalPrice: 349000,
+    price: 0,
+    originalPrice: null,
     badge: "Night Drop",
     isNew: true,
     discount: "Limited Run",
@@ -1227,11 +1227,11 @@
   },
   {
     id: 7,
-    name: "PHANTOM FABRIC TEE",
-    slug: "phantom-fabric-tee",
+    name: "COMING SOON TEE",
+    slug: "coming-soon-tee",
     category: "special",
-    price: 339000,
-    originalPrice: 379000,
+    price: 0,
+    originalPrice: null,
     badge: "Special Material",
     isNew: false,
     discount: "",
@@ -1241,10 +1241,10 @@
   },
   {
     id: 8,
-    name: "BLOODMOON BASIC TEE",
-    slug: "bloodmoon-basic-tee",
+    name: "COMING SOON TEE",
+    slug: "coming-soon-tee",
     category: "essentials",
-    price: 229000,
+    price: 0,
     originalPrice: null,
     badge: "Essentials",
     isNew: false,
@@ -1419,7 +1419,6 @@
         cartBody.appendChild(row);
       });
 
-      // Event qty & remove
       cartBody.querySelectorAll(".qty-btn").forEach(btn => {
         btn.addEventListener("click", () => {
           const id = Number(btn.getAttribute("data-id"));
@@ -1481,7 +1480,6 @@
     return;
   }
 
-  // Simpan cart ke localStorage
   try {
     localStorage.setItem("pbo_cart", JSON.stringify(cart));
   } catch (e) {
@@ -1490,20 +1488,16 @@
     return;
   }
 
-  // Arahkan ke halaman checkout
   window.location.href = "checkout.html";
 });
 
-    // Scroll ke section shop
     const scrollToShopBtn = document.getElementById("scrollToShopBtn");
     scrollToShopBtn.addEventListener("click", () => {
       const section = document.getElementById("products");
       section.scrollIntoView({ behavior: "smooth" });
     });
 
-    // Render awal
     renderProducts("all");
-    // Event klik size (pakai event delegation di productsGrid)
 productsGrid.addEventListener("click", (e) => {
   const pill = e.target.closest(".size-pill");
   if (!pill) return;
@@ -1511,14 +1505,11 @@ productsGrid.addEventListener("click", (e) => {
   const productId = Number(pill.getAttribute("data-product-id"));
   const size = pill.getAttribute("data-size");
 
-  // hilangkan active di semua size di produk yang sama
   const sizesRow = pill.parentElement;
   sizesRow.querySelectorAll(".size-pill").forEach(el => el.classList.remove("active"));
 
-  // aktifkan size yang diklik
   pill.classList.add("active");
 
-  // simpan ke state global
   selectedSizes[productId] = size;
 });
 
@@ -1527,7 +1518,7 @@ productsGrid.addEventListener("click", (e) => {
 
   <footer>
     <span>© <span id="yearSpan"></span> PHOENIXBORNE OATH. All Rights Reserved.</span>
-    <span>Built for demo — edit konten di file index.html</span>
+    <span>
   </footer>
 
   <script>
