@@ -407,14 +407,13 @@
 
    .hero-right {
   background: #020617;
+  border-radius: 26px;
+  border: 1px solid rgba(63, 63, 70, 0.9);
+  padding: 1.4rem;
+  box-shadow: var(--shadow-soft);
+  position: relative;
+  overflow: hidden;
 }
-      border-radius: 26px;
-      border: 1px solid rgba(63, 63, 70, 0.9);
-      padding: 1.4rem;
-      box-shadow: var(--shadow-soft);
-      position: relative;
-      overflow: hidden;
-    }
 
    .hero-glow {
   display: none;
@@ -1137,13 +1136,14 @@
           tanpa restock. Begitu habis, hanya tinggal Cerita.
         </p>
         <div class="hero-cta-row">
-          <button class="btn-primary" id="scrollToShopBtn">
-            <span>Shop Now</span>
-            <span class="icon">↗</span>
-          </button>
-          <p class="hero-note">
-            Next drop <strong>online only</strong> di website ini.
-      </div>
+  <button class="btn-primary" id="scrollToShopBtn">
+    <span>Shop Now</span>
+    <span class="icon">↗</span>
+  </button>
+  <p class="hero-note">
+    Next drop <strong>online only</strong> di website ini.
+  </p>
+</div>
 
       <div class="hero-right">
         <div class="hero-glow"></div>
@@ -1277,7 +1277,7 @@
     category: "limited",
     price: 289000,
     originalPrice: null,
-    badge: "Frist article",
+    badge: "First article",
     isNew: true,
     discount: "SAVE 15%",
     sizes: ["S", "M", "L", "XL", "XXL"],
@@ -1301,11 +1301,11 @@
     discount: "",
     sizes: ["S", "M", "L", "XL", "XXL"],
     stockStatus: "Ready stock",
-    image: "images/coming.jpg",
+    image: "images/cooming.jpg",
     images: [
-      "images/coming.jpg",
-      "images/coming.jpg",
-      "images/coming.jpg"
+      "images/cooming.jpg",
+      "images/highlight.jpg",
+      "images/logo.jpg"
     ]
   },
   {
@@ -1320,11 +1320,11 @@
     discount: "Marble Edition",
     sizes: ["S", "M", "L", "XL", "XXL"],
     stockStatus: "Very limited",
-    image: "images/coming.jpg",
+    image: "images/cooming.jpg",
     images: [
-      "images/coming.jpg",
-      "images/coming.jpg",
-      "images/coming.jpg"
+      "images/cooming.jpg",
+      "images/highlight.jpg",
+      "images/logo.jpg"
     ]
   },
   {
@@ -1339,11 +1339,11 @@
     discount: "",
     sizes: ["S", "M", "L", "XL", "XXL"],
     stockStatus: "Ready stock",
-    image: "images/coming.jpg",
+    image: "images/cooming.jpg",
     images: [
-      "images/coming.jpg",
-      "images/coming.jpg",
-      "images/coming.jpg"
+      "images/cooming.jpg",
+      "images/highlight.jpg",
+      "images/logo.jpg"
     ]
   },
   {
@@ -1358,11 +1358,11 @@
     discount: "Daily Wear",
     sizes: ["S", "M", "L", "XL", "XXL"],
     stockStatus: "Ready stock",
-    image: "images/coming.jpg",
+    image: "images/cooming.jpg",
     images: [
-      "images/coming.jpg",
-      "images/coming.jpg",
-      "images/coming.jpg"
+      "images/cooming.jpg",
+      "images/highlight.jpg",
+      "images/logo.jpg"
     ]
   },
   {
@@ -1377,11 +1377,11 @@
     discount: "Limited Run",
     sizes: ["S", "M", "L", "XL", "XXL"],
     stockStatus: "Low stock",
-    image: "images/coming.jpg",
+    image: "images/cooming.jpg",
     images: [
-      "images/coming.jpg",
-      "images/coming.jpg",
-      "images/coming.jpg"
+      "images/cooming.jpg",
+      "images/highlight.jpg",
+      "images/logo.jpg"
     ]
   },
   {
@@ -1396,11 +1396,11 @@
     discount: "",
     sizes: ["S", "M", "L", "XL", "XXL"],
     stockStatus: "Ready stock",
-    image: "images/coming.jpg",
+    image: "images/cooming.jpg",
     images: [
-      "images/coming.jpg",
-      "images/coming.jpg",
-      "images/coming.jpg"
+      "images/cooming.jpg",
+      "images/highlight.jpg",
+      "images/logo.jpg"
     ]
   },
   {
@@ -1415,11 +1415,11 @@
     discount: "",
     sizes: ["S", "M", "L", "XL", "XXL"],
     stockStatus: "Ready stock",
-    image: "images/coming.jpg",
+    image: "images/cooming.jpg",
     images: [
-      "images/coming.jpg",
-      "images/coming.jpg",
-      "images/coming.jpg"
+      "images/cooming.jpg",
+      "images/highlight.jpg",
+      "images/logo.jpg"
     ]
   }
 ];
@@ -1692,13 +1692,13 @@ updateCartUI();
 
   const productSlides = {
   1: ["images/pborne.jpg", "images/pborne.jpg", "images/pborne.jpg"],
-  2: ["images/coming.jpg", "images/coming.jpg", "images/coming.jpg"],
-  3: ["images/coming.jpg", "images/coming.jpg", "images/coming.jpg"],
-  4: ["images/coming.jpg", "images/coming.jpg", "images/coming.jpg"],
-  5: ["images/coming.jpg", "images/coming.jpg", "images/coming.jpg"],
-  6: ["images/coming.jpg", "images/coming.jpg", "images/coming.jpg"],
-  7: ["images/coming.jpg", "images/coming.jpg", "images/coming.jpg"],
-  8: ["images/coming.jpg", "images/coming.jpg", "images/coming.jpg"]
+  2: ["images/cooming.jpg", "images/highlight.jpg", "images/logo.jpg"],
+  3: ["images/cooming.jpg", "images/highlight.jpg", "images/logo.jpg"],
+  4: ["images/cooming.jpg", "images/highlight.jpg", "images/logo.jpg"],
+  5: ["images/cooming.jpg", "images/highlight.jpg", "images/logo.jpg"],
+  6: ["images/cooming.jpg", "images/highlight.jpg", "images/logo.jpg"],
+  7: ["images/cooming.jpg", "images/highlight.jpg", "images/logo.jpg"],
+  8: ["images/cooming.jpg", "images/highlight.jpg", "images/logo.jpg"],
 };
 
 const productsGridEl = document.getElementById("productsGrid");
