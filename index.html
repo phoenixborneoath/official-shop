@@ -1004,77 +1004,6 @@
 .hero-note p {
   margin: 0 !important;
 }
-
-.image-modal {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.85);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 9999;
-}
-
-.image-modal.is-open {
-  display: flex;
-}
-
-.image-modal-inner {
-  position: relative;
-  max-width: 90vw;
-  max-height: 90vh;
-}
-
-.image-modal-img {
-  max-width: 100%;
-  max-height: 100%;
-  border-radius: 16px;
-  box-shadow: 0 30px 80px rgba(0,0,0,0.9);
-}
-
-
-.image-modal-close {
-  position: absolute;
-  top: -40px;
-  right: 0;
-  font-size: 1.8rem;
-  cursor: pointer;
-  color: #e5e7eb;
-}
-
-
-.image-modal-nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 2rem;
-  cursor: pointer;
-  color: #e5e7eb;
-  padding: 0.3rem 0.7rem;
-  border-radius: 999px;
-  background: rgba(15,23,42,0.7);
-}
-
-.image-modal-prev {
-  left: -3rem;
-}
-
-.image-modal-next {
-  right: -3rem;
-}
-
-@media (max-width: 640px) {
-  .image-modal-prev {
-    left: 0.5rem;
-  }
-  .image-modal-next {
-    right: 0.5rem;
-  }
-  .image-modal-close {
-    top: 0.5rem;
-    right: 0.8rem;
-  }
-}
   </style>
 </head>
 <body>
@@ -1239,17 +1168,8 @@
   <div class="cart-drawer-backdrop" id="cartBackdrop"></div>
 
   <script>
+    // ------- DATA PRODUK (EDIT DI SINI) ---------
     const products = [
-      {
-  id: 1,
-  name: "PHOENIXBORNE TEE",
-  price: 289000,
-  image: "images/phoenix-front.jpg",
-  gallery: [
-    "images/phoenix-front.jpg",
-    "images/phoenix-back.jpg",
-    "images/phoenix-detail.jpg"
-  ]
   {
     id: 1,
     name: "PHOENIXBORNE TEE",
@@ -1388,9 +1308,7 @@
         const badgeClass = prod.isNew ? "product-tag product-tag-new" : "product-tag";
         const badgeLabel = prod.badge || (prod.isNew ? "New" : "Drop");
 
-        card.innerHTML =
-          const img = card.querySelector(".product-image");
-img.onclick = () => openProductGallery(prod);
+        card.innerHTML = `
           <div class="${badgeClass}">${badgeLabel}</div>
           <div class="product-media">
   <img src="${prod.image}" alt="${prod.name}">
@@ -1628,41 +1546,6 @@ productsGrid.addEventListener("click", (e) => {
 });
 
     updateCartUI();
-    let currentGallery = [];
-let currentGalleryIndex = 0;
-
-const imageModal = document.getElementById("imageModal");
-const imageModalImg = document.getElementById("imageModalImg");
-const imageModalClose = document.getElementById("imageModalClose");
-const imageModalPrev = document.getElementById("imageModalPrev");
-const imageModalNext = document.getElementById("imageModalNext");
-
-function openProductGallery(prod) {
-  const images = prod.gallery && prod.gallery.length ? prod.gallery : [prod.image];
-  currentGallery = images;
-  currentGalleryIndex = 0;
-  updateImageModal();
-  imageModal.classList.add("is-open");
-}
-
-function updateImageModal() {
-  imageModalImg.src = currentGallery[currentGalleryIndex];
-}
-
-imageModalClose.onclick = () => imageModal.classList.remove("is-open");
-imageModalNext.onclick = () => {
-  currentGalleryIndex = (currentGalleryIndex + 1) % currentGallery.length;
-  updateImageModal();
-};
-imageModalPrev.onclick = () => {
-  currentGalleryIndex = (currentGalleryIndex - 1 + currentGallery.length) % currentGallery.length;
-  updateImageModal();
-};
-
-imageModal.onclick = (e) => {
-  if (e.target === imageModal) imageModal.classList.remove("is-open");
-};
-
   </script>
 
   <footer>
@@ -1673,13 +1556,5 @@ imageModal.onclick = (e) => {
   <script>
     document.getElementById("yearSpan").textContent = new Date().getFullYear();
   </script>
-  <div class="image-modal" id="imageModal">
-  <div class="image-modal-inner">
-    <span class="image-modal-close" id="imageModalClose">&times;</span>
-    <span class="image-modal-nav image-modal-prev" id="imageModalPrev">&#10094;</span>
-    <img src="" class="image-modal-img" id="imageModalImg">
-    <span class="image-modal-nav image-modal-next" id="imageModalNext">&#10095;</span>
-  </div>
-</div>
 </body>
 </html>
