@@ -1349,10 +1349,10 @@
 
         card.innerHTML = `
           <div class="${badgeClass}">${badgeLabel}</div>
-          <div class="product-media product-image"
-               data-images="${prod.images.join(',')}"
-           <img src="${prod.images[0]}" alt="${prod.name}">
-      </div>
+           <div class="product-media product-image"
+              data-images="${prod.images.join(',')}">
+            <img src="${prod.images[0]}" alt="${prod.name}">
+         </div>
 
      <div class="product-body">
     <div class="product-name">${prod.name}</div>
