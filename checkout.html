@@ -1,646 +1,652 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Checkout — Phoenixborne Oath</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout — PHOENIXBORNE OATH</title>
   <style>
-
-header {
-  margin-bottom: 1.75rem;
+    .checkout-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  backdrop-filter: blur(20px);
+  background: linear-gradient(to bottom, rgba(0,0,0,0.85), transparent);
+  border-bottom: 1px solid rgba(39, 39, 42, 0.8);
 }
 
-.navbar {
-}
-
-.nav-inner {
+.checkout-header-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0.9rem 1.25rem;
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: center;
+  gap: 1rem;
 }
 
-.logo {
+.checkout-brand {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  font-size: 0.8rem;
-  text-transform: uppercase;
+  gap: 0.6rem;
 }
 
-.logo-img {
-  width: 28px;
-  height: 28px;
+.checkout-logo {
+  height: 32px;
+  width: auto;
   object-fit: contain;
 }
 
-
-.back-btn {
+.checkout-brand span {
   font-size: 0.8rem;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  letter-spacing: 0.18em;
-  color: var(--muted);
+  font-weight: 600;
+  color: #f9fafb;
+}
+
+.btn-back {
+  padding: 0.45rem 0.9rem;
   border-radius: 999px;
-  border: 1px solid var(--border);
-  padding: 0.4rem 0.9rem;
+  border: 1px solid rgba(148,163,184,0.2);
+  background: rgba(2,6,23,0.9);
+  color: #f9fafb;
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  background: rgba(15,23,42,0.8);
+  gap: 0.35rem;
+  text-decoration: none;
 }
 
-.back-btn .arrow {
-  font-size: 1.1rem;
+.btn-back:hover {
+  border-color: #ef4444;
+  box-shadow: 0 0 18px rgba(248,113,113,0.5);
   transform: translateY(-1px);
 }
-
     :root {
       --bg: #020617;
-      --bg-soft: #0b1120;
-      --bg-softer: #020617;
+      --bg-soft: #020617;
       --text: #f9fafb;
       --muted: #9ca3af;
       --accent: #ef4444;
-      --accent-soft: rgba(248,113,113,0.12);
+      --accent-soft: rgba(248, 113, 113, 0.08);
       --border: #1f2933;
-      --radius-xl: 18px;
-      --shadow-soft: 0 22px 50px rgba(0,0,0,0.85);
+      --radius: 14px;
     }
 
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
     }
 
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #020617 0, #000 70%);
+      background: #000;
       color: var(--text);
       min-height: 100vh;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    /* WRAPPER */
-
     .page {
-      max-width: 1120px;
+      max-width: 960px;
       margin: 0 auto;
       padding: 1.5rem 1.25rem 3rem;
     }
 
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1.75rem;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      font-size: 0.8rem;
-      text-transform: uppercase;
-    }
-
-    .logo-mark {
-      width: 26px;
-      height: 26px;
-      border-radius: 999px;
-      background: radial-gradient(circle, #f97316, #dc2626, #111827);
-      box-shadow: 0 0 20px rgba(248,113,113,0.7);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.7rem;
-    }
-
-    .back-link {
-      font-size: 0.8rem;
+    h1 {
+      font-size: 1.4rem;
       text-transform: uppercase;
       letter-spacing: 0.18em;
-      color: var(--muted);
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      padding: 0.4rem 0.9rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      background: rgba(15,23,42,0.8);
+      margin-bottom: 1.5rem;
     }
 
-    .back-link span.arrow {
-      font-size: 1.1rem;
-      transform: translateY(-1px);
-    }
-
-    /* GRID */
-
-    .checkout-grid {
+    .grid {
       display: grid;
-      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.2fr);
       gap: 1.8rem;
-      align-items: flex-start;
     }
 
-    @media (max-width: 920px) {
-      .checkout-grid {
+    @media (max-width: 768px) {
+      .grid {
         grid-template-columns: minmax(0, 1fr);
       }
     }
 
-    @media (max-width: 640px) {
-      .page {
-        padding-inline: 1rem;
-      }
-    }
-
     .card {
-      border-radius: var(--radius-xl);
-      border: 1px solid rgba(31,41,55,0.9);
-      background: radial-gradient(circle at top, #020617, #020617 60%, #000 100%);
-      box-shadow: var(--shadow-soft);
-      padding: 1.3rem 1.2rem 1.3rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: #020617;
+      padding: 1.25rem;
     }
 
-    .card-title {
-      font-size: 0.85rem;
+    .card h2 {
+      font-size: 0.95rem;
       text-transform: uppercase;
-      letter-spacing: 0.2em;
-      margin-bottom: 0.8rem;
+      letter-spacing: 0.16em;
+      margin-bottom: 1rem;
       color: var(--muted);
     }
 
-    .card-title-main {
-      font-size: 1.15rem;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      margin-bottom: 0.3rem;
-    }
-
-    .card-sub {
-      font-size: 0.8rem;
-      color: var(--muted);
-      margin-bottom: 1.1rem;
-    }
-
-    /* ORDER SUMMARY */
-
-    .order-items {
+    .cart-items {
       display: flex;
       flex-direction: column;
-      gap: 0.7rem;
+      gap: 0.75rem;
       margin-bottom: 1rem;
     }
 
-    .order-item {
+    .cart-item {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
       gap: 0.75rem;
-      border-radius: 14px;
-      border: 1px solid rgba(31,41,55,0.9);
-      padding: 0.65rem 0.7rem;
-      background: radial-gradient(circle at top, #020617, #020617 70%, #000 100%);
+      font-size: 0.85rem;
     }
 
-    .order-item-info {
+    .cart-item-main {
       display: flex;
       flex-direction: column;
-      gap: 0.18rem;
-      font-size: 0.8rem;
+      gap: 0.2rem;
     }
 
-    .order-item-name {
+    .cart-name {
       text-transform: uppercase;
-      letter-spacing: 0.16em;
-      font-size: 0.8rem;
+      letter-spacing: 0.12em;
     }
 
-    .order-item-meta {
+    .cart-meta {
       font-size: 0.78rem;
       color: var(--muted);
     }
 
-    .order-item-price {
-      text-align: right;
-      font-size: 0.82rem;
+    .cart-empty {
+      font-size: 0.85rem;
+      color: var(--muted);
     }
 
-    .order-item-qty {
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      margin-top: 0.35rem;
+    }
+
+    .summary-label {
+      color: var(--muted);
+    }
+
+    .summary-value {
+      font-weight: 500;
+    }
+
+    .summary-total {
+      margin-top: 0.6rem;
+      padding-top: 0.6rem;
+      border-top: 1px dashed var(--border);
+      font-size: 0.95rem;
+    }
+
+    .summary-total .summary-label {
+      color: #e5e7eb;
+    }
+
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      font-size: 0.85rem;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+    }
+
+    input,
+    textarea,
+    select {
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: #020617;
+      padding: 0.55rem 0.8rem;
+      font-size: 0.85rem;
+      color: var(--text);
+      outline: none;
+    }
+
+    textarea {
+      border-radius: 12px;
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px var(--accent-soft);
+    }
+
+    .note-small {
       font-size: 0.75rem;
       color: var(--muted);
     }
 
-    .summary-line {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.85rem;
-      margin-top: 0.2rem;
-      color: var(--muted);
-    }
-
-    .summary-line strong {
-      color: var(--text);
-    }
-
-    .summary-line.total {
-      margin-top: 0.5rem;
-      padding-top: 0.6rem;
-      border-top: 1px dashed rgba(55,65,81,0.9);
-      font-size: 0.9rem;
-    }
-
-    .empty-text {
-      font-size: 0.85rem;
-      color: var(--muted);
-      text-align: center;
-      margin: 1.5rem 0;
-    }
-
-    .badge-warning {
-      display: inline-flex;
-      padding: 0.25rem 0.7rem;
-      border-radius: 999px;
-      border: 1px solid rgba(55,65,81,1);
-      font-size: 0.72rem;
-      color: var(--muted);
-      margin-bottom: 0.8rem;
-    }
-
-    /* FORM */
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: minmax(0,1fr) minmax(0,1fr);
-      gap: 0.9rem 0.9rem;
-      margin-top: 0.3rem;
-      margin-bottom: 0.9rem;
-    }
-
-    @media (max-width: 640px) {
-      .form-grid {
-        grid-template-columns: minmax(0,1fr);
-      }
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-      font-size: 0.8rem;
-    }
-
-    label {
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      font-size: 0.72rem;
-      color: var(--muted);
-    }
-
-    .required::after {
-      content: " *";
-      color: var(--accent);
-    }
-
-    input, select, textarea {
-      border-radius: 11px;
-      border: 1px solid rgba(31,41,55,0.9);
-      padding: 0.5rem 0.6rem;
-      background: rgba(15,23,42,0.95);
-      color: var(--text);
-      font-size: 0.85rem;
-      outline: none;
-    }
-
-    input:focus, select:focus, textarea:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 1px rgba(248,113,113,0.4);
-    }
-
-    textarea {
-      resize: vertical;
-      min-height: 90px;
-    }
-
-    .help-text {
-      font-size: 0.72rem;
-      color: var(--muted);
-    }
-
-    .btn-main {
+    .btn-wa {
+      margin-top: 1rem;
       width: 100%;
-      padding: 0.75rem 1rem;
+      padding: 0.7rem 1rem;
       border-radius: 999px;
       border: none;
-      background: linear-gradient(to right, #ef4444, #f97316);
-      font-size: 0.85rem;
-      text-transform: uppercase;
-      letter-spacing: 0.2em;
-      font-weight: 600;
       cursor: pointer;
-      margin-top: 0.6rem;
-      box-shadow: 0 20px 40px rgba(248,113,113,0.7);
+      background: linear-gradient(to right, #22c55e, #16a34a);
+      color: #022c22;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
     }
 
-    .btn-main:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      box-shadow: none;
-    }
-
-    .note {
-      font-size: 0.72rem;
-      color: var(--muted);
-      margin-top: 0.6rem;
-      text-align: center;
+    .btn-wa:hover {
+      filter: brightness(1.05);
+      transform: translateY(-1px);
     }
 
     footer {
-      max-width: 1120px;
-      margin: 1rem auto 2rem;
-      padding: 0 1.25rem;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 1rem 1.25rem 2rem;
       font-size: 0.72rem;
       color: var(--muted);
-      border-top: 1px solid rgba(31,41,55,0.9);
-      padding-top: 0.8rem;
-      display: flex;
-      justify-content: space-between;
-      gap: 0.75rem;
-    }
-
-    @media (max-width:640px) {
-      footer {
-        padding-inline: 1rem;
-        flex-direction: column;
-      }
+      border-top: 1px solid #111827;
+      text-align: center;
     }
   </style>
 </head>
 <body>
-  <div class="page">
-    <header class="navbar">
-  <div class="nav-inner">
-    <div class="logo">
-      <img src="images/logo.jpg" alt="Phoenixborne Oath Logo" class="logo-img">
+  <header class="checkout-header">
+  <div class="checkout-header-inner">
+    <div class="checkout-brand">
+      <img src="images/logo.jpg" alt="Phoenixborne Oath" class="checkout-logo">
       <span>PHOENIXBORNE OATH</span>
     </div>
 
-    <a href="index.html" class="back-btn">← Back to Shop</a>
+    <a href="index.html" class="btn-back">
+      ← Back to Shop
+    </a>
   </div>
 </header>
 
-    <div class="checkout-grid">
-      <!-- ORDER SUMMARY -->
-      <section class="card" id="orderCard">
-        <div class="card-title">Order Summary</div>
-        <h1 class="card-title-main">Your Items</h1>
-        <p class="card-sub">
-          Cek kembali artikel, qty, dan estimasi pembayaran sebelum konfirmasi.
-        </p>
+  <main class="page">
+    <h1>Checkout</h1>
 
-        <div id="orderContent">
-          <!-- diisi via JS -->
+    <div class="grid">
+      <!-- RINGKASAN BELANJA -->
+      <section class="card">
+        <h2>Ringkasan Order</h2>
+        <div id="cartItems" class="cart-items"></div>
+
+        <div class="summary-row">
+          <div class="summary-label">Subtotal</div>
+          <div class="summary-value" id="subtotalText">Rp 0</div>
         </div>
+        <div class="summary-row">
+          <div class="summary-label">Ongkir</div>
+          <div class="summary-value" id="shippingText">Rp 0</div>
+        </div>
+        <div class="summary-row summary-total">
+          <div class="summary-label">Total Bayar</div>
+          <div class="summary-value" id="totalText">Rp 0</div>
+        </div>
+
+        <p class="note-small" style="margin-top:0.8rem;">
+          Ongkir otomatis berdasarkan provinsi tujuan. Pengiriman dari
+          <strong>Sumatra Selatan</strong>. Nominal akhir tetap dikonfirmasi via WhatsApp.
+        </p>
       </section>
 
-      <!-- CUSTOMER FORM -->
+      <!-- FORM ALAMAT -->
       <section class="card">
-        <div class="card-title">Delivery</div>
-        <h2 class="card-title-main">Shipping Detail</h2>
-        <p class="card-sub">
-          Masukkan data dengan benar. Admin akan memproses pesanan berdasarkan informasi di bawah.
-        </p>
-
-        <form id="checkoutForm">
-          <div class="form-grid">
-            <div class="form-group">
-              <label for="name" class="required">Nama Lengkap</label>
-              <input type="text" id="name" name="name" placeholder="Nama penerima">
-            </div>
-            <div class="form-group">
-              <label for="phone" class="required">Nomor WhatsApp</label>
-              <input type="tel" id="phone" name="phone" placeholder="Contoh: 08xxxx">
-              <div class="help-text">Pastikan nomor aktif & bisa dihubungi.</div>
-            </div>
-            <div class="form-group">
-              <label for="email">Email (opsional)</label>
-              <input type="email" id="email" name="email" placeholder="emailkamu@example.com">
-            </div>
-            <div class="form-group">
-              <label for="city" class="required">Kota / Kabupaten</label>
-              <input type="text" id="city" name="city" placeholder="Contoh: Jakarta Timur">
-            </div>
+        <h2>Data Penerima</h2>
+        <form class="form" id="checkoutForm" onsubmit="return false;">
+          <div class="field">
+            <label for="name">Nama lengkap</label>
+            <input id="name" type="text" placeholder="Nama penerima" required />
           </div>
 
-          <div class="form-group">
-            <label for="address" class="required">Alamat Lengkap</label>
-            <textarea id="address" name="address" placeholder="Nama jalan, nomor rumah, RT/RW, patokan, kode pos"></textarea>
+          <div class="field">
+            <label for="phone">No. WhatsApp</label>
+            <input id="phone" type="tel" placeholder="08xxxxxxxxxx" required />
           </div>
 
-          <div class="form-grid">
-            <div class="form-group">
-              <label for="shipping" class="required">Metode Pengiriman</label>
-              <select id="shipping" name="shipping">
-                <option value="">Pilih pengiriman</option>
-                <option value="Reguler">Reguler (JNE/SiCepat/J&T)</option>
-                <option value="Express">Express / Same Day (jika tersedia)</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="payment" class="required">Metode Pembayaran</label>
-              <select id="payment" name="payment">
-                <option value="">Pilih pembayaran</option>
-                <option value="Transfer Bank">Transfer Bank</option>
-                <option value="E-Wallet">E-Wallet (Dana/OVO/GoPay)</option>
-              </select>
-            </div>
+          <div class="field">
+            <label for="province">Provinsi</label>
+            <select id="province" required>
+  <option value="">Pilih provinsi</option>
+
+  <!-- Sumatra -->
+  <option value="aceh">Aceh</option>
+  <option value="sumut">Sumatra Utara</option>
+  <option value="sumbar">Sumatra Barat</option>
+  <option value="riau">Riau</option>
+  <option value="kepri">Kepulauan Riau</option>
+  <option value="jambi">Jambi</option>
+  <option value="sumsel">Sumatra Selatan</option>
+  <option value="bengkulu">Bengkulu</option>
+  <option value="lampung">Lampung</option>
+  <option value="babel">Bangka Belitung</option>
+
+  <!-- Kalimantan -->
+  <option value="kalbar">Kalimantan Barat</option>
+  <option value="kalteng">Kalimantan Tengah</option>
+  <option value="kalsel">Kalimantan Selatan</option>
+  <option value="kaltim">Kalimantan Timur</option>
+  <option value="kalut">Kalimantan Utara</option>
+
+  <!-- Jawa & sekitarnya -->
+  <option value="jakarta">DKI Jakarta</option>
+  <option value="banten">Banten</option>
+  <option value="jabar">Jawa Barat</option>
+  <option value="jateng">Jawa Tengah</option>
+  <option value="yogya">Yogyakarta</option>
+  <option value="jatim">Jawa Timur</option>
+
+  <!-- Bali & Nusa Tenggara -->
+  <option value="bali">Bali</option>
+  <option value="ntb">Nusa Tenggara Barat</option>
+  <option value="ntt">Nusa Tenggara Timur</option>
+
+  <!-- Sulawesi -->
+  <option value="sulut">Sulawesi Utara</option>
+  <option value="sulbar">Sulawesi Barat</option>
+  <option value="sulteng">Sulawesi Tengah</option>
+  <option value="sulsel">Sulawesi Selatan</option>
+  <option value="sultra">Sulawesi Tenggara</option>
+  <option value="gorontalo">Gorontalo</option>
+
+  <!-- Maluku -->
+  <option value="maluku">Maluku</option>
+  <option value="malut">Maluku Utara</option>
+
+  <!-- Papua (pakai key jelas) -->
+  <option value="papua_barat">Papua Barat</option>
+  <option value="papua">Papua</option>
+  <option value="papua_selatan">Papua Selatan</option>
+  <option value="papua_tengah">Papua Tengah</option>
+  <option value="papua_pegunungan">Papua Pegunungan</option>
+</select>
+
           </div>
 
-          <div class="form-group">
-            <label for="note">Catatan untuk Admin (opsional)</label>
-            <textarea id="note" name="note" placeholder="Contoh: minta packing ekstra, warna resleting, dsb."></textarea>
+          <div class="field">
+            <label for="city">Kota / Kabupaten</label>
+            <input id="city" type="text" placeholder="Contoh: Palembang" required />
           </div>
 
-          <button type="submit" class="btn-main" id="confirmBtn">
-            Konfirmasi via WhatsApp
-          </button>
-          <p class="note">
-            Setelah klik, kamu akan diarahkan ke WhatsApp dengan ringkasan pesanan.
+          <div class="field">
+            <label for="district">Kecamatan</label>
+            <input id="district" type="text" placeholder="Nama kecamatan" required />
+          </div>
+
+          <div class="field">
+            <label for="postcode">Kode Pos</label>
+            <input id="postcode" type="text" placeholder="Kode pos" required />
+          </div>
+
+          <div class="field">
+            <label for="address">Detail alamat</label>
+            <textarea id="address" placeholder="Nama jalan, nomor rumah, patokan, dsb." required></textarea>
+          </div>
+
+          <p class="note-small">
+            Setelah klik tombol di bawah, kamu akan diarahkan ke WhatsApp resmi
+            untuk konfirmasi pesanan & pembayaran.
           </p>
+
+          <button id="waButton" class="btn-wa">Kirim ke WhatsApp</button>
         </form>
       </section>
     </div>
-  </div>
+  </main>
 
   <footer>
-    <span>© <span id="yearSpan"></span> Phoenixborne Oath.</span>
-    <span>Halaman checkout statis — hubungkan ke payment gateway jika diperlukan.</span>
+    © <span id="yearSpan"></span> PHOENIXBORNE OATH. All Rights Reserved.
   </footer>
 
   <script>
-    document.getElementById("yearSpan").textContent = new Date().getFullYear();
-
-    // --------- BACA CART DARI LOCALSTORAGE ----------
-    const orderContentEl = document.getElementById("orderContent");
-
+    // ========= UTIL FORMAT RUPIAH =========
     function formatRupiah(value) {
       return new Intl.NumberFormat("id-ID", {
         style: "currency",
         currency: "IDR",
-        maximumFractionDigits: 0
-      }).format(value);
+        maximumFractionDigits: 0,
+      }).format(value || 0);
     }
 
-    function loadCart() {
-      try {
-        const raw = localStorage.getItem("pbo_cart");
-        if (!raw) return [];
-        const parsed = JSON.parse(raw);
-        if (!Array.isArray(parsed)) return [];
-        return parsed;
-      } catch (e) {
-        console.error("Gagal baca cart:", e);
-        return [];
+    // ========= LOAD CART DARI localStorage =========
+    let cart = [];
+    try {
+      const raw = localStorage.getItem("pbo_cart");
+      cart = raw ? JSON.parse(raw) : [];
+    } catch (e) {
+      cart = [];
+    }
+
+    const cartItemsEl = document.getElementById("cartItems");
+    const subtotalText = document.getElementById("subtotalText");
+    const shippingText = document.getElementById("shippingText");
+    const totalText = document.getElementById("totalText");
+
+    let subtotal = 0;
+
+    function renderCart() {
+      if (!cart.length) {
+        cartItemsEl.innerHTML = '<div class="cart-empty">Keranjang kosong.</div>';
+        subtotal = 0;
+        updateTotals();
+        return;
       }
-    }
 
-    const cart = loadCart();
+      cartItemsEl.innerHTML = "";
+      subtotal = 0;
 
-    function renderOrderSummary() {
-      if (!cart || cart.length === 0) {
-        orderContentEl.innerHTML = `
-          <p class="empty-text">
-            Keranjang kosong atau data tidak ditemukan.<br>
-            Silakan kembali ke halaman shop untuk memilih produk.
-          </p>
-          <div style="text-align:center; margin-top: 0.5rem;">
-            <a href="index.html" class="back-link">
-              <span class="arrow">←</span>
-              <span>Back to Shop</span>
-            </a>
+      cart.forEach((entry) => {
+        const lineTotal = entry.product.price * entry.qty;
+        subtotal += lineTotal;
+
+        const row = document.createElement("div");
+        row.className = "cart-item";
+        row.innerHTML = `
+          <div class="cart-item-main">
+            <div class="cart-name">${entry.product.name}</div>
+            <div class="cart-meta">
+              Size: <strong>${entry.size || "-"}</strong> · Qty: ${entry.qty}
+            </div>
           </div>
+          <div class="summary-value">${formatRupiah(lineTotal)}</div>
         `;
-        // disable form
-        document.getElementById("checkoutForm").style.opacity = "0.4";
-        document.getElementById("confirmBtn").disabled = true;
-        return;
-      }
-
-      let subtotal = 0;
-      cart.forEach(entry => {
-        subtotal += entry.product.price * entry.qty;
+        cartItemsEl.appendChild(row);
       });
 
-      // contoh: ongkir flat 30k (kamu bisa ubah/0)
-      const shippingCost = 30000;
-      const total = subtotal + shippingCost;
-
-      const itemsHtml = cart.map(entry => `
-  <div class="order-item">
-    <div class="order-item-info">
-      <div class="order-item-name">${entry.product.name}</div>
-      <div class="order-item-meta">
-        Size: ${entry.size || "-"} · ${formatRupiah(entry.product.price)}
-      </div>
-      <div class="order-item-qty">Qty: ${entry.qty}</div>
-    </div>
-    <div class="order-item-price">
-      <div>${formatRupiah(entry.product.price * entry.qty)}</div>
-    </div>
-  </div>
-`).join("");
-
-      orderContentEl.innerHTML = `
-        <div class="order-items">
-          ${itemsHtml}
-        </div>
-        <div class="badge-warning">
-          Nominal ongkir di bawah hanya contoh. Admin akan konfirmasi ulang total fix via chat.
-        </div>
-        <div class="summary-line">
-          <span>Subtotal</span>
-          <span>${formatRupiah(subtotal)}</span>
-        </div>
-        <div class="summary-line">
-          <span>Estimasi Ongkir</span>
-          <span>${formatRupiah(shippingCost)}</span>
-        </div>
-        <div class="summary-line total">
-          <strong>Estimasi Total</strong>
-          <strong>${formatRupiah(total)}</strong>
-        </div>
-      `;
+      updateTotals();
     }
 
-    renderOrderSummary();
+    // ========= TABEL ONGKIR (EDIT DI SINI KALAU MAU) =========
+    const shippingMap = {
+  // Sumatra
+  aceh: 70000,
+  sumut: 40000,
+  sumbar: 38000,
+  riau: 40000,
+  kepri: 35000,
+  jambi: 25000,
+  sumsel: 10000,    // kiriman dari Sumatra Selatan -> lebih murah ke lokal
+  bengkulu: 30000,
+  lampung: 18000,
+  babel: 35000,
 
-    // --------- FORM HANDLING + WHATSAPP ----------
-    const checkoutForm = document.getElementById("checkoutForm");
-    const confirmBtn = document.getElementById("confirmBtn");
+  // Kalimantan
+  kalbar: 50000,
+  kalteng: 52000,
+  kalsel: 48000,
+  kaltim: 58000,
+  kalut: 75000,
 
-    checkoutForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      if (!cart || cart.length === 0) return;
+  // Jawa & sekitarnya
+  jakarta: 26000,
+  banten: 28000,
+  jabar: 30000,
+  jateng: 34000,
+  yogya: 36000,
+  jatim: 38000,
 
-      const name = document.getElementById("name").value.trim();
-      const phone = document.getElementById("phone").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const city = document.getElementById("city").value.trim();
-      const address = document.getElementById("address").value.trim();
-      const shipping = document.getElementById("shipping").value;
-      const payment = document.getElementById("payment").value;
-      const note = document.getElementById("note").value.trim();
+  // Bali & Nusa Tenggara
+  bali: 45000,
+  ntb: 60000,
+  ntt: 90000,
 
-      if (!name || !phone || !city || !address || !shipping || !payment) {
-        alert("Harap isi semua field wajib yang bertanda *");
-        return;
-      }
+  // Sulawesi
+  sulut: 80000,
+  sulbar: 75000,
+  sulteng: 75000,
+  sulsel: 60000,
+  sultra: 85000,
+  gorontalo: 90000,
 
-      let subtotal = 0;
-      cart.forEach(entry => {
-        subtotal += entry.product.price * entry.qty;
-      });
-      const shippingCost = 30000; // sama dengan di atas
-      const total = subtotal + shippingCost;
+  // Maluku
+  malut: 120000,
+  maluku: 100000,
 
-     const itemsText = cart.map(entry => {
-  return `- ${entry.product.name} | Size: ${entry.size || "-"} | Qty: ${entry.qty} | ${formatRupiah(entry.product.price * entry.qty)}`;
-}).join("%0A");
+  // Papua
+  papua_barat: 135000,
+  papua: 140000,
+  papua_selatan: 150000,
+  papua_tengah: 150000,
+  papua_pegunungan: 170000
+};
 
-      const message =
-        `Halo admin Phoenixborne Oath,%0A%0A` +
-        `Saya ingin order:%0A` +
-        `${itemsText}%0A%0A` +
-        `Subtotal: ${formatRupiah(subtotal)}%0A` +
-        `Estimasi Ongkir: ${formatRupiah(shippingCost)}%0A` +
-        `Estimasi Total: ${formatRupiah(total)}%0A%0A` +
-        `Data penerima:%0A` +
-        `Nama: ${name}%0A` +
-        `No. WhatsApp: ${phone}%0A` +
-        (email ? `Email: ${email}%0A` : "") +
-        `Kota/Kab: ${city}%0A` +
-        `Alamat lengkap: ${address}%0A%0A` +
-        `Pengiriman: ${shipping}%0A` +
-        `Pembayaran: ${payment}%0A` +
-        (note ? `Catatan: ${note}%0A` : "") +
-        `%0A(Mohon konfirmasi total fix & nomor pembayaran ya)`;
+    function getShippingCost() {
+      const prov = document.getElementById("province").value;
+      return shippingMap[prov] || 0;
+    }
 
-      // GANTI NOMOR DI BAWAH DENGAN NOMOR WHATSAPP BRAND-MU (format: 628xxxx)
-      const yourWhatsAppNumber = "62895809679191";
+    function updateTotals() {
+      const shipping = getShippingCost();
+      const total = subtotal + shipping;
 
-const waLink = `https://wa.me/${yourWhatsAppNumber}?text=${message}`;
+      subtotalText.textContent = formatRupiah(subtotal);
+      shippingText.textContent = formatRupiah(shipping);
+      totalText.textContent = formatRupiah(total);
+    }
 
-      window.open(waLink, "_blank");
-    });
+    // ========= EVENT: UBAH PROVINSI =========
+    document.getElementById("province").addEventListener("change", updateTotals);
+
+    // ========= KIRIM KE WHATSAPP =========
+    document.getElementById("waButton").addEventListener("click", () => {
+  if (!cart.length) {
+    alert("Keranjang kosong. Silakan kembali ke halaman shop.");
+    return;
+  }
+
+  const name = document.getElementById("name").value.trim();
+  const phone = document.getElementById("phone").value.trim();
+  const provinceSelect = document.getElementById("province");
+  const provinceLabel = provinceSelect.options[provinceSelect.selectedIndex].text;
+  const city = document.getElementById("city").value.trim();
+  const district = document.getElementById("district").value.trim();
+  const postcode = document.getElementById("postcode").value.trim();
+  const address = document.getElementById("address").value.trim();
+
+  // cek field wajib
+  if (!name || !phone || !provinceSelect.value || !city || !district || !postcode || !address) {
+    alert("Mohon lengkapi semua data pengiriman.");
+    return;
+  }
+
+  // --- NORMALISASI & VALIDASI NOMOR WA ---
+  let phoneDisplay = phone.trim();
+
+  // kalau user isi 08xxxx → jadikan 62xxxx untuk tampilan di pesan WA
+  if (/^0\d+/.test(phoneDisplay)) {
+    phoneDisplay = "62" + phoneDisplay.slice(1);
+  }
+
+  // validasi: hanya angka, panjang 9–15 digit
+  const digitsOnly = phone.replace(/\D/g, "");
+  if (!/^\d{9,15}$/.test(digitsOnly)) {
+    alert("Nomor WA tidak valid. Masukkan angka (contoh: 08xxxxxxxxxx).");
+    return;
+  }
+
+  // disable tombol supaya tidak diklik berkali-kali
+  const waBtn = document.getElementById("waButton");
+  waBtn.disabled = true;
+  waBtn.style.opacity = 0.7;
+  waBtn.style.pointerEvents = "none";
+
+  const shipping = getShippingCost();
+  const total = subtotal + shipping;
+
+  // teks order per item (pakai newline biasa)
+  const cartLinesPlain = cart
+    .map((entry) =>
+      `- ${entry.product.name} (Size: ${entry.size || "-"}, Qty: ${entry.qty}) = ${formatRupiah(
+        entry.product.price * entry.qty
+      )}`
+    )
+    .join("\n");
+
+  const messagePlain =
+    `Halo admin PHOENIXBORNE OATH, saya ingin order:\n` +
+    `${cartLinesPlain}\n\n` +
+    `Subtotal: ${formatRupiah(subtotal)}\n` +
+    `Ongkir (${provinceLabel}): ${formatRupiah(shipping)}\n` +
+    `Total Bayar: ${formatRupiah(total)}\n\n` +
+    `Data Penerima:\n` +
+    `Nama: ${name}\n` +
+    `No. WA: ${phoneDisplay}\n` +      // <-- pakai phoneDisplay
+    `Provinsi: ${provinceLabel}\n` +
+    `Kota/Kab: ${city}\n` +
+    `Kecamatan: ${district}\n` +
+    `Kode Pos: ${postcode}\n` +
+    `Alamat lengkap: ${address}\n\n` +
+    `Metode pembayaran: Transfer (konfirmasi via admin).`;
+
+  // GANTI NOMOR INI DENGAN NOMOR WHATSAPP RESMI MU (format 62xxx)
+  const waNumber = "62895809679191";
+
+  const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(messagePlain)}`;
+  window.open(waUrl, "_blank");
+
+  // kosongkan cart di browser
+  localStorage.removeItem("pbo_cart");
+  cart = [];
+  renderCart();
+
+  // restore button (opsional)
+  setTimeout(() => {
+    waBtn.disabled = false;
+    waBtn.style.opacity = "";
+    waBtn.style.pointerEvents = "";
+  }, 1000);
+});
+
+    // Tahun footer
+    document.getElementById("yearSpan").textContent = new Date().getFullYear();
+
+    // Render awal
+    renderCart();
   </script>
 </body>
 </html>
