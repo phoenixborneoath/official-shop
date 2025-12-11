@@ -1,1 +1,19 @@
+[
+  {
+    "id": "pb001",
+    "name": "Phoenix Sigil Tee",
+    "price": 179000,
+    "stock": 5,
+    "status": "ready",
+    "image": "images/pborne.jpg"
+  },
+  {
+    "id": "pb002",
+    "name": "Scorched Oath Tee",
+    "price": 189000,
+    "stock": 0,
+    "status": "sold",
+    "image": "images/petir.jpg"
+  }
+]
 
