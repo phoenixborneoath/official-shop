@@ -1,7 +1,7 @@
 {
-  "name": "Phoenixborne Oath — Official Shop",
-  "short_name": "PBO Shop",
-  "description": "Official shop Phoenixborne Oath — drops, limited pieces, and apparel born from ashes.",
+  "name": "Phoenixborne Store",
+  "short_name": "PBO Store",
+  "description": "Phoenixborne Store — official shop Phoenixborne Oath. Drops, limited pieces, and apparel born from ashes.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
