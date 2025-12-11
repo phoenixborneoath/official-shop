@@ -1537,52 +1537,55 @@
 
         card.innerHTML = `
   <div class="${badgeClass}">${badgeLabel}</div>
+
+  <div class="product-media">
+    <img src="${prod.image}" alt="${prod.name}">
+  </div>
+
   <div class="product-body">
-  <div class="product-name">${prod.name}</div>
-</div>
-<div class="product-media">
-  <img src="${prod.image}" alt="${prod.name}">
-</div>
-<div class="product-body">
-  <div class="product-meta-row">
-</div>
-                <span class="price">${formatRupiah(prod.price)}</span>
-                ${
-                  prod.originalPrice
-                    ? `<span class="price-original">${formatRupiah(prod.originalPrice)}</span>`
-                    : ""
-                }
-              </div>
-              ${
-                prod.discount
-                  ? `<span class="discount">${prod.discount}</span>`
-                  : ""
-              }
-            </div>
-           <div class="sizes-row">
-  ${prod.sizes
-    .map(
-      s =>
-        `<span class="size-pill" data-size="${s}" data-product-id="${prod.id}">${s}</span>`
-    )
-    .join("")}
-</div>
-          </div>
-          <div class="product-footer">
-            <button class="btn-add-cart" data-id="${prod.id}">
-              <span>Add to Cart</span>
-              <span>+</span>
-            </button>
-            <div class="stock-text ${
-              prod.stockStatus.toLowerCase().includes("low") ||
-              prod.stockStatus.toLowerCase().includes("very")
-                ? "stock-low"
-                : ""
-            }">
-              ${prod.stockStatus}
-            </div>
-          </div>
-        `;
+    <div class="product-name">${prod.name}</div>
+
+    <div class="product-meta-row">
+      <div>
+        <span class="price">${formatRupiah(prod.price)}</span>
+        ${
+          prod.originalPrice
+            ? `<span class="price-original">${formatRupiah(prod.originalPrice)}</span>`
+            : ""
+        }
+      </div>
+      ${
+        prod.discount
+          ? `<span class="discount">${prod.discount}</span>`
+          : ""
+      }
+    </div>
+
+    <div class="sizes-row">
+      ${prod.sizes
+        .map(
+          s =>
+            `<span class="size-pill" data-size="${s}" data-product-id="${prod.id}">${s}</span>`
+        )
+        .join("")}
+    </div>
+  </div>
+
+  <div class="product-footer">
+    <button class="btn-add-cart" data-id="${prod.id}">
+      <span>Add to Cart</span>
+      <span>+</span>
+    </button>
+    <div class="stock-text ${
+      prod.stockStatus.toLowerCase().includes("low") ||
+      prod.stockStatus.toLowerCase().includes("very")
+        ? "stock-low"
+        : ""
+    }">
+      ${prod.stockStatus}
+    </div>
+  </div>
+`;
 
         productsGrid.appendChild(card);
       });
