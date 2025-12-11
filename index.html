@@ -1120,68 +1120,6 @@
 .hero-note p {
   margin: 0 !important;
 }
-    /* ===== Fix tampilan gambar & nama produk ===== */
-.product-card {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  padding: 12px;
-  overflow: visible;
-}
-
-/* kotak gambar: paksa rasio & tinggi maksimum agar tidak terlalu tinggi */
-.product-media {
-  order: 1;
-  width: 100%;
-  aspect-ratio: 4/5;
-  min-height: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0;
-  background: #000;
-  border-radius: 12px;
-  overflow: hidden;
-}
-
-/* gambar skalakan dengan rapi di dalam kotak */
-.product-media img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display: block;
-}
-
-/* teks/body tepat di bawah gambar, center */
-.product-body {
-  order: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 6px;
-  padding: 6px 8px 0;
-}
-
-/* nama produk rapat ke gambar dan ukurannya pas */
-.product-name {
-  margin: 6px 0 0;
-  font-size: 0.95rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 96%;
-}
-
-/* jaga jarak harga sedikit lebih kecil */
-.product-meta-row { margin-top: 4px; justify-content: center; }
-
-/* kecilkan badge margin agar tidak tumpuk */
-.product-tag { top: 8px; left: 8px; padding: 6px 8px; }
-
   </style>
 </head>
 <body>
@@ -1537,55 +1475,50 @@
 
         card.innerHTML = `
   <div class="${badgeClass}">${badgeLabel}</div>
-
   <div class="product-media">
     <img src="${prod.image}" alt="${prod.name}">
   </div>
-
-  <div class="product-body">
-    <div class="product-name">${prod.name}</div>
-
-    <div class="product-meta-row">
-      <div>
-        <span class="price">${formatRupiah(prod.price)}</span>
-        ${
-          prod.originalPrice
-            ? `<span class="price-original">${formatRupiah(prod.originalPrice)}</span>`
-            : ""
-        }
-      </div>
-      ${
-        prod.discount
-          ? `<span class="discount">${prod.discount}</span>`
-          : ""
-      }
-    </div>
-
-    <div class="sizes-row">
-      ${prod.sizes
-        .map(
-          s =>
-            `<span class="size-pill" data-size="${s}" data-product-id="${prod.id}">${s}</span>`
-        )
-        .join("")}
-    </div>
-  </div>
-
-  <div class="product-footer">
-    <button class="btn-add-cart" data-id="${prod.id}">
-      <span>Add to Cart</span>
-      <span>+</span>
-    </button>
-    <div class="stock-text ${
-      prod.stockStatus.toLowerCase().includes("low") ||
-      prod.stockStatus.toLowerCase().includes("very")
-        ? "stock-low"
-        : ""
-    }">
-      ${prod.stockStatus}
-    </div>
-  </div>
-`;
+          <div class="product-body">
+            <div class="product-name">${prod.name}</div>
+            <div class="product-meta-row">
+              <div>
+                <span class="price">${formatRupiah(prod.price)}</span>
+                ${
+                  prod.originalPrice
+                    ? `<span class="price-original">${formatRupiah(prod.originalPrice)}</span>`
+                    : ""
+                }
+              </div>
+              ${
+                prod.discount
+                  ? `<span class="discount">${prod.discount}</span>`
+                  : ""
+              }
+            </div>
+           <div class="sizes-row">
+  ${prod.sizes
+    .map(
+      s =>
+        `<span class="size-pill" data-size="${s}" data-product-id="${prod.id}">${s}</span>`
+    )
+    .join("")}
+</div>
+          </div>
+          <div class="product-footer">
+            <button class="btn-add-cart" data-id="${prod.id}">
+              <span>Add to Cart</span>
+              <span>+</span>
+            </button>
+            <div class="stock-text ${
+              prod.stockStatus.toLowerCase().includes("low") ||
+              prod.stockStatus.toLowerCase().includes("very")
+                ? "stock-low"
+                : ""
+            }">
+              ${prod.stockStatus}
+            </div>
+          </div>
+        `;
 
         productsGrid.appendChild(card);
       });
