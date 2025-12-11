@@ -9,6 +9,40 @@
   <link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#050507">
   <style>
+    .product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
+}
+
+.product-card {
+  background: #0b0b10;
+  border-radius: 14px;
+  padding: 12px;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.product-card img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.product-card button {
+  margin-top: 10px;
+  width: 100%;
+  padding: 8px;
+  border-radius: 8px;
+  border: none;
+  background: white;
+  color: black;
+  font-weight: bold;
+}
+
+.product-card button:disabled {
+  background: #555;
+  color: #aaa;
+}
     .image-modal-close {
   position: absolute;
   top: 16px;
@@ -1089,7 +1123,7 @@
   </style>
 </head>
 <body>
-  <!-- NAVBAR -->
+  <div class="product-grid" id="productGrid"></div>
   <header class="navbar">
     <div class="nav-inner">
      <div class="logo">
@@ -1679,9 +1713,8 @@ updateCartUI();
 
 <!-- ✅ TEMPEL SCRIPT SLIDE + MODAL DI SINI -->
 <script>
-  // ====== SLIDE GAMBAR PRODUK (TANPA UBAH SCRIPT UTAMA) ======
-
-  const productSlides = {
+  // ====== SLIDE GAMBAR PRODUK (GANTI PATH GAMBAR DI SINI) ======
+const productSlides = {
   1: ["images/pborne.jpg", "images/petir.jpg", "images/size.jpg"],
   2: ["images/cooming.jpg", "images/petir.jpg", "images/size.jpg"],
   3: ["images/cooming.jpg", "images/petir.jpg", "images/size.jpg"],
@@ -1692,6 +1725,7 @@ updateCartUI();
   8: ["images/cooming.jpg", "images/petir.jpg", "images/size.jpg"],
 };
 
+// ====== PASTIKAN ID ELEMEN SAMA DENGAN YANG ADA DI HTML ======
 const productsGridEl = document.getElementById("productsGrid");
 const imageModal = document.getElementById("imageModal");
 const modalImage = document.getElementById("modalImage");
@@ -1779,6 +1813,32 @@ if (productsGridEl) {
         .catch((err) => console.error("SW registration failed:", err));
     });
   }
+<script>
+fetch("products.json")
+  .then(res => res.json())
+  .then(products => {
+    const grid = document.getElementById("productGrid");
+    grid.innerHTML = "";
+
+    products.forEach(product => {
+      const soldOut = product.status !== "ready" || product.stock <= 0;
+
+      const card = document.createElement("div");
+      card.className = "product-card";
+
+      card.innerHTML = `
+        <img src="${product.image}" alt="${product.name}">
+        <h3>${product.name}</h3>
+        <p class="price">Rp ${product.price.toLocaleString("id-ID")}</p>
+        <p class="stock">Stok: ${product.stock}</p>
+        <button ${soldOut ? "disabled" : ""}>
+          ${soldOut ? "SOLD OUT" : "BELI SEKARANG"}
+        </button>
+      `;
+
+      grid.appendChild(card);
+    });
+  });
 </script>
 </body>
 </html>
