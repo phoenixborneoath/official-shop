@@ -1475,13 +1475,15 @@
 
         card.innerHTML = `
   <div class="${badgeClass}">${badgeLabel}</div>
-  <div class="product-media">
-    <img src="${prod.image}" alt="${prod.name}">
-  </div>
-          <div class="product-body">
-            <div class="product-name">${prod.name}</div>
-            <div class="product-meta-row">
-              <div>
+  <div class="product-body">
+  <div class="product-name">${prod.name}</div>
+</div>
+<div class="product-media">
+  <img src="${prod.image}" alt="${prod.name}">
+</div>
+<div class="product-body">
+  <div class="product-meta-row">
+</div>
                 <span class="price">${formatRupiah(prod.price)}</span>
                 ${
                   prod.originalPrice
