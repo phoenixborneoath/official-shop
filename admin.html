@@ -1,96 +1,311 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>Admin – Phoenixborne Oath Shop</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #0b0b0b;
-      color: white;
-      padding: 20px;
-    }
-    input, button {
-      padding: 8px;
-      margin: 6px 0;
-      width: 100%;
-      max-width: 360px;
-    }
-    .box {
-      background: #111;
-      padding: 16px;
-      margin-bottom: 20px;
-      border-radius: 8px;
-      border: 1px solid #333;
-    }
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Admin — Phoenixborne Oath Shop</title>
+<style>
+  body{background:#080808;color:#eee;font-family:Inter,Arial;padding:18px}
+  h1{margin-bottom:8px}
+  .box{background:#0f0f0f;padding:12px;border-radius:8px;border:1px solid #222;margin-bottom:12px}
+  input,textarea,select,button{display:block;margin:8px 0;padding:8px;border-radius:6px;border:1px solid #333;background:#0a0a0a;color:#eee;width:100%;max-width:520px}
+  label{font-size:0.9rem;margin-top:6px}
+  .row{display:flex;gap:8px;flex-wrap:wrap}
+  .small{width:160px}
+  .product-card{border:1px solid #222;padding:10px;border-radius:8px;margin-bottom:8px}
+  .actions{margin-top:8px}
+  .muted{color:#9a9a9a;font-size:0.9rem}
+</style>
 </head>
 <body>
-
-<h1>Admin Panel — Phoenixborne Oath</h1>
-<p>Gunakan halaman ini untuk mengelola produk shop.</p>
-
-<div class="box" id="login-box">
-  <h3>Masuk Admin</h3>
-  <input type="password" id="admin-pass" placeholder="Masukkan Password Admin">
-  <button onclick="checkLogin()">Masuk</button>
-</div>
-
-<div id="admin-area" style="display:none;">
-  <h2>Kelola Produk</h2>
+  <h1>Admin Panel — Phoenixborne Oath</h1>
 
   <div class="box">
-    <h3>Tambah Produk Baru</h3>
-    <input id="new-title" placeholder="Nama Produk">
-    <input id="new-price" placeholder="Harga">
-    <input id="new-desc" placeholder="Deskripsi Singkat">
-    <input type="file" id="new-image">
-    <button onclick="addProduct()">Tambah Produk</button>
+    <h3>Konfigurasi (wajib diisi setiap sesi)</h3>
+    <label>GitHub username / owner</label>
+    <input id="gh-owner" value="phoenixborneoath">
+    <label>GitHub repo</label>
+    <input id="gh-repo" value="official-shop">
+    <label>Path file products.json (di repo)</label>
+    <input id="gh-path" value="products.json">
+    <label>GitHub Personal Access Token (repo:contents permission) — masukkan setiap sesi</label>
+    <input id="gh-token" placeholder="ghp_xxx..." type="password">
+    <div class="muted">Token tidak disimpan di server. Jika ragu, buat token baru dengan scope repo (only this repo) dan revoke setelah testing.</div>
   </div>
 
-  <div id="product-list"></div>
-</div>
+  <div class="box">
+    <h3>Firebase config (from Console > Web app)</h3>
+    <label>Firebase API Key</label><input id="fb-apiKey" placeholder="apiKey">
+    <label>authDomain</label><input id="fb-authDomain" placeholder="project.firebaseapp.com">
+    <label>projectId</label><input id="fb-projectId" placeholder="my-project-id">
+    <label>storageBucket</label><input id="fb-storageBucket" placeholder="project.appspot.com">
+    <button id="init-fb">Init Firebase & Sign in (Anon)</button>
+    <div id="fb-status" class="muted">Belum terhubung</div>
+  </div>
 
-<!-- Firebase config -->
+  <div id="auth-area" style="display:none">
+    <div class="box">
+      <h3>Tambah Produk Baru</h3>
+      <input id="new-title" placeholder="Nama produk">
+      <input id="new-price" placeholder="Harga (angka)">
+      <textarea id="new-desc" placeholder="Deskripsi singkat"></textarea>
+      <label>Gambar produk</label><input type="file" id="new-image">
+      <button id="btn-add">Tambah Produk</button>
+    </div>
+
+    <div class="box">
+      <h3>Daftar Produk</h3>
+      <div id="product-list">Memuat…</div>
+    </div>
+
+    <div class="box">
+      <button id="btn-push">Simpan ke GitHub sekarang (push products.json)</button>
+      <div id="save-status" class="muted"></div>
+    </div>
+  </div>
+
 <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-analytics.js";
-  import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-storage.js";
+/* ========= FIREBASE (module imports) ========= */
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+import { getStorage, ref as sref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-storage.js";
+import { getAuth, signInAnonymously } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyCKo4xRqM_w4iAKUeGbuE6_RcxbPUt22H8",
-    authDomain: "phoenixborne-oath-shop.firebaseapp.com",
-    projectId: "phoenixborne-oath-shop",
-    storageBucket: "phoenixborne-oath-shop.appspot.com",
-    messagingSenderId: "74677529022",
-    appId: "1:74677529022:web:e021828e286d2b12c1831ef",
-    measurementId: "G-HQEVCOFBYL"
+let firebaseApp = null, storage = null, auth = null;
+const fbStatusEl = document.getElementById('fb-status');
+const authArea = document.getElementById('auth-area');
+
+document.getElementById('init-fb').addEventListener('click', async () => {
+  const cfg = {
+    apiKey: document.getElementById('fb-apiKey').value.trim(),
+    authDomain: document.getElementById('fb-authDomain').value.trim(),
+    projectId: document.getElementById('fb-projectId').value.trim(),
+    storageBucket: document.getElementById('fb-storageBucket').value.trim()
   };
+  if (!cfg.apiKey || !cfg.projectId) { alert('Isi firebase config minimal (apiKey + projectId + storageBucket).'); return; }
+  try {
+    firebaseApp = initializeApp(cfg);
+    storage = getStorage(firebaseApp);
+    auth = getAuth(firebaseApp);
+    // sign in anonymously so upload allowed if rules require auth
+    await signInAnonymously(auth);
+    fbStatusEl.textContent = 'Firebase: tersambung (signed in anonymously). Storage siap.';
+    authArea.style.display = 'block';
+  } catch(err) {
+    console.error(err);
+    fbStatusEl.textContent = 'Gagal inisialisasi Firebase: ' + (err.message || err);
+  }
+});
 
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-  const storage = getStorage(app);
+/* ========= Produk lokal (di-memory) ========= */
+let products = []; // array produk
+let productsOriginalRaw = null; // raw file content (string) dari GitHub / server
+let productsSha = null; // jika kita dapat info file dari GitHub API (dipakai saat update)
 
-  window.storage = storage; // biar bisa dipakai fungsi lain
-</script>
+/* ======= UTILS: render produk list ======= */
+function renderProducts() {
+  const container = document.getElementById('product-list');
+  container.innerHTML = '';
+  if (!Array.isArray(products) || products.length === 0) {
+    container.innerHTML = '<div class="muted">Belum ada produk</div>';
+    return;
+  }
+  products.forEach((p, idx) => {
+    const div = document.createElement('div');
+    div.className = 'product-card';
+    div.innerHTML = `
+      <strong>(${idx+1})</strong> <input id="title-${idx}" value="${escapeHtml(p.title||'')}" />
+      <label>Harga</label><input id="price-${idx}" value="${p.price||0}" />
+      <label>Slug</label><input id="slug-${idx}" value="${p.slug||''}" />
+      <label>Deskripsi</label><input id="desc-${idx}" value="${escapeHtml(p.description||'')}" />
+      <div style="margin-top:8px">
+        <img id="img-preview-${idx}" src="${p.imageUrl||''}" alt="" style="max-width:140px;display:${p.imageUrl?'block':'none'};margin-bottom:8px;border-radius:6px;border:1px solid #222" />
+        <input type="file" id="file-${idx}" />
+      </div>
+      <div class="actions">
+        <button onclick="saveLocal(${idx})">Simpan (lokal)</button>
+        <button onclick="deleteLocal(${idx})" style="background:#300">Hapus</button>
+      </div>
+    `;
+    container.appendChild(div);
+  });
+}
 
-<script>
-  // Password admin
-  const ADMIN_PASSWORD = "phoenixadmin"; // nanti bisa diganti
+/* ===== escape helper for value attributes ===== */
+function escapeHtml(s){
+  if (!s && s !== 0) return '';
+  return String(s).replaceAll('"','&quot;').replaceAll('<','&lt;').replaceAll('>','&gt;');
+}
 
-  function checkLogin() {
-    const pass = document.getElementById("admin-pass").value;
-    if (pass === ADMIN_PASSWORD) {
-      document.getElementById("login-box").style.display = "none";
-      document.getElementById("admin-area").style.display = "block";
-      loadProducts();
-    } else {
-      alert("Password salah!");
+/* ===== local save (update products array only) ===== */
+async function saveLocal(i){
+  const t = document.getElementById(`title-${i}`).value.trim();
+  const price = Number(document.getElementById(`price-${i}`).value) || 0;
+  const slug = document.getElementById(`slug-${i}`).value.trim();
+  const desc = document.getElementById(`desc-${i}`).value.trim();
+  products[i].title = t;
+  products[i].price = price;
+  products[i].slug = slug;
+  products[i].description = desc;
+
+  // jika ada file upload -> upload ke Firebase Storage
+  const fileInput = document.getElementById(`file-${i}`);
+  if (fileInput && fileInput.files && fileInput.files[0]) {
+    if (!storage) { alert('Firebase Storage belum inisialisasi.'); return; }
+    const f = fileInput.files[0];
+    const path = `product-images/${Date.now()}-${f.name.replace(/\s+/g,'_')}`;
+    const ref = sref(storage, path);
+    document.getElementById('save-status').textContent = 'Mengupload gambar...';
+    try {
+      const up = await uploadBytes(ref, f);
+      const url = await getDownloadURL(ref);
+      products[i].imageUrl = url;
+      document.getElementById(`img-preview-${i}`).src = url;
+      document.getElementById(`img-preview-${i}`).style.display = 'block';
+      document.getElementById('save-status').textContent = 'Upload gambar berhasil.';
+    } catch(err) {
+      console.error(err);
+      alert('Upload gagal: '+err.message);
+      document.getElementById('save-status').textContent = 'Upload gambar gagal.';
+      return;
     }
   }
 
-  // Load produk dari products.json
-  async function loadProducts() {
-    const container = document.getElementById("product-list");
-    const res = await fet
+  renderProducts();
+  document.getElementById('save-status').textContent = 'Disimpan lokal (belum dipush ke GitHub).';
+}
+
+/* ===== delete local ===== */
+function deleteLocal(i){
+  if (!confirm('Hapus produk ini dari daftar?')) return;
+  products.splice(i,1);
+  renderProducts();
+}
+
+/* ===== add product new ===== */
+document.getElementById('btn-add').addEventListener('click', async () => {
+  const title = document.getElementById('new-title').value.trim();
+  const price = Number(document.getElementById('new-price').value) || 0;
+  const desc = document.getElementById('new-desc').value.trim();
+  const fileInput = document.getElementById('new-image');
+  let imageUrl = '';
+  if (!title) { alert('Isi nama produk'); return; }
+  if (fileInput && fileInput.files && fileInput.files[0]) {
+    if (!storage) { alert('Firebase Storage belum inisialisasi.'); return; }
+    const f = fileInput.files[0];
+    const path = `product-images/${Date.now()}-${f.name.replace(/\s+/g,'_')}`;
+    const ref = sref(storage, path);
+    document.getElementById('save-status').textContent = 'Mengupload gambar baru...';
+    try {
+      await uploadBytes(ref, f);
+      imageUrl = await getDownloadURL(ref);
+      document.getElementById('save-status').textContent = 'Upload gambar berhasil.';
+    } catch(err) {
+      alert('Upload gambar gagal: ' + err.message);
+      return;
+    }
+  }
+  const slug = title.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'') + '-' + Date.now();
+  const newP = { title, price, imageUrl, slug, description: desc };
+  products.push(newP);
+  renderProducts();
+  // clear form
+  document.getElementById('new-title').value='';
+  document.getElementById('new-price').value='';
+  document.getElementById('new-desc').value='';
+  if (fileInput) fileInput.value = '';
+  document.getElementById('save-status').textContent = 'Produk baru ditambahkan (belum dipush).';
+});
+
+/* ====== GitHub API helper: get current file info (sha) and content ====== */
+async function fetchRepoFile(owner, repo, path, token) {
+  const url = `https://api.github.com/repos/${owner}/${repo}/contents/${encodeURIComponent(path)}`;
+  const res = await fetch(url, {
+    headers: { Authorization: 'token ' + token, Accept: 'application/vnd.github.v3+json' }
+  });
+  if (!res.ok) {
+    const txt = await res.text();
+    throw new Error('Gagal ambil file: ' + res.status + ' ' + txt);
+  }
+  return await res.json(); // returns {content (base64), sha, ...}
+}
+
+/* ====== Push updated products.json to GitHub (create/replace) ====== */
+async function pushProductsToGitHub() {
+  const owner = document.getElementById('gh-owner').value.trim();
+  const repo = document.getElementById('gh-repo').value.trim();
+  const path = document.getElementById('gh-path').value.trim() || 'products.json';
+  const token = document.getElementById('gh-token').value.trim();
+  if (!owner || !repo || !token) { alert('Isi owner, repo, dan token GitHub.'); return; }
+  const apiUrl = `https://api.github.com/repos/${owner}/${repo}/contents/${encodeURIComponent(path)}`;
+  document.getElementById('save-status').textContent = 'Mempersiapkan push ke GitHub...';
+
+  // prepare content
+  const payload = JSON.stringify(products, null, 2);
+  const contentB64 = btoa(unescape(encodeURIComponent(payload)));
+
+  try {
+    // try GET first to obtain current sha (if exists)
+    let sha = null;
+    try {
+      const info = await fetchRepoFile(owner, repo, path, token);
+      sha = info.sha;
+    } catch(err) {
+      // jika file tidak ada, kita akan membuat baru (sha tetap null)
+      console.log('File mungkin belum ada — akan dibuat baru. info:', err.message);
+    }
+
+    const body = {
+      message: 'Update products.json via admin panel',
+      content: contentB64,
+      committer: { name: "Admin Panel", email: "admin@phoenixborne.id" }
+    };
+    if (sha) body.sha = sha;
+
+    const res = await fetch(apiUrl, {
+      method: 'PUT',
+      headers: { Authorization: 'token ' + token, Accept: 'application/vnd.github.v3+json' },
+      body: JSON.stringify(body)
+    });
+
+    const resJson = await res.json();
+    if (!res.ok) {
+      throw new Error('GitHub API error: ' + (resJson.message || res.status));
+    }
+    document.getElementById('save-status').textContent = 'Berhasil push ke GitHub. Commit: ' + (resJson.commit && resJson.commit.sha ? resJson.commit.sha.slice(0,7) : 'ok');
+  } catch(err) {
+    console.error(err);
+    alert('Gagal push ke GitHub: ' + err.message);
+    document.getElementById('save-status').textContent = 'Gagal push: ' + err.message;
+  }
+}
+
+document.getElementById('btn-push').addEventListener('click', pushProductsToGitHub);
+
+/* ====== Load products from server (/products.json) - initial ====== */
+async function loadProductsFromSite() {
+  try {
+    const res = await fetch('/products.json', {cache:'no-store'});
+    if (!res.ok) {
+      products = [];
+      renderProducts();
+      return;
+    }
+    products = await res.json();
+    renderProducts();
+  } catch(err) {
+    console.error(err);
+    products = [];
+    renderProducts();
+  }
+}
+
+/* ====== Helpers ====== */
+window.saveLocal = saveLocal;
+window.deleteLocal = deleteLocal;
+window.pushProductsToGitHub = pushProductsToGitHub;
+
+/* ====== Start: load existing products.json (from site) ====== */
+loadProductsFromSite();
+</script>
+</body>
+</html>
