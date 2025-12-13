@@ -770,6 +770,13 @@
       letter-spacing: 0.12em;
       color: var(--muted);
     }
+
+    .size-pill.disabled {
+  opacity: 0.35;
+  pointer-events: none;
+  border-color: #3f3f46;
+  color: #6b7280;
+}
     
     .size-pill.active {
   border-color: var(--accent);
@@ -1480,7 +1487,7 @@
     id: 10,
     name: "COMING SOON TEE",
     slug: "coming-soon-tee",
-    category: "sold out",
+    <button data-filter="soldout">Sold Out</button>
     price: 0,
     originalPrice: null,
     badge: "Sold Out",
@@ -1499,7 +1506,7 @@
     id: 11,
     name: "COMING SOON TEE",
     slug: "coming-soon-tee",
-    category: "sold out",
+    <button data-filter="soldout">Sold Out</button>
     price: 0,
     originalPrice: null,
     badge: "Sold Out",
@@ -1600,12 +1607,18 @@
         </div>
 
         <div class="sizes-row">
-          ${prod.sizes.map(
-            s =>
-              `<span class="size-pill" data-size="${s}" data-product-id="${prod.id}">${s}</span>`
-          ).join("")}
-        </div>
-      </div>
+  ${prod.sizes.map(s => {
+    const isSoldOut = stockClass === "stock-sold";
+    return `
+      <span 
+        class="size-pill ${isSoldOut ? "disabled" : ""}" 
+        data-size="${s}" 
+        data-product-id="${prod.id}">
+        ${s}
+      </span>
+    `;
+  }).join("")}
+</div>
 
       <div class="product-footer">
         <button class="btn-add-cart" data-id="${prod.id}">
@@ -1734,6 +1747,11 @@
   const product = products.find(p => p.id === productId);
   if (!product) return;
 
+  if (product.stockStatus.toLowerCase().includes("sold")) {
+  alert("Produk ini sudah sold out.");
+  return;
+  }
+
   const size = selectedSizes[productId];
   if (!size) {
     alert("Silakan pilih size terlebih dahulu.");
@@ -1796,7 +1814,7 @@
 
 productsGrid.addEventListener("click", (e) => {
   const pill = e.target.closest(".size-pill");
-  if (!pill) return;
+  if (!pill || pill.classList.contains("disabled")) return;
 
   const productId = Number(pill.getAttribute("data-product-id"));
   const size = pill.getAttribute("data-size");
