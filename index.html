@@ -3,70 +3,132 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PHOENIXBORNE OATH — Official Store</title>
-
   <link rel="manifest" href="manifest.webmanifest" />
-  <meta name="theme-color" content="#050507">
-
+<meta name="theme-color" content="#050507">
   <style>
     .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-      gap: 16px;
-    }
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
+}
 
-    .product-card {
-      background: #0b0b10;
-      border-radius: 14px;
-      padding: 12px;
-      text-align: center;
-      border: 1px solid rgba(255,255,255,0.1);
-    }
+.product-card {
+  background: #0b0b10;
+  border-radius: 14px;
+  padding: 12px;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.1);
+}
 
-    .product-card img {
-      width: 100%;
-      border-radius: 10px;
-    }
+.product-card img {
+  width: 100%;
+  border-radius: 10px;
+}
 
-    .product-card button {
-      margin-top: 10px;
-      width: 100%;
-      padding: 8px;
-      border-radius: 8px;
-      border: none;
-      background: white;
-      color: black;
-      font-weight: bold;
-    }
+.product-card button {
+  margin-top: 10px;
+  width: 100%;
+  padding: 8px;
+  border-radius: 8px;
+  border: none;
+  background: white;
+  color: black;
+  font-weight: bold;
+}
 
-    .product-card button:disabled {
-      background: #555;
-      color: #aaa;
-    }
-
+.product-card button:disabled {
+  background: #555;
+  color: #aaa;
+}
     .image-modal-close {
-      position: absolute;
-      top: 16px;
-      right: 20px;
-      font-size: 30px;
-      border: none;
-      background: transparent;
-      color: #fff;
-      cursor: pointer;
-      z-index: 10;
-    }
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  font-size: 30px;
+  border: none;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  z-index: 10;
+}
 
-    .image-modal-nav {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      border: none;
-      background: transparent;
-      font-size: 42px;
-      color: #fff;
-    }
+.image-modal-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  font-size: 42px;
+  color: #fff;
+  cursor: pointer;
+  padding: 8px 12px;
+  z-index: 10;
+}
+
+.image-modal-prev {
+  left: 16px;
+}
+
+.image-modal-next {
+  right: 16px;
+}
+
+    .image-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.image-modal.show {
+  display: flex;
+}
+
+.image-modal-content {
+  position: relative;
+  max-width: 92vw;
+  max-height: 92vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-modal img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 24px 60px rgba(0,0,0,0.7);
+}
+
+.image-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  font-size: 30px;
+  border: none;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+
+.image-modal-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  font-size: 42px;
+  color: #fff;
+  cursor: pointer;
+  padding: 8px 12px;
+}
 
 .image-modal-prev { left: 16px; }
 .image-modal-next { right: 16px; }   
@@ -1651,6 +1713,17 @@ updateCartUI();
 
 <!-- ✅ TEMPEL SCRIPT SLIDE + MODAL DI SINI -->
 <script>
+  // ====== SLIDE GAMBAR PRODUK (GANTI PATH GAMBAR DI SINI) ======
+const productSlides = {
+  1: ["images/pborne.jpg", "images/petir.jpg", "images/size.jpg"],
+  2: ["images/cooming.jpg", "images/petir.jpg", "images/size.jpg"],
+  3: ["images/cooming.jpg", "images/petir.jpg", "images/size.jpg"],
+  4: ["images/cooming.jpg", "images/petir.jpg", "images/size.jpg"],
+  5: ["images/cooming.jpg", "images/petir.jpg", "images/size.jpg"],
+  6: ["images/cooming.jpg", "images/petir.jpg", "images/size.jpg"],
+  7: ["images/cooming.jpg", "images/petir.jpg", "images/size.jpg"],
+  8: ["images/cooming.jpg", "images/petir.jpg", "images/size.jpg"],
+};
 
 // ====== PASTIKAN ID ELEMEN SAMA DENGAN YANG ADA DI HTML ======
 const productsGridEl = document.getElementById("productsGrid");
@@ -1712,13 +1785,16 @@ if (productsGridEl) {
     const card = media.closest(".product-card");
     if (!card) return;
 
-    const id = Number(card.dataset.id);
+    const id = card.dataset.id;
+    let slides = productSlides[id];
 
-    // ambil data dari data.json
-    const product = PRODUCTS.find(p => p.id === id);
-    if (!product || !product.slides || !product.slides.length) return;
+    if (!slides || !slides.length) {
+      const img = media.querySelector("img");
+      if (!img) return;
+      slides = [img.src];
+    }
 
-    openModalWith(product.slides, 0);
+    openModalWith(slides, 0);
   });
 }
 </script>
@@ -1728,56 +1804,41 @@ if (productsGridEl) {
 </footer>
 
 <script>
-  document.getElementById("yearSpan").textContent =
-    new Date().getFullYear();
-</script>
-  
- <script>
+  document.getElementById("yearSpan").textContent = new Date().getFullYear();
+<script>
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {
       navigator.serviceWorker
         .register("/service-worker.js")
-        .catch(err =>
-          console.error("SW registration failed:", err)
-        );
+        .catch((err) => console.error("SW registration failed:", err));
     });
   }
-</script>
-  <script>
-  let PRODUCTS = [];
-
-  fetch("data.json")
-    .then(res => res.json())
-    .then(data => {
-      PRODUCTS = data.products;
-      renderProducts();
-    });
-
-  function renderProducts() {
-    const grid = document.getElementById("productsGrid");
-    if (!grid) return;
-
+<script>
+fetch("products.json")
+  .then(res => res.json())
+  .then(products => {
+    const grid = document.getElementById("productGrid");
     grid.innerHTML = "";
 
-    PRODUCTS.forEach(product => {
+    products.forEach(product => {
+      const soldOut = product.status !== "ready" || product.stock <= 0;
+
       const card = document.createElement("div");
       card.className = "product-card";
-      card.dataset.id = product.id;
 
       card.innerHTML = `
-        <div class="product-media">
-          <img src="${product.slides[0]}" alt="${product.name}">
-        </div>
+        <img src="${product.image}" alt="${product.name}">
         <h3>${product.name}</h3>
         <p class="price">Rp ${product.price.toLocaleString("id-ID")}</p>
-        <button ${product.status !== "AVAILABLE" ? "disabled" : ""}>
-          ${product.status !== "AVAILABLE" ? "COMING SOON" : "ADD TO CART"}
+        <p class="stock">Stok: ${product.stock}</p>
+        <button ${soldOut ? "disabled" : ""}>
+          ${soldOut ? "SOLD OUT" : "BELI SEKARANG"}
         </button>
       `;
 
       grid.appendChild(card);
     });
-  }
+  });
 </script>
 </body>
 </html>
