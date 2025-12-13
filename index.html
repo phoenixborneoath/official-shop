@@ -1293,162 +1293,51 @@
 </div>
 
   <script>
-    // ------- DATA PRODUK (EDIT DI SINI) ---------
-    const products = [
-  {
-    id: 1,
-    name: "PHOENIXBORNE TEE",
-    slug: "phoenix-borne-tee",
-    category: "limited",
-    price: 289000,
-    originalPrice: null,
-    badge: "First article",
-    isNew: true,
-    discount: "SAVE 15%",
-    sizes: ["S", "M", "L", "XL", "XXL"],
-    stockStatus: "Limited stock",
-    image: "images/pborne.jpg",
-    images: [
-      "images/pborne.jpg",
-      "images/petir.jpg",
-      "images/size.jpg"
-    ]
-  },
-  {
-    id: 2,
-    name: "COMING SOON TEE",
-    slug: "coming-soon-tee",
-    category: "essentials",
-    price: 0,
-    originalPrice: null,
-    badge: "Essentials",
-    isNew: false,
-    discount: "",
-    sizes: ["S", "M", "L", "XL", "XXL"],
-    stockStatus: "Ready stock",
-    image: "images/cooming.jpg",
-    images: [
-      "images/cooming.jpg",
-      "images/petir.jpg",
-      "images/size.jpg"
-    ]
-  },
-  {
-    id: 3,
-    name: "COMING SOON TEE",
-    slug: "coming-soon-tee",
-    category: "special",
-    price: 0,
-    originalPrice: 0,
-    badge: "Special Material",
-    isNew: true,
-    discount: "Marble Edition",
-    sizes: ["S", "M", "L", "XL", "XXL"],
-    stockStatus: "Very limited",
-    image: "images/cooming.jpg",
-    images: [
-      "images/cooming.jpg",
-      "images/petir.jpg",
-      "images/size.jpg"
-    ]
-  },
-  {
-    id: 4,
-    name: "COMING SOON TEE",
-    slug: "coming-soon-tee",
-    category: "limited",
-    price: 0,
-    originalPrice: null,
-    badge: "Limited",
-    isNew: false,
-    discount: "",
-    sizes: ["S", "M", "L", "XL", "XXL"],
-    stockStatus: "Ready stock",
-    image: "images/cooming.jpg",
-    images: [
-      "images/cooming.jpg",
-      "images/petir.jpg",
-      "images/size.jpg"
-    ]
-  },
-  {
-    id: 5,
-    name: "COMING SOON TEE",
-    slug: "coming-soon-tee",
-    category: "essentials",
-    price: 0,
-    originalPrice: null,
-    badge: "Essentials",
-    isNew: false,
-    discount: "Daily Wear",
-    sizes: ["S", "M", "L", "XL", "XXL"],
-    stockStatus: "Ready stock",
-    image: "images/cooming.jpg",
-    images: [
-      "images/cooming.jpg",
-      "images/petir.jpg",
-      "images/size.jpg"
-    ]
-  },
-  {
-    id: 6,
-    name: "COMING SOON TEE",
-    slug: "coming-soon-tee",
-    category: "limited",
-    price: 0,
-    originalPrice: null,
-    badge: "Night Drop",
-    isNew: true,
-    discount: "Limited Run",
-    sizes: ["S", "M", "L", "XL", "XXL"],
-    stockStatus: "Low stock",
-    image: "images/cooming.jpg",
-    images: [
-      "images/cooming.jpg",
-      "images/petir.jpg",
-      "images/size.jpg"
-    ]
-  },
-  {
-    id: 7,
-    name: "COMING SOON TEE",
-    slug: "coming-soon-tee",
-    category: "special",
-    price: 0,
-    originalPrice: null,
-    badge: "Special Material",
-    isNew: false,
-    discount: "",
-    sizes: ["S", "M", "L", "XL", "XXL"],
-    stockStatus: "Ready stock",
-    image: "images/cooming.jpg",
-    images: [
-      "images/cooming.jpg",
-      "images/petir.jpg",
-      "images/size.jpg"
-    ]
-  },
-  {
-    id: 8,
-    name: "COMING SOON TEE",
-    slug: "coming-soon-tee",
-    category: "essentials",
-    price: 0,
-    originalPrice: null,
-    badge: "Essentials",
-    isNew: false,
-    discount: "",
-    sizes: ["S", "M", "L", "XL", "XXL"],
-    stockStatus: "Ready stock",
-    image: "images/cooming.jpg",
-    images: [
-      "images/cooming.jpg",
-      "images/petir.jpg",
-      "images/size.jpg"
-    ]
-  }
-];
+    
+    <script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+import { getFirestore, collection, getDocs } 
+from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
 
+const firebaseConfig = {
+  apiKey: "API_KEY_KAMU",
+  authDomain: "phoenixborne-oath-shop.firebaseapp.com",
+  projectId: "phoenixborne-oath-shop",
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const productsGrid = document.getElementById("productsGrid");
+
+async function loadProducts() {
+  productsGrid.innerHTML = "";
+
+  const snap = await getDocs(collection(db, "products"));
+
+  snap.forEach(docSnap => {
+    const p = docSnap.data();
+    if (!p.active) return;
+
+    const card = document.createElement("article");
+    card.className = "product-card";
+    card.dataset.images = JSON.stringify(p.images);
+
+    card.innerHTML = `
+      <div class="product-media">
+        <img src="${p.images[0]}" alt="${p.title}">
+      </div>
+      <div class="product-name">${p.title}</div>
+      <div class="price">Rp ${p.price.toLocaleString("id-ID")}</div>
+    `;
+
+    productsGrid.appendChild(card);
+  });
+}
+
+loadProducts();
+</script>
+    
     // ------- UTIL: FORMAT RUPIAH ----------
     const formatRupiah = (value) =>
       new Intl.NumberFormat("id-ID", {
@@ -1695,17 +1584,15 @@
     renderProducts("all");
 
 productsGrid.addEventListener("click", (e) => {
-  const pill = e.target.closest(".size-pill");
-  if (!pill) return;
+  const media = e.target.closest(".product-media");
+  if (!media) return;
 
-  const productId = Number(pill.getAttribute("data-product-id"));
-  const size = pill.getAttribute("data-size");
+  const card = media.closest(".product-card");
+  const slides = JSON.parse(card.dataset.images || "[]");
 
-  const sizesRow = pill.parentElement;
-  sizesRow.querySelectorAll(".size-pill").forEach(el => el.classList.remove("active"));
+  if (!slides.length) return;
 
-  pill.classList.add("active");
-  selectedSizes[productId] = size;
+  openModalWith(slides, 0);
 });
 
 updateCartUI();
@@ -1713,18 +1600,6 @@ updateCartUI();
 
 <!-- ✅ TEMPEL SCRIPT SLIDE + MODAL DI SINI -->
 <script>
-  // ====== SLIDE GAMBAR PRODUK (GANTI PATH GAMBAR DI SINI) ======
-const productSlides = {
-  1: ["images/pborne.jpg", "images/petir.jpg", "images/size.jpg"],
-  2: ["images/cooming.jpg", "images/petir.jpg", "images/size.jpg"],
-  3: ["images/cooming.jpg", "images/petir.jpg", "images/size.jpg"],
-  4: ["images/cooming.jpg", "images/petir.jpg", "images/size.jpg"],
-  5: ["images/cooming.jpg", "images/petir.jpg", "images/size.jpg"],
-  6: ["images/cooming.jpg", "images/petir.jpg", "images/size.jpg"],
-  7: ["images/cooming.jpg", "images/petir.jpg", "images/size.jpg"],
-  8: ["images/cooming.jpg", "images/petir.jpg", "images/size.jpg"],
-};
-
 // ====== PASTIKAN ID ELEMEN SAMA DENGAN YANG ADA DI HTML ======
 const productsGridEl = document.getElementById("productsGrid");
 const imageModal = document.getElementById("imageModal");
