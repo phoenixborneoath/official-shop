@@ -1,13 +1,92 @@
 {
-  "slider": [
-    "images/pborne.jpg",
-    "images/petir.jpg",
-    "images/size.jpg"
-  ],
-  "product": {
-    "name": "REBORN FROM ASHES",
-    "price": 279000,
-    "status": "COMING SOON",
-    "image": "images/product1.jpg"
-  }
+  "products": [
+    {
+      "id": 1,
+      "name": "REBORN FROM ASHES",
+      "price": 279000,
+      "status": "AVAILABLE",
+      "slides": [
+        "images/pborne.jpg",
+        "images/petir.jpg",
+        "images/size.jpg"
+      ]
+    },
+    {
+       "id": 2,
+      "name": "COMING SOON",
+      "price": 0,
+      "status": "COMING SOON",
+      "slides": [
+        "images/cooming.jpg",
+        "images/petir.jpg",
+        "images/size.jpg"
+       ]
+    },
+    {
+      "id": 3,
+      "name": "COMING SOON",
+      "price": 0,
+      "status": "COMING SOON",
+      "slides": [
+        "images/cooming.jpg",
+        "images/petir.jpg",
+        "images/size.jpg"
+       ]
+    },
+    {
+          "id": 4,
+      "name": "COMING SOON",
+      "price": 0,
+      "status": "COMING SOON",
+      "slides": [
+        "images/cooming.jpg",
+        "images/petir.jpg",
+        "images/size.jpg"
+       ]
+    },
+    {
+        "id": 5,
+      "name": "COMING SOON",
+      "price": 0,
+      "status": "COMING SOON",
+      "slides": [
+        "images/cooming.jpg",
+        "images/petir.jpg",
+        "images/size.jpg"
+       ]
+    },
+    {
+        "id": 6,
+      "name": "COMING SOON",
+      "price": 0,
+      "status": "COMING SOON",
+      "slides": [
+        "images/cooming.jpg",
+        "images/petir.jpg",
+        "images/size.jpg"
+       ]
+    },
+    {
+       "id": 6,
+      "name": "COMING SOON",
+      "price": 0,
+      "status": "COMING SOON",
+      "slides": [
+        "images/cooming.jpg",
+        "images/petir.jpg",
+        "images/size.jpg"
+       ]
+    },
+    {
+       "id": 6,
+      "name": "COMING SOON",
+      "price": 0,
+      "status": "COMING SOON",
+      "slides": [
+        "images/cooming.jpg",
+        "images/petir.jpg",
+        "images/size.jpg"
+      ]
+    }
+  ]
 }
