@@ -87,25 +87,31 @@ async function loadProducts() {
     const div = document.createElement("div");
     div.className = "card";
     div.innerHTML = `
-      <input value="${p.title}">
-      <input type="number" value="${p.price}">
-      <input value="${p.images}">
-      <label>
-        <input type="checkbox" ${p.active ? "checked" : ""}> Aktif
-      </label>
-      <button>Simpan</button>
-    `;
+  <input placeholder="Nama Produk" value="${p.title}">
+  <input type="number" placeholder="Harga" value="${p.price}">
+
+  <input placeholder="Gambar 1" value="${p.images?.[0] || ""}">
+  <input placeholder="Gambar 2" value="${p.images?.[1] || ""}">
+  <input placeholder="Gambar 3" value="${p.images?.[2] || ""}">
+
+  <label>
+    <input type="checkbox" ${p.active ? "checked" : ""}> Aktif
+  </label>
+  <button>Simpan</button>
+`;
 
     const inputs = div.querySelectorAll("input");
     div.querySelector("button").onclick = async () => {
       await updateDoc(doc(db,"products",id), {
-        title: inputs[0].value,
-        price: Number(inputs[1].value),
-        image: inputs[2].value,
-        active: inputs[3].checked
-      });
-      alert("Produk disimpan");
-    };
+  title: inputs[0].value,
+  price: Number(inputs[1].value),
+  images: [
+    inputs[2].value,
+    inputs[3].value,
+    inputs[4].value
+  ],
+  active: inputs[5].checked
+});
 
     list.appendChild(div);
   });
