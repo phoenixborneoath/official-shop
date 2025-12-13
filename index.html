@@ -1215,10 +1215,10 @@
       </div>
 
       <div class="products-toolbar">
-        <button class="tag-filter active" data-filter="all">All</button>
-        <button class="tag-filter" data-filter="ready">Ready</button>
-        <button class="tag-filter" data-filter="limited">Limited</button>
-        <button class="tag-filter" data-filter="sold out">Sold Out</button>
+        <button data-filter="all">All</button>
+        <button data-filter="ready">Ready</button>
+        <button data-filter="limited">Limited</button>
+        <button data-filter="soldout">Sold Out</button>
       </div>
 
       <div class="products-grid" id="productsGrid">
@@ -1325,7 +1325,7 @@
     isNew: false,
     discount: "",
     sizes: ["S", "M", "L", "XL", "XXL"],
-    stockStatus: "Ready stock",
+    stockStatus: "Ready Stock",
     image: "images/cooming.jpg",
     images: [
       "images/cooming.jpg",
@@ -1363,7 +1363,7 @@
     isNew: false,
     discount: "",
     sizes: ["S", "M", "L", "XL", "XXL"],
-    stockStatus: "Ready stock",
+    stockStatus: "Ready Stock",
     image: "images/cooming.jpg",
     images: [
       "images/cooming.jpg",
@@ -1538,8 +1538,14 @@
     const filterButtons = document.querySelectorAll(".tag-filter");
 
     function renderProducts(filter = "all") {
-      productsGrid.innerHTML = "";
-      const filtered = products.filter(p => filter === "all" ? true : p.category === filter);
+  productsGrid.innerHTML = "";
+
+  const filtered = products.filter(p => {
+    if (filter === "all") return true;
+    if (filter === "ready") return p.stockStatus.toLowerCase().includes("ready");
+    if (filter === "soldout") return p.price === 0;
+    return p.category === filter;
+  });
 
       filtered.forEach(prod => {
         const card = document.createElement("article");
