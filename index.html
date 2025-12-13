@@ -1893,31 +1893,7 @@ if (productsGridEl) {
     });
   }
 <script>
-fetch("products.json")
-  .then(res => res.json())
-  .then(products => {
-    const grid = document.getElementById("productGrid");
-    grid.innerHTML = "";
 
-    products.forEach(product => {
-      const soldOut = product.status !== "ready" || product.stock <= 0;
-
-      const card = document.createElement("div");
-      card.className = "product-card";
-
-      card.innerHTML = `
-        <img src="${product.image}" alt="${product.name}">
-        <h3>${product.name}</h3>
-        <p class="price">Rp ${product.price.toLocaleString("id-ID")}</p>
-        <p class="stock">Stok: ${product.stock}</p>
-        <button ${soldOut ? "disabled" : ""}>
-          ${soldOut ? "SOLD OUT" : "BELI SEKARANG"}
-        </button>
-      `;
-
-      grid.appendChild(card);
-    });
-  });
 </script>
 </body>
 </html>
