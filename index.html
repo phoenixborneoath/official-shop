@@ -14,7 +14,17 @@
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 16px;
 }
+  <script>
+let PRODUCTS = [];
 
+fetch("data.json")
+  .then(res => res.json())
+  .then(data => {
+    PRODUCTS = data.products;
+    renderProducts();
+  });
+</script>
+    
 .product-card {
   background: #0b0b10;
   border-radius: 14px;
@@ -1713,17 +1723,6 @@ updateCartUI();
 
 <!-- ✅ TEMPEL SCRIPT SLIDE + MODAL DI SINI -->
 <script>
-  // ====== SLIDE GAMBAR PRODUK (GANTI PATH GAMBAR DI SINI) ======
-const productSlides = {
-  1: ["images/pborne.jpg", "images/petir.jpg", "images/size.jpg"],
-  2: ["images/cooming.jpg", "images/petir.jpg", "images/size.jpg"],
-  3: ["images/cooming.jpg", "images/petir.jpg", "images/size.jpg"],
-  4: ["images/cooming.jpg", "images/petir.jpg", "images/size.jpg"],
-  5: ["images/cooming.jpg", "images/petir.jpg", "images/size.jpg"],
-  6: ["images/cooming.jpg", "images/petir.jpg", "images/size.jpg"],
-  7: ["images/cooming.jpg", "images/petir.jpg", "images/size.jpg"],
-  8: ["images/cooming.jpg", "images/petir.jpg", "images/size.jpg"],
-};
 
 // ====== PASTIKAN ID ELEMEN SAMA DENGAN YANG ADA DI HTML ======
 const productsGridEl = document.getElementById("productsGrid");
@@ -1785,16 +1784,13 @@ if (productsGridEl) {
     const card = media.closest(".product-card");
     if (!card) return;
 
-    const id = card.dataset.id;
-    let slides = productSlides[id];
+    const id = Number(card.dataset.id);
 
-    if (!slides || !slides.length) {
-      const img = media.querySelector("img");
-      if (!img) return;
-      slides = [img.src];
-    }
+    // ambil data dari data.json
+    const product = PRODUCTS.find(p => p.id === id);
+    if (!product || !product.slides || !product.slides.length) return;
 
-    openModalWith(slides, 0);
+    openModalWith(product.slides, 0);
   });
 }
 </script>
@@ -1804,16 +1800,22 @@ if (productsGridEl) {
 </footer>
 
 <script>
-  document.getElementById("yearSpan").textContent = new Date().getFullYear();
-<script>
+  document.getElementById("yearSpan").textContent =
+    new Date().getFullYear();
+</script>
+  
+ <script>
   if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {
       navigator.serviceWorker
         .register("/service-worker.js")
-        .catch((err) => console.error("SW registration failed:", err));
+        .catch(err =>
+          console.error("SW registration failed:", err)
+        );
     });
   }
-<script>
+</script>
+
 fetch("products.json")
   .then(res => res.json())
   .then(products => {
