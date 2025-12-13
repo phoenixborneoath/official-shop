@@ -9,6 +9,18 @@
   <link rel="manifest" href="manifest.webmanifest" />
 <meta name="theme-color" content="#050507">
   <style>
+    /* WARNA STATUS STOCK */
+.stock-ready {
+  color: #22c55e; /* hijau */
+}
+
+.stock-low {
+  color: #f97316; /* orange */
+}
+
+.stock-sold {
+  color: #9ca3af; /* abu-abu */
+}
     .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -1536,78 +1548,92 @@
     // ------- RENDER PRODUK ----------
     const productsGrid = document.getElementById("productsGrid");
     const filterButtons = document.querySelectorAll(".tag-filter");
-
+    
     function renderProducts(filter = "all") {
-      productsGrid.innerHTML = "";
-      const filtered = products.filter(p => filter === "all" ? true : p.category === filter);
+  productsGrid.innerHTML = "";
 
-      filtered.forEach(prod => {
-        const card = document.createElement("article");
-        card.className = "product-card";
-        card.dataset.id = prod.id;
+  const filtered = products.filter(p =>
+    filter === "all" ? true : p.category === filter
+  );
 
-        const badgeClass = prod.isNew ? "product-tag product-tag-new" : "product-tag";
-        const badgeLabel = prod.badge || (prod.isNew ? "New" : "Drop");
+  filtered.forEach(prod => {
 
-        card.innerHTML = `
-  <div class="${badgeClass}">${badgeLabel}</div>
-  <div class="product-media">
-    <img src="${prod.image}" alt="${prod.name}">
-  </div>
-          <div class="product-body">
-            <div class="product-name">${prod.name}</div>
-            <div class="product-meta-row">
-              <div>
-                <span class="price">${formatRupiah(prod.price)}</span>
-                ${
-                  prod.originalPrice
-                    ? `<span class="price-original">${formatRupiah(prod.originalPrice)}</span>`
-                    : ""
-                }
-              </div>
-              ${
-                prod.discount
-                  ? `<span class="discount">${prod.discount}</span>`
-                  : ""
-              }
-            </div>
-           <div class="sizes-row">
-  ${prod.sizes
-    .map(
-      s =>
-        `<span class="size-pill" data-size="${s}" data-product-id="${prod.id}">${s}</span>`
-    )
-    .join("")}
-</div>
-          </div>
-          <div class="product-footer">
-            <button class="btn-add-cart" data-id="${prod.id}">
-              <span>Add to Cart</span>
-              <span>+</span>
-            </button>
-            <div class="stock-text ${
-              prod.stockStatus.toLowerCase().includes("low") ||
-              prod.stockStatus.toLowerCase().includes("very")
-                ? "stock-low"
-                : ""
-            }">
-              ${prod.stockStatus}
-            </div>
-          </div>
-        `;
+    // 1️⃣ LOGIC WARNA STOCK
+    const status = prod.stockStatus.toLowerCase();
+    let stockClass = "";
 
-        productsGrid.appendChild(card);
-      });
-
-      // Tambah event listener setelah render
-      productsGrid.querySelectorAll(".btn-add-cart").forEach(btn => {
-        btn.addEventListener("click", () => {
-          const id = Number(btn.getAttribute("data-id"));
-          addToCart(id);
-        });
-      });
+    if (status.includes("ready")) {
+      stockClass = "stock-ready";
+    } else if (status.includes("low")) {
+      stockClass = "stock-low";
+    } else if (status.includes("sold")) {
+      stockClass = "stock-sold";
     }
 
+    // 2️⃣ BUAT CARD
+    const card = document.createElement("article");
+    card.className = "product-card";
+    card.dataset.id = prod.id;
+
+    const badgeClass = prod.isNew ? "product-tag product-tag-new" : "product-tag";
+    const badgeLabel = prod.badge || (prod.isNew ? "New" : "Drop");
+
+    // 3️⃣ HTML CARD
+    card.innerHTML = `
+      <div class="${badgeClass}">${badgeLabel}</div>
+
+      <div class="product-media">
+        <img src="${prod.image}" alt="${prod.name}">
+      </div>
+
+      <div class="product-body">
+        <div class="product-name">${prod.name}</div>
+
+        <div class="product-meta-row">
+          <div>
+            <span class="price">${formatRupiah(prod.price)}</span>
+            ${
+              prod.originalPrice
+                ? `<span class="price-original">${formatRupiah(prod.originalPrice)}</span>`
+                : ""
+            }
+          </div>
+          ${prod.discount ? `<span class="discount">${prod.discount}</span>` : ""}
+        </div>
+
+        <div class="sizes-row">
+          ${prod.sizes.map(
+            s =>
+              `<span class="size-pill" data-size="${s}" data-product-id="${prod.id}">${s}</span>`
+          ).join("")}
+        </div>
+      </div>
+
+      <div class="product-footer">
+        <button class="btn-add-cart" data-id="${prod.id}">
+          <span>Add to Cart</span>
+          <span>+</span>
+        </button>
+
+        <div class="stock-text ${stockClass}">
+          ${prod.stockStatus}
+        </div>
+      </div>
+    `;
+
+    // 4️⃣ APPEND (HARUS DI SINI)
+    productsGrid.appendChild(card);
+  });
+
+  // event listener
+  productsGrid.querySelectorAll(".btn-add-cart").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const id = Number(btn.getAttribute("data-id"));
+      addToCart(id);
+    });
+  });
+}
+    
     filterButtons.forEach(btn => {
       btn.addEventListener("click", () => {
         filterButtons.forEach(b => b.classList.remove("active"));
