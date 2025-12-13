@@ -1296,8 +1296,7 @@
     
     <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
-import { getFirestore, collection, getDocs } 
-from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "API_KEY_KAMU",
@@ -1308,34 +1307,23 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-const productsGrid = document.getElementById("productsGrid");
+const grid = document.getElementById("productsGrid");
 
-async function loadProducts() {
-  productsGrid.innerHTML = "";
+const snap = await getDocs(collection(db, "products"));
+snap.forEach(doc => {
+  const p = doc.data();
+  if (!p.active) return;
 
-  const snap = await getDocs(collection(db, "products"));
-
-  snap.forEach(docSnap => {
-    const p = docSnap.data();
-    if (!p.active) return;
-
-    const card = document.createElement("article");
-    card.className = "product-card";
-    card.dataset.images = JSON.stringify(p.images);
-
-    card.innerHTML = `
+  grid.innerHTML += `
+    <article class="product-card" data-id="${doc.id}">
       <div class="product-media">
         <img src="${p.images[0]}" alt="${p.title}">
       </div>
       <div class="product-name">${p.title}</div>
       <div class="price">Rp ${p.price.toLocaleString("id-ID")}</div>
-    `;
-
-    productsGrid.appendChild(card);
-  });
-}
-
-loadProducts();
+    </article>
+  `;
+});
 </script>
     
     // ------- UTIL: FORMAT RUPIAH ----------
@@ -1363,10 +1351,10 @@ loadProducts();
         const badgeLabel = prod.badge || (prod.isNew ? "New" : "Drop");
 
         card.innerHTML = `
-  <div class="${badgeClass}">${badgeLabel}</div>
   <div class="product-media">
-    <img src="${prod.image}" alt="${prod.name}">
+    <img src="${p.images[0]}" alt="${p.title}">
   </div>
+card.dataset.images = JSON.stringify(p.images);
           <div class="product-body">
             <div class="product-name">${prod.name}</div>
             <div class="product-meta-row">
@@ -1598,9 +1586,7 @@ productsGrid.addEventListener("click", (e) => {
 updateCartUI();
 </script>
 
-<!-- ✅ TEMPEL SCRIPT SLIDE + MODAL DI SINI -->
 <script>
-// ====== PASTIKAN ID ELEMEN SAMA DENGAN YANG ADA DI HTML ======
 const productsGridEl = document.getElementById("productsGrid");
 const imageModal = document.getElementById("imageModal");
 const modalImage = document.getElementById("modalImage");
@@ -1608,70 +1594,59 @@ const closeImageModal = document.getElementById("closeImageModal");
 const prevImageBtn = document.getElementById("prevImage");
 const nextImageBtn = document.getElementById("nextImage");
 
-  let currentList = [];
-  let currentIndex = 0;
+let currentList = [];
+let currentIndex = 0;
 
-  function openModalWith(list, index = 0) {
+function openModalWith(list, index = 0) {
   if (!list || !list.length) return;
   currentList = list;
   currentIndex = index;
   modalImage.src = currentList[currentIndex];
   imageModal.classList.add("show");
-  document.body.style.overflow = "hidden"; // disable scroll background
+  document.body.style.overflow = "hidden";
 }
 
 function closeImageModalFn() {
   imageModal.classList.remove("show");
-  document.body.style.overflow = ""; // restore scroll
+  document.body.style.overflow = "";
 }
 
-// keyboard ESC
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && imageModal.classList.contains("show")) {
-    closeImageModalFn();
-  }
-});
-
 function changeImage(step) {
-  if (!currentList.length) return;
   const len = currentList.length;
   currentIndex = (currentIndex + step + len) % len;
   modalImage.src = currentList[currentIndex];
 }
 
 closeImageModal.addEventListener("click", closeImageModalFn);
-imageModal.addEventListener("click", (e) => {
+imageModal.addEventListener("click", e => {
   if (e.target === imageModal) closeImageModalFn();
 });
-nextImageBtn.addEventListener("click", (e) => {
+nextImageBtn.addEventListener("click", e => {
   e.stopPropagation();
   changeImage(1);
 });
-prevImageBtn.addEventListener("click", (e) => {
+prevImageBtn.addEventListener("click", e => {
   e.stopPropagation();
   changeImage(-1);
 });
 
-if (productsGridEl) {
-  productsGridEl.addEventListener("click", (e) => {
-    const media = e.target.closest(".product-media");
-    if (!media) return;
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") closeImageModalFn();
+});
 
-    const card = media.closest(".product-card");
-    if (!card) return;
+/* 🔥 AMBIL GAMBAR LANGSUNG DARI DATA PRODUK */
+productsGridEl.addEventListener("click", e => {
+  const media = e.target.closest(".product-media");
+  if (!media) return;
 
-    const id = card.dataset.id;
-    let slides = productSlides[id];
+  const card = media.closest(".product-card");
+  if (!card) return;
 
-    if (!slides || !slides.length) {
-      const img = media.querySelector("img");
-      if (!img) return;
-      slides = [img.src];
-    }
+  const slides = JSON.parse(card.dataset.images || "[]");
+  if (!slides.length) return;
 
-    openModalWith(slides, 0);
-  });
-}
+  openModalWith(slides, 0);
+});
 </script>
 
 <footer>
@@ -1679,41 +1654,15 @@ if (productsGridEl) {
 </footer>
 
 <script>
-  document.getElementById("yearSpan").textContent = new Date().getFullYear();
+document.getElementById("yearSpan").textContent = new Date().getFullYear();
+</script>
+
 <script>
-  if ("serviceWorker" in navigator) {
-    window.addEventListener("load", () => {
-      navigator.serviceWorker
-        .register("/service-worker.js")
-        .catch((err) => console.error("SW registration failed:", err));
-    });
-  }
-<script>
-fetch("products.json")
-  .then(res => res.json())
-  .then(products => {
-    const grid = document.getElementById("productGrid");
-    grid.innerHTML = "";
-
-    products.forEach(product => {
-      const soldOut = product.status !== "ready" || product.stock <= 0;
-
-      const card = document.createElement("div");
-      card.className = "product-card";
-
-      card.innerHTML = `
-        <img src="${product.image}" alt="${product.name}">
-        <h3>${product.name}</h3>
-        <p class="price">Rp ${product.price.toLocaleString("id-ID")}</p>
-        <p class="stock">Stok: ${product.stock}</p>
-        <button ${soldOut ? "disabled" : ""}>
-          ${soldOut ? "SOLD OUT" : "BELI SEKARANG"}
-        </button>
-      `;
-
-      grid.appendChild(card);
-    });
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/service-worker.js");
   });
+}
 </script>
 </body>
 </html>
