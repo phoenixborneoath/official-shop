@@ -1293,39 +1293,162 @@
 </div>
 
   <script>
-    
-    <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+    // ------- DATA PRODUK (EDIT DI SINI) ---------
+    const products = [
+  {
+    id: 1,
+    name: "PHOENIXBORNE TEE",
+    slug: "phoenix-borne-tee",
+    category: "limited",
+    price: 289000,
+    originalPrice: null,
+    badge: "First article",
+    isNew: true,
+    discount: "SAVE 15%",
+    sizes: ["S", "M", "L", "XL", "XXL"],
+    stockStatus: "Limited stock",
+    image: "images/pborne.jpg",
+    images: [
+      "images/pborne.jpg",
+      "images/petir.jpg",
+      "images/size.jpg"
+    ]
+  },
+  {
+    id: 2,
+    name: "COMING SOON TEE",
+    slug: "coming-soon-tee",
+    category: "essentials",
+    price: 0,
+    originalPrice: null,
+    badge: "Essentials",
+    isNew: false,
+    discount: "",
+    sizes: ["S", "M", "L", "XL", "XXL"],
+    stockStatus: "Ready stock",
+    image: "images/cooming.jpg",
+    images: [
+      "images/cooming.jpg",
+      "images/petir.jpg",
+      "images/size.jpg"
+    ]
+  },
+  {
+    id: 3,
+    name: "COMING SOON TEE",
+    slug: "coming-soon-tee",
+    category: "special",
+    price: 0,
+    originalPrice: 0,
+    badge: "Special Material",
+    isNew: true,
+    discount: "Marble Edition",
+    sizes: ["S", "M", "L", "XL", "XXL"],
+    stockStatus: "Very limited",
+    image: "images/cooming.jpg",
+    images: [
+      "images/cooming.jpg",
+      "images/petir.jpg",
+      "images/size.jpg"
+    ]
+  },
+  {
+    id: 4,
+    name: "COMING SOON TEE",
+    slug: "coming-soon-tee",
+    category: "limited",
+    price: 0,
+    originalPrice: null,
+    badge: "Limited",
+    isNew: false,
+    discount: "",
+    sizes: ["S", "M", "L", "XL", "XXL"],
+    stockStatus: "Ready stock",
+    image: "images/cooming.jpg",
+    images: [
+      "images/cooming.jpg",
+      "images/petir.jpg",
+      "images/size.jpg"
+    ]
+  },
+  {
+    id: 5,
+    name: "COMING SOON TEE",
+    slug: "coming-soon-tee",
+    category: "essentials",
+    price: 0,
+    originalPrice: null,
+    badge: "Essentials",
+    isNew: false,
+    discount: "Daily Wear",
+    sizes: ["S", "M", "L", "XL", "XXL"],
+    stockStatus: "Ready stock",
+    image: "images/cooming.jpg",
+    images: [
+      "images/cooming.jpg",
+      "images/petir.jpg",
+      "images/size.jpg"
+    ]
+  },
+  {
+    id: 6,
+    name: "COMING SOON TEE",
+    slug: "coming-soon-tee",
+    category: "limited",
+    price: 0,
+    originalPrice: null,
+    badge: "Night Drop",
+    isNew: true,
+    discount: "Limited Run",
+    sizes: ["S", "M", "L", "XL", "XXL"],
+    stockStatus: "Low stock",
+    image: "images/cooming.jpg",
+    images: [
+      "images/cooming.jpg",
+      "images/petir.jpg",
+      "images/size.jpg"
+    ]
+  },
+  {
+    id: 7,
+    name: "COMING SOON TEE",
+    slug: "coming-soon-tee",
+    category: "special",
+    price: 0,
+    originalPrice: null,
+    badge: "Special Material",
+    isNew: false,
+    discount: "",
+    sizes: ["S", "M", "L", "XL", "XXL"],
+    stockStatus: "Ready stock",
+    image: "images/cooming.jpg",
+    images: [
+      "images/cooming.jpg",
+      "images/petir.jpg",
+      "images/size.jpg"
+    ]
+  },
+  {
+    id: 8,
+    name: "COMING SOON TEE",
+    slug: "coming-soon-tee",
+    category: "essentials",
+    price: 0,
+    originalPrice: null,
+    badge: "Essentials",
+    isNew: false,
+    discount: "",
+    sizes: ["S", "M", "L", "XL", "XXL"],
+    stockStatus: "Ready stock",
+    image: "images/cooming.jpg",
+    images: [
+      "images/cooming.jpg",
+      "images/petir.jpg",
+      "images/size.jpg"
+    ]
+  }
+];
 
-const firebaseConfig = {
-  apiKey: "API_KEY_KAMU",
-  authDomain: "phoenixborne-oath-shop.firebaseapp.com",
-  projectId: "phoenixborne-oath-shop",
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-const grid = document.getElementById("productsGrid");
-
-const snap = await getDocs(collection(db, "products"));
-snap.forEach(doc => {
-  const p = doc.data();
-  if (!p.active) return;
-
-  grid.innerHTML += `
-    <article class="product-card" data-id="${doc.id}">
-      <div class="product-media">
-        <img src="${p.images[0]}" alt="${p.title}">
-      </div>
-      <div class="product-name">${p.title}</div>
-      <div class="price">Rp ${p.price.toLocaleString("id-ID")}</div>
-    </article>
-  `;
-});
-</script>
-    
     // ------- UTIL: FORMAT RUPIAH ----------
     const formatRupiah = (value) =>
       new Intl.NumberFormat("id-ID", {
@@ -1351,10 +1474,10 @@ snap.forEach(doc => {
         const badgeLabel = prod.badge || (prod.isNew ? "New" : "Drop");
 
         card.innerHTML = `
+  <div class="${badgeClass}">${badgeLabel}</div>
   <div class="product-media">
-    <img src="${p.images[0]}" alt="${p.title}">
+    <img src="${prod.image}" alt="${prod.name}">
   </div>
-card.dataset.images = JSON.stringify(p.images);
           <div class="product-body">
             <div class="product-name">${prod.name}</div>
             <div class="product-meta-row">
@@ -1572,21 +1695,37 @@ card.dataset.images = JSON.stringify(p.images);
     renderProducts("all");
 
 productsGrid.addEventListener("click", (e) => {
-  const media = e.target.closest(".product-media");
-  if (!media) return;
+  const pill = e.target.closest(".size-pill");
+  if (!pill) return;
 
-  const card = media.closest(".product-card");
-  const slides = JSON.parse(card.dataset.images || "[]");
+  const productId = Number(pill.getAttribute("data-product-id"));
+  const size = pill.getAttribute("data-size");
 
-  if (!slides.length) return;
+  const sizesRow = pill.parentElement;
+  sizesRow.querySelectorAll(".size-pill").forEach(el => el.classList.remove("active"));
 
-  openModalWith(slides, 0);
+  pill.classList.add("active");
+  selectedSizes[productId] = size;
 });
 
 updateCartUI();
 </script>
 
+<!-- ✅ TEMPEL SCRIPT SLIDE + MODAL DI SINI -->
 <script>
+  // ====== SLIDE GAMBAR PRODUK (GANTI PATH GAMBAR DI SINI) ======
+const productSlides = {
+  1: ["images/pborne.jpg", "images/petir.jpg", "images/size.jpg"],
+  2: ["images/cooming.jpg", "images/petir.jpg", "images/size.jpg"],
+  3: ["images/cooming.jpg", "images/petir.jpg", "images/size.jpg"],
+  4: ["images/cooming.jpg", "images/petir.jpg", "images/size.jpg"],
+  5: ["images/cooming.jpg", "images/petir.jpg", "images/size.jpg"],
+  6: ["images/cooming.jpg", "images/petir.jpg", "images/size.jpg"],
+  7: ["images/cooming.jpg", "images/petir.jpg", "images/size.jpg"],
+  8: ["images/cooming.jpg", "images/petir.jpg", "images/size.jpg"],
+};
+
+// ====== PASTIKAN ID ELEMEN SAMA DENGAN YANG ADA DI HTML ======
 const productsGridEl = document.getElementById("productsGrid");
 const imageModal = document.getElementById("imageModal");
 const modalImage = document.getElementById("modalImage");
@@ -1594,59 +1733,70 @@ const closeImageModal = document.getElementById("closeImageModal");
 const prevImageBtn = document.getElementById("prevImage");
 const nextImageBtn = document.getElementById("nextImage");
 
-let currentList = [];
-let currentIndex = 0;
+  let currentList = [];
+  let currentIndex = 0;
 
-function openModalWith(list, index = 0) {
+  function openModalWith(list, index = 0) {
   if (!list || !list.length) return;
   currentList = list;
   currentIndex = index;
   modalImage.src = currentList[currentIndex];
   imageModal.classList.add("show");
-  document.body.style.overflow = "hidden";
+  document.body.style.overflow = "hidden"; // disable scroll background
 }
 
 function closeImageModalFn() {
   imageModal.classList.remove("show");
-  document.body.style.overflow = "";
+  document.body.style.overflow = ""; // restore scroll
 }
 
+// keyboard ESC
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && imageModal.classList.contains("show")) {
+    closeImageModalFn();
+  }
+});
+
 function changeImage(step) {
+  if (!currentList.length) return;
   const len = currentList.length;
   currentIndex = (currentIndex + step + len) % len;
   modalImage.src = currentList[currentIndex];
 }
 
 closeImageModal.addEventListener("click", closeImageModalFn);
-imageModal.addEventListener("click", e => {
+imageModal.addEventListener("click", (e) => {
   if (e.target === imageModal) closeImageModalFn();
 });
-nextImageBtn.addEventListener("click", e => {
+nextImageBtn.addEventListener("click", (e) => {
   e.stopPropagation();
   changeImage(1);
 });
-prevImageBtn.addEventListener("click", e => {
+prevImageBtn.addEventListener("click", (e) => {
   e.stopPropagation();
   changeImage(-1);
 });
 
-document.addEventListener("keydown", e => {
-  if (e.key === "Escape") closeImageModalFn();
-});
+if (productsGridEl) {
+  productsGridEl.addEventListener("click", (e) => {
+    const media = e.target.closest(".product-media");
+    if (!media) return;
 
-/* 🔥 AMBIL GAMBAR LANGSUNG DARI DATA PRODUK */
-productsGridEl.addEventListener("click", e => {
-  const media = e.target.closest(".product-media");
-  if (!media) return;
+    const card = media.closest(".product-card");
+    if (!card) return;
 
-  const card = media.closest(".product-card");
-  if (!card) return;
+    const id = card.dataset.id;
+    let slides = productSlides[id];
 
-  const slides = JSON.parse(card.dataset.images || "[]");
-  if (!slides.length) return;
+    if (!slides || !slides.length) {
+      const img = media.querySelector("img");
+      if (!img) return;
+      slides = [img.src];
+    }
 
-  openModalWith(slides, 0);
-});
+    openModalWith(slides, 0);
+  });
+}
 </script>
 
 <footer>
@@ -1654,15 +1804,41 @@ productsGridEl.addEventListener("click", e => {
 </footer>
 
 <script>
-document.getElementById("yearSpan").textContent = new Date().getFullYear();
-</script>
-
+  document.getElementById("yearSpan").textContent = new Date().getFullYear();
 <script>
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("/service-worker.js");
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker
+        .register("/service-worker.js")
+        .catch((err) => console.error("SW registration failed:", err));
+    });
+  }
+<script>
+fetch("products.json")
+  .then(res => res.json())
+  .then(products => {
+    const grid = document.getElementById("productGrid");
+    grid.innerHTML = "";
+
+    products.forEach(product => {
+      const soldOut = product.status !== "ready" || product.stock <= 0;
+
+      const card = document.createElement("div");
+      card.className = "product-card";
+
+      card.innerHTML = `
+        <img src="${product.image}" alt="${product.name}">
+        <h3>${product.name}</h3>
+        <p class="price">Rp ${product.price.toLocaleString("id-ID")}</p>
+        <p class="stock">Stok: ${product.stock}</p>
+        <button ${soldOut ? "disabled" : ""}>
+          ${soldOut ? "SOLD OUT" : "BELI SEKARANG"}
+        </button>
+      `;
+
+      grid.appendChild(card);
+    });
   });
-}
 </script>
 </body>
 </html>
