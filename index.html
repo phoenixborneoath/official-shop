@@ -9,18 +9,6 @@
   <link rel="manifest" href="manifest.webmanifest" />
 <meta name="theme-color" content="#050507">
   <style>
-    /* WARNA STATUS STOCK */
-.stock-ready {
-  color: #22c55e; /* hijau */
-}
-
-.stock-low {
-  color: #f97316; /* orange */
-}
-
-.stock-sold {
-  color: #9ca3af; /* abu-abu */
-}
     .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -816,16 +804,26 @@
     }
 
     .btn-add-cart:hover {
-      border-color: var(--accent);
-      box-shadow: 0 0 22px rgba(248, 113, 113, 0.5);
-      transform: translateY(-1px);
-    }
-
+  border-color: var(--accent);
+  box-shadow: 0 0 22px rgba(248, 113, 113, 0.5);
+  transform: translateY(-1px);
+}
     .stock-text {
-      font-size: 0.7rem;
-      color: var(--muted);
-      white-space: nowrap;
-    }
+  font-size: 0.7rem;
+  white-space: nowrap;
+}
+
+.stock-ready {
+  color: #22c55e; /* hijau */
+}
+
+.stock-low {
+  color: #f97316; /* orange */
+}
+
+.stock-sold {
+  color: #9ca3af; /* abu-abu */
+}
 
     .stock-low {
       color: #f97316;
@@ -1910,16 +1908,14 @@ if (productsGridEl) {
 
 <script>
   document.getElementById("yearSpan").textContent = new Date().getFullYear();
-</script>
-  if ("serviceWorker" in navigator) {
-    window.addEventListener("load", () => {
-      navigator.serviceWorker
-        .register("/service-worker.js")
-        .catch((err) => console.error("SW registration failed:", err));
-    });
-  }
 <script>
-
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("/service-worker.js")
+      .catch((err) => console.error("SW registration failed:", err));
+  });
+}
 </script>
 </body>
 </html>
