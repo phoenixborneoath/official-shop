@@ -1,0 +1,13 @@
+{
+  "slider": [
+    "images/pborne.jpg",
+    "images/petir.jpg",
+    "images/size.jpg"
+  ],
+  "product": {
+    "name": "REBORN FROM ASHES",
+    "price": 279000,
+    "status": "COMING SOON",
+    "image": "images/product1.jpg"
+  }
+}
