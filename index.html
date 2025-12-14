@@ -1133,7 +1133,7 @@
   </style>
 </head>
 <body>
-  <div class="product-grid" id="productGrid"></div>
+  
   <header class="navbar">
     <div class="nav-inner">
      <div class="logo">
@@ -1228,7 +1228,7 @@
         <button class="tag-filter active" data-filter="all">All</button>
         <button class="tag-filter" data-filter="ready">Ready</button>
         <button class="tag-filter" data-filter="limited">Limited</button>
-        <button class="tag-filter" data-filter="sold out">Sold Out</button>
+        <button class="tag-filter" data-filter="soldout">Sold Out</button>
       </div>
 
       <div class="products-grid" id="productsGrid">
@@ -1328,7 +1328,7 @@
     id: 2,
     name: "COMING SOON TEE",
     slug: "coming-soon-tee",
-    category: "sold out",
+    category: "soldout",
     price: 0,
     originalPrice: null,
     badge: "Sold Out",
@@ -1627,15 +1627,6 @@ updateCartUI();
 const productSlides = {
   1: ["images/pborne.jpg", "images/petir.jpg", "images/size.jpg"],
   2: ["images/cooming.jpg", "images/petir.jpg", "images/size.jpg"],
-  3: ["images/cooming.jpg", "images/petir.jpg", "images/size.jpg"],
-  4: ["images/cooming.jpg", "images/petir.jpg", "images/size.jpg"],
-  5: ["images/cooming.jpg", "images/petir.jpg", "images/size.jpg"],
-  6: ["images/cooming.jpg", "images/petir.jpg", "images/size.jpg"],
-  7: ["images/cooming.jpg", "images/petir.jpg", "images/size.jpg"],
-  8: ["images/cooming.jpg", "images/petir.jpg", "images/size.jpg"],
-  9: ["images/cooming.jpg", "images/petir.jpg", "images/size.jpg"],
-  10: ["images/cooming.jpg", "images/petir.jpg", "images/size.jpg"],
-  11: ["images/cooming.jpg", "images/petir.jpg", "images/size.jpg"],
 };
 
 // ====== PASTIKAN ID ELEMEN SAMA DENGAN YANG ADA DI HTML ======
@@ -1692,7 +1683,7 @@ prevImageBtn.addEventListener("click", (e) => {
 
 if (productsGridEl) {
   productsGridEl.addEventListener("click", (e) => {
-    const media = e.target.closest(".product-media");
+    const media = e.target.closest(".product-media img");
     if (!media) return;
 
     const card = media.closest(".product-card");
@@ -1717,13 +1708,16 @@ if (productsGridEl) {
 </footer>
 
 <script>
-  document.getElementById("yearSpan").textContent = new Date().getFullYear();
+  document.getElementById("yearSpan").textContent =
+    new Date().getFullYear();
+</script>
+
 <script>
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
     navigator.serviceWorker
       .register("/service-worker.js")
-      .catch((err) => console.error("SW registration failed:", err));
+      .catch(err => console.error("SW registration failed:", err));
   });
 }
 </script>
