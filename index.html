@@ -9,6 +9,26 @@
   <link rel="manifest" href="manifest.webmanifest" />
 <meta name="theme-color" content="#050507">
   <style>
+    .size-disabled {
+  opacity: 0.35;
+  position: relative;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.size-disabled::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    transparent 45%,
+    rgba(255,255,255,0.6) 48%,
+    rgba(255,255,255,0.6) 52%,
+    transparent 55%
+  );
+  pointer-events: none;
+}
     .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
@@ -1315,7 +1335,13 @@
     badge: "First article",
     isNew: false,
     discount: "New Arrival",
-    sizes: ["S", "M", "L", "XL", "XXL"],
+    sizes: {
+  S: true,
+  M: true,
+  L: true,
+  XL: true,
+  XXL: false
+},
     stockStatus: "Ready Stock",
     image: "images/pborne.jpg",
     images: [
@@ -1334,7 +1360,13 @@
     badge: "Sold Out",
     isNew: false,
     discount: "",
-    sizes: ["S", "M", "L", "XL", "XXL"],
+   sizes: {
+  S: false,
+  M: false,
+  L: false,
+  XL: false,
+  XXL: false
+},
     stockStatus: "Sold Out",
     image: "images/cooming.jpg",
     images: [
@@ -1365,6 +1397,8 @@
   );
 
   filtered.forEach(prod => {
+
+    const allSizesSoldOut = Object.values(prod.sizes).every(v => !v);
 
     // 1️⃣ LOGIC WARNA STOCK
     const status = prod.stockStatus.toLowerCase();
@@ -1410,18 +1444,28 @@
         </div>
 
         <div class="sizes-row">
-          ${prod.sizes.map(
-            s =>
-              `<span class="size-pill" data-size="${s}" data-product-id="${prod.id}">${s}</span>`
-          ).join("")}
-        </div>
-      </div>
+  ${
+    Object.entries(prod.sizes).map(([size, available]) => `
+      <span
+        class="size-pill ${available ? "" : "size-disabled"}"
+        data-size="${size}"
+        data-product-id="${prod.id}"
+        ${available ? "" : "aria-disabled='true'"}
+      >
+        ${size}
+      </span>
+    `).join("")
+  }
+</div>
 
       <div class="product-footer">
-        <button class="btn-add-cart" data-id="${prod.id}">
-          <span>Add to Cart</span>
-          <span>+</span>
-        </button>
+        <button
+  class="btn-add-cart"
+  data-id="${prod.id}"
+  ${allSizesSoldOut ? "disabled" : ""}
+>
+  ${allSizesSoldOut ? "Sold Out" : "Add to Cart +"}
+</button>
 
         <div class="stock-text ${stockClass}">
           ${prod.stockStatus}
@@ -1605,7 +1649,7 @@
     renderProducts("all");
 
 productsGrid.addEventListener("click", (e) => {
-  const pill = e.target.closest(".size-pill");
+  const pill = e.target.closest(".size-pill:not(.size-disabled)");
   if (!pill) return;
 
   const productId = Number(pill.getAttribute("data-product-id"));
