@@ -1,0 +1,52 @@
+const products = [
+  {
+    id: 1,
+    name: "PHOENIXBORNE TEE",
+    slug: "phoenix-borne-tee",
+    category: "limited",
+    price: 289000,
+    originalPrice: null,
+    badge: "First article",
+    isNew: false,
+    discount: "New Arrival",
+    sizes: {
+  S: true,
+  M: true,
+  L: true,
+  XL: true,
+  XXL: false
+},
+    stockStatus: "Ready Stock",
+    image: "images/pborne.jpg",
+    images: [
+      "images/pborne.jpg",
+      "images/petir.jpg",
+      "images/size.jpg"
+    ]
+  },
+  {
+    id: 2,
+    name: "COMING SOON TEE",
+    slug: "coming-soon-tee",
+    category: "soldout",
+    price: 0,
+    originalPrice: null,
+    badge: "Sold Out",
+    isNew: false,
+    discount: "",
+   sizes: {
+  S: false,
+  M: false,
+  L: false,
+  XL: false,
+  XXL: false
+},
+    stockStatus: "Sold Out",
+    image: "images/cooming.jpg",
+    images: [
+      "images/cooming.jpg",
+      "images/petir.jpg",
+      "images/size.jpg"
+    ]
+  }
+];
