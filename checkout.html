@@ -688,12 +688,9 @@ Mohon dicek, terima kasih.`;
   }, 1000);
 });
 
-   <script>
-  // ===== TAHUN FOOTER =====
-  document.getElementById("yearSpan").textContent = new Date().getFullYear();
-
-  // ===== DOWNLOAD QRIS =====
-  function downloadQRIS() {
+    // Tahun footer
+    document.getElementById("yearSpan").textContent = new Date().getFullYear();
+ function downloadQRIS() {
     const img = document.getElementById("qrisImage");
     if (!img) return;
 
@@ -704,19 +701,6 @@ Mohon dicek, terima kasih.`;
     link.click();
     document.body.removeChild(link);
   }
-
-  // ===== BLOK AKSI AWAM =====
-  document.addEventListener("contextmenu", e => e.preventDefault());
-
-  document.addEventListener("keydown", e => {
-    if (
-      e.key === "F12" ||
-      (e.ctrlKey && e.key.toLowerCase() === "u") ||
-      (e.ctrlKey && e.shiftKey && ["i","j","c"].includes(e.key.toLowerCase()))
-    ) {
-      e.preventDefault();
-    }
-  });
 </script>
 </body>
 </html>
