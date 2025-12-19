@@ -292,28 +292,42 @@
 
     <div class="grid">
       <!-- RINGKASAN BELANJA -->
-      <section class="card">
-        <h2>Ringkasan Order</h2>
-        <div id="cartItems" class="cart-items"></div>
+     <section class="card">
+  <h2>Pembayaran</h2>
 
-        <div class="summary-row">
-          <div class="summary-label">Subtotal</div>
-          <div class="summary-value" id="subtotalText">Rp 0</div>
-        </div>
-        <div class="summary-row">
-          <div class="summary-label">Ongkir</div>
-          <div class="summary-value" id="shippingText">Rp 0</div>
-        </div>
-        <div class="summary-row summary-total">
-          <div class="summary-label">Total Bayar</div>
-          <div class="summary-value" id="totalText">Rp 0</div>
-        </div>
+  <p class="note-small">
+    Silakan lakukan pembayaran sesuai <strong>Total Bayar</strong>
+    melalui QRIS BCA.
+  </p>
 
-        <p class="note-small" style="margin-top:0.8rem;">
-          Ongkir otomatis berdasarkan provinsi tujuan. Pengiriman dari
-          <strong>Sumatra Selatan</strong>. Nominal akhir tetap dikonfirmasi via WhatsApp.
-        </p>
-      </section>
+  <div style="margin-top:0.8rem; text-align:center;">
+    <strong>Total Transfer:</strong><br>
+    <span id="payTotal" style="font-size:1.1rem;">
+      Rp 0
+    </span>
+  </div>
+
+  <p class="note-small" style="margin-top:0.6rem; text-align:center;">
+    Pastikan nominal transfer sesuai.
+    Setelah transfer, lanjutkan konfirmasi via WhatsApp.
+  </p>
+
+  <!-- QRIS DI BAWAH -->
+  <div style="margin-top:1rem; text-align:center;">
+    <img
+      src="images/qris-bca.png"
+      alt="QRIS BCA PHOENIXBORNE OATH"
+      style="
+        max-width:220px;
+        border-radius:12px;
+        border:1px solid #1f2933;
+      "
+    />
+    <p class="note-small" style="margin-top:0.4rem;">
+      Scan QRIS menggunakan aplikasi mobile banking / e-wallet
+    </p>
+  </div>
+</section>
       
       <section class="card">
   <h2>Pembayaran</h2>
