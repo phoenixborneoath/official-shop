@@ -314,6 +314,35 @@
           <strong>Sumatra Selatan</strong>. Nominal akhir tetap dikonfirmasi via WhatsApp.
         </p>
       </section>
+      
+      <section class="card">
+  <h2>Pembayaran</h2>
+
+  <p class="note-small">
+    Silakan lakukan pembayaran sesuai <strong>Total Bayar</strong>
+    melalui QRIS BCA di bawah ini.
+  </p>
+
+  <div style="margin-top:1rem; text-align:center;">
+    <img
+      src="images/qris-bca.png"
+      alt="QRIS BCA PHOENIXBORNE OATH"
+      style="max-width:220px; border-radius:12px; border:1px solid #1f2933;"
+    />
+  </div>
+
+  <div style="margin-top:0.8rem; text-align:center;">
+    <strong>Total Transfer:</strong><br>
+    <span id="payTotal" style="font-size:1.1rem;">
+      Rp 0
+    </span>
+  </div>
+
+  <p class="note-small" style="margin-top:0.6rem;">
+    Pastikan nominal transfer sesuai.
+    Setelah transfer, lanjutkan konfirmasi via WhatsApp.
+  </p>
+</section>
 
       <!-- FORM ALAMAT -->
       <section class="card">
@@ -412,6 +441,34 @@
             Setelah klik tombol di bawah, kamu akan diarahkan ke WhatsApp resmi
             untuk konfirmasi pesanan & pembayaran.
           </p>
+          <hr style="border-color:#1f2933; margin:1rem 0;">
+
+<div class="field">
+  <label>Atas Nama Pengirim</label>
+  <input id="payName" type="text" placeholder="Nama di rekening / e-wallet" required>
+</div>
+
+<div class="field">
+  <label>Metode Pembayaran</label>
+  <select id="payMethod" required>
+    <option value="">Pilih metode</option>
+    <option>QRIS BCA</option>
+    <option>BCA Transfer</option>
+    <option>DANA</option>
+    <option>OVO</option>
+    <option>GOPAY</option>
+  </select>
+</div>
+
+<div class="field">
+  <label>Waktu Transfer</label>
+  <input id="payTime" type="time" required>
+</div>
+
+<label class="note-small">
+  <input type="checkbox" id="confirmPaid">
+  Saya sudah melakukan pembayaran
+</label>
 
           <button id="waButton" class="btn-wa">Kirim ke WhatsApp</button>
         </form>
@@ -540,14 +597,19 @@
       return shippingMap[prov] || 0;
     }
 
+    const payTotalEl = document.getElementById("payTotal");
     function updateTotals() {
-      const shipping = getShippingCost();
-      const total = subtotal + shipping;
+  const shipping = getShippingCost();
+  const total = subtotal + shipping;
 
-      subtotalText.textContent = formatRupiah(subtotal);
-      shippingText.textContent = formatRupiah(shipping);
-      totalText.textContent = formatRupiah(total);
-    }
+  subtotalText.textContent = formatRupiah(subtotal);
+  shippingText.textContent = formatRupiah(shipping);
+  totalText.textContent = formatRupiah(total);
+
+  if (payTotalEl) {
+    payTotalEl.textContent = formatRupiah(total);
+  }
+}
 
     // ========= EVENT: UBAH PROVINSI =========
     document.getElementById("province").addEventListener("change", updateTotals);
@@ -598,30 +660,64 @@
   const shipping = getShippingCost();
   const total = subtotal + shipping;
 
-  // teks order per item (pakai newline biasa)
-  const cartLinesPlain = cart
-    .map((entry) =>
-      `- ${entry.product.name} (Size: ${entry.size || "-"}, Qty: ${entry.qty}) = ${formatRupiah(
-        entry.product.price * entry.qty
-      )}`
-    )
-    .join("\n");
+      // === LIST ITEM ORDER ===
+const cartLinesPlain = cart
+  .map((entry) =>
+    `- ${entry.product.name} (Size: ${entry.size || "-"}, Qty: ${entry.qty}) = ${formatRupiah(
+      entry.product.price * entry.qty
+    )}`
+  )
+  .join("\n");
 
-  const messagePlain =
-    `Halo admin PHOENIXBORNE OATH, saya ingin order:\n` +
-    `${cartLinesPlain}\n\n` +
-    `Subtotal: ${formatRupiah(subtotal)}\n` +
-    `Ongkir (${provinceLabel}): ${formatRupiah(shipping)}\n` +
-    `Total Bayar: ${formatRupiah(total)}\n\n` +
-    `Data Penerima:\n` +
-    `Nama: ${name}\n` +
-    `No. WA: ${phoneDisplay}\n` +      // <-- pakai phoneDisplay
-    `Provinsi: ${provinceLabel}\n` +
-    `Kota/Kab: ${city}\n` +
-    `Kecamatan: ${district}\n` +
-    `Kode Pos: ${postcode}\n` +
-    `Alamat lengkap: ${address}\n\n` +
-    `Metode pembayaran: Transfer (konfirmasi via admin).`;
+
+  // === VALIDASI SUDAH TRANSFER ===
+if (!document.getElementById("confirmPaid").checked) {
+  alert("Silakan lakukan pembayaran terlebih dahulu.");
+  waBtn.disabled = false;
+  waBtn.style.opacity = "";
+  waBtn.style.pointerEvents = "";
+  return;
+}
+
+const payName = document.getElementById("payName").value.trim();
+const payMethod = document.getElementById("payMethod").value;
+const payTime = document.getElementById("payTime").value;
+
+if (!payName || !payMethod || !payTime) {
+  alert("Lengkapi data konfirmasi pembayaran.");
+  waBtn.disabled = false;
+  waBtn.style.opacity = "";
+  waBtn.style.pointerEvents = "";
+  return;
+}
+
+// === PESAN WHATSAPP ===
+const messagePlain =
+`Halo admin PHOENIXBORNE OATH, saya ingin konfirmasi pembayaran.
+
+Order:
+${cartLinesPlain}
+
+Subtotal: ${formatRupiah(subtotal)}
+Ongkir (${provinceLabel}): ${formatRupiah(shipping)}
+Total Bayar: ${formatRupiah(total)}
+
+Data Penerima:
+Nama: ${name}
+No. WA: ${phoneDisplay}
+Provinsi: ${provinceLabel}
+Kota/Kab: ${city}
+Kecamatan: ${district}
+Kode Pos: ${postcode}
+Alamat: ${address}
+
+Detail Pembayaran:
+Atas Nama: ${payName}
+Metode: ${payMethod}
+Waktu Transfer: ${payTime}
+Nominal: ${formatRupiah(total)}
+
+Mohon dicek, terima kasih.`;
 
   // GANTI NOMOR INI DENGAN NOMOR WHATSAPP RESMI MU (format 62xxx)
   const waNumber = "62895809679191";
@@ -630,9 +726,9 @@
   window.open(waUrl, "_blank");
 
   // kosongkan cart di browser
-  localStorage.removeItem("pbo_cart");
-  cart = [];
-  renderCart();
+ // localStorage.removeItem("pbo_cart");
+  //cart = [];
+ // renderCart();
 
   // restore button (opsional)
   setTimeout(() => {
