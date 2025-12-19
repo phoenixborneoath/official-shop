@@ -370,16 +370,61 @@
   </div>
 
   <div class="field">
-    <label>Provinsi</label>
-    <select id="province" required>
-      <option value="">Pilih provinsi</option>
-      <option value="jakarta">DKI Jakarta</option>
-      <option value="jabar">Jawa Barat</option>
-      <option value="jateng">Jawa Tengah</option>
-      <option value="jatim">Jawa Timur</option>
-      <option value="bali">Bali</option>
-    </select>
-  </div>
+            <label for="province">Provinsi</label>
+            <select id="province" required>
+  <option value="">Pilih provinsi</option>
+
+  <!-- Sumatra -->
+  <option value="aceh">Aceh</option>
+  <option value="sumut">Sumatra Utara</option>
+  <option value="sumbar">Sumatra Barat</option>
+  <option value="riau">Riau</option>
+  <option value="kepri">Kepulauan Riau</option>
+  <option value="jambi">Jambi</option>
+  <option value="sumsel">Sumatra Selatan</option>
+  <option value="bengkulu">Bengkulu</option>
+  <option value="lampung">Lampung</option>
+  <option value="babel">Bangka Belitung</option>
+
+  <!-- Kalimantan -->
+  <option value="kalbar">Kalimantan Barat</option>
+  <option value="kalteng">Kalimantan Tengah</option>
+  <option value="kalsel">Kalimantan Selatan</option>
+  <option value="kaltim">Kalimantan Timur</option>
+  <option value="kalut">Kalimantan Utara</option>
+
+  <!-- Jawa & sekitarnya -->
+  <option value="jakarta">DKI Jakarta</option>
+  <option value="banten">Banten</option>
+  <option value="jabar">Jawa Barat</option>
+  <option value="jateng">Jawa Tengah</option>
+  <option value="yogya">Yogyakarta</option>
+  <option value="jatim">Jawa Timur</option>
+
+  <!-- Bali & Nusa Tenggara -->
+  <option value="bali">Bali</option>
+  <option value="ntb">Nusa Tenggara Barat</option>
+  <option value="ntt">Nusa Tenggara Timur</option>
+
+  <!-- Sulawesi -->
+  <option value="sulut">Sulawesi Utara</option>
+  <option value="sulbar">Sulawesi Barat</option>
+  <option value="sulteng">Sulawesi Tengah</option>
+  <option value="sulsel">Sulawesi Selatan</option>
+  <option value="sultra">Sulawesi Tenggara</option>
+  <option value="gorontalo">Gorontalo</option>
+
+  <!-- Maluku -->
+  <option value="maluku">Maluku</option>
+  <option value="malut">Maluku Utara</option>
+
+  <!-- Papua (pakai key jelas) -->
+  <option value="papua_barat">Papua Barat</option>
+  <option value="papua">Papua</option>
+  <option value="papua_selatan">Papua Selatan</option>
+  <option value="papua_tengah">Papua Tengah</option>
+  <option value="papua_pegunungan">Papua Pegunungan</option>
+</select>
 
   <div class="field">
     <label>Kota / Kabupaten</label>
@@ -501,13 +546,58 @@
     cartItemsEl.appendChild(row);
   });
 }
-    // ===== ONGKIR & QRIS (GLOBAL) =====
-const shippingMap = {
+    // ========= TABEL ONGKIR (EDIT DI SINI KALAU MAU) =========
+    const shippingMap = {
+  // Sumatra
+  aceh: 70000,
+  sumut: 40000,
+  sumbar: 38000,
+  riau: 40000,
+  kepri: 35000,
+  jambi: 25000,
+  sumsel: 10000,    // kiriman dari Sumatra Selatan -> lebih murah ke lokal
+  bengkulu: 30000,
+  lampung: 18000,
+  babel: 35000,
+
+  // Kalimantan
+  kalbar: 50000,
+  kalteng: 52000,
+  kalsel: 48000,
+  kaltim: 58000,
+  kalut: 75000,
+
+  // Jawa & sekitarnya
   jakarta: 26000,
+  banten: 28000,
   jabar: 30000,
   jateng: 34000,
+  yogya: 36000,
   jatim: 38000,
-  bali: 45000
+
+  // Bali & Nusa Tenggara
+  bali: 45000,
+  ntb: 60000,
+  ntt: 90000,
+
+  // Sulawesi
+  sulut: 80000,
+  sulbar: 75000,
+  sulteng: 75000,
+  sulsel: 60000,
+  sultra: 85000,
+  gorontalo: 90000,
+
+  // Maluku
+  malut: 120000,
+  maluku: 100000,
+
+  // Papua
+  papua_barat: 135000,
+  papua: 140000,
+  papua_selatan: 150000,
+  papua_tengah: 150000,
+  papua_pegunungan: 170000
 };
 
 function getShippingCost() {
