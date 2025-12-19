@@ -287,191 +287,113 @@
   </div>
 </header>
 
-  <main class="page">
-    <h1>Checkout</h1>
+ <main class="page">
+  <h1>Checkout</h1>
 
-    <div class="grid">
-      <!-- RINGKASAN BELANJA -->
-      <section class="card">
-        <h2>Ringkasan Order</h2>
-        <div id="cartItems" class="cart-items"></div>
+  <div class="grid">
 
-        <div class="summary-row">
-          <div class="summary-label">Subtotal</div>
-          <div class="summary-value" id="subtotalText">Rp 0</div>
-        </div>
-        <div class="summary-row">
-          <div class="summary-label">Ongkir</div>
-          <div class="summary-value" id="shippingText">Rp 0</div>
-        </div>
-        <div class="summary-row summary-total">
-          <div class="summary-label">Total Bayar</div>
-          <div class="summary-value" id="totalText">Rp 0</div>
-        </div>
+    <!-- RINGKASAN ORDER -->
+    <section class="card">
+      <h2>Ringkasan Order</h2>
+      <div id="cartItems" class="cart-items"></div>
 
-        <p class="note-small" style="margin-top:0.8rem;">
-          Ongkir otomatis berdasarkan provinsi tujuan. Pengiriman dari
-          <strong>Sumatra Selatan</strong>. Nominal akhir tetap dikonfirmasi via WhatsApp.
-        </p>
-      </section>
-      
-      <section class="card">
-  <h2>Pembayaran</h2>
+      <div class="summary-row">
+        <span>Subtotal</span>
+        <span id="subtotalText">Rp 0</span>
+      </div>
+      <div class="summary-row">
+        <span>Ongkir</span>
+        <span id="shippingText">Rp 0</span>
+      </div>
+      <div class="summary-row summary-total">
+        <strong>Total</strong>
+        <strong id="totalText">Rp 0</strong>
+      </div>
+    </section>
 
-  <p class="note-small">
-    Silakan lakukan pembayaran sesuai <strong>Total Bayar</strong>
-    melalui QRIS BCA di bawah ini.
-  </p>
+    <!-- FORM ALAMAT -->
+    <section class="card">
+      <h2>Data Penerima</h2>
+      <form class="form" id="checkoutForm" onsubmit="return false;">
 
-  <div style="margin-top:1rem; text-align:center;">
-    <img
-      src="images/qris-bca.png"
-      alt="QRIS BCA PHOENIXBORNE OATH"
-      style="max-width:220px; border-radius:12px; border:1px solid #1f2933;"
-    />
+  <div class="field">
+    <label>Nama Lengkap</label>
+    <input id="name" required>
   </div>
 
-  <div style="margin-top:0.8rem; text-align:center;">
-    <strong>Total Transfer:</strong><br>
-    <span id="payTotal" style="font-size:1.1rem;">
-      Rp 0
-    </span>
+  <div class="field">
+    <label>No. WhatsApp</label>
+    <input id="phone" type="tel" required>
   </div>
 
-  <p class="note-small" style="margin-top:0.6rem;">
-    Pastikan nominal transfer sesuai.
-    Setelah transfer, lanjutkan konfirmasi via WhatsApp.
-  </p>
-</section>
+  <div class="field">
+    <label>Provinsi</label>
+    <select id="province" required>
+      <option value="">Pilih provinsi</option>
+      <option value="jakarta">DKI Jakarta</option>
+      <option value="jabar">Jawa Barat</option>
+      <option value="jateng">Jawa Tengah</option>
+      <option value="jatim">Jawa Timur</option>
+      <option value="bali">Bali</option>
+    </select>
+  </div>
 
-      <!-- FORM ALAMAT -->
-      <section class="card">
-        <h2>Data Penerima</h2>
-        <form class="form" id="checkoutForm" onsubmit="return false;">
-          <div class="field">
-            <label for="name">Nama lengkap</label>
-            <input id="name" type="text" placeholder="Nama penerima" required />
-          </div>
+  <div class="field">
+    <label>Kota / Kabupaten</label>
+    <input id="city" required>
+  </div>
 
-          <div class="field">
-            <label for="phone">No. WhatsApp</label>
-            <input id="phone" type="tel" placeholder="08xxxxxxxxxx" required />
-          </div>
+  <div class="field">
+    <label>Kecamatan</label>
+    <input id="district" required>
+  </div>
 
-          <div class="field">
-            <label for="province">Provinsi</label>
-            <select id="province" required>
-  <option value="">Pilih provinsi</option>
+  <div class="field">
+    <label>Kode Pos</label>
+    <input id="postcode" required>
+  </div>
 
-  <!-- Sumatra -->
-  <option value="aceh">Aceh</option>
-  <option value="sumut">Sumatra Utara</option>
-  <option value="sumbar">Sumatra Barat</option>
-  <option value="riau">Riau</option>
-  <option value="kepri">Kepulauan Riau</option>
-  <option value="jambi">Jambi</option>
-  <option value="sumsel">Sumatra Selatan</option>
-  <option value="bengkulu">Bengkulu</option>
-  <option value="lampung">Lampung</option>
-  <option value="babel">Bangka Belitung</option>
+  <div class="field">
+    <label>Alamat Lengkap</label>
+    <textarea id="address" required></textarea>
+  </div>
 
-  <!-- Kalimantan -->
-  <option value="kalbar">Kalimantan Barat</option>
-  <option value="kalteng">Kalimantan Tengah</option>
-  <option value="kalsel">Kalimantan Selatan</option>
-  <option value="kaltim">Kalimantan Timur</option>
-  <option value="kalut">Kalimantan Utara</option>
+  <hr>
 
-  <!-- Jawa & sekitarnya -->
-  <option value="jakarta">DKI Jakarta</option>
-  <option value="banten">Banten</option>
-  <option value="jabar">Jawa Barat</option>
-  <option value="jateng">Jawa Tengah</option>
-  <option value="yogya">Yogyakarta</option>
-  <option value="jatim">Jawa Timur</option>
+  <div class="field">
+    <label>Atas Nama Pengirim</label>
+    <input id="payName" required>
+  </div>
 
-  <!-- Bali & Nusa Tenggara -->
-  <option value="bali">Bali</option>
-  <option value="ntb">Nusa Tenggara Barat</option>
-  <option value="ntt">Nusa Tenggara Timur</option>
+  <div class="field">
+    <label>Metode Pembayaran</label>
+    <select id="payMethod" required>
+      <option value="">Pilih metode</option>
+      <option>QRIS BCA</option>
+      <option>BCA Transfer</option>
+    </select>
+  </div>
 
-  <!-- Sulawesi -->
-  <option value="sulut">Sulawesi Utara</option>
-  <option value="sulbar">Sulawesi Barat</option>
-  <option value="sulteng">Sulawesi Tengah</option>
-  <option value="sulsel">Sulawesi Selatan</option>
-  <option value="sultra">Sulawesi Tenggara</option>
-  <option value="gorontalo">Gorontalo</option>
+  <div class="field">
+    <label>Waktu Transfer</label>
+    <input id="payTime" type="time" required>
+  </div>
 
-  <!-- Maluku -->
-  <option value="maluku">Maluku</option>
-  <option value="malut">Maluku Utara</option>
+  <label class="note-small">
+    <input type="checkbox" id="confirmPaid">
+    Saya sudah melakukan pembayaran
+  </label>
 
-  <!-- Papua (pakai key jelas) -->
-  <option value="papua_barat">Papua Barat</option>
-  <option value="papua">Papua</option>
-  <option value="papua_selatan">Papua Selatan</option>
-  <option value="papua_tengah">Papua Tengah</option>
-  <option value="papua_pegunungan">Papua Pegunungan</option>
-</select>
+  <!-- QRIS -->
+  <div id="qrisBox" style="display:none;">
+    <img src="images/qris-bca.png" style="max-width:200px;">
+    <div id="payTotalQRIS">Rp 0</div>
+  </div>
 
-          </div>
+  <button id="waButton" class="btn-wa">Kirim ke WhatsApp</button>
 
-          <div class="field">
-            <label for="city">Kota / Kabupaten</label>
-            <input id="city" type="text" placeholder="Contoh: Palembang" required />
-          </div>
+</form>
 
-          <div class="field">
-            <label for="district">Kecamatan</label>
-            <input id="district" type="text" placeholder="Nama kecamatan" required />
-          </div>
-
-          <div class="field">
-            <label for="postcode">Kode Pos</label>
-            <input id="postcode" type="text" placeholder="Kode pos" required />
-          </div>
-
-          <div class="field">
-            <label for="address">Detail alamat</label>
-            <textarea id="address" placeholder="Nama jalan, nomor rumah, patokan, dsb." required></textarea>
-          </div>
-
-          <p class="note-small">
-            Setelah klik tombol di bawah, kamu akan diarahkan ke WhatsApp resmi
-            untuk konfirmasi pesanan & pembayaran.
-          </p>
-          <hr style="border-color:#1f2933; margin:1rem 0;">
-
-<div class="field">
-  <label>Atas Nama Pengirim</label>
-  <input id="payName" type="text" placeholder="Nama di rekening / e-wallet" required>
-</div>
-
-<div class="field">
-  <label>Metode Pembayaran</label>
-  <select id="payMethod" required>
-    <option value="">Pilih metode</option>
-    <option>QRIS BCA</option>
-    <option>BCA Transfer</option>
-    <option>DANA</option>
-    <option>OVO</option>
-    <option>GOPAY</option>
-  </select>
-</div>
-
-<div class="field">
-  <label>Waktu Transfer</label>
-  <input id="payTime" type="time" required>
-</div>
-
-<label class="note-small">
-  <input type="checkbox" id="confirmPaid">
-  Saya sudah melakukan pembayaran
-</label>
-
-          <button id="waButton" class="btn-wa">Kirim ke WhatsApp</button>
-        </form>
       </section>
     </div>
   </main>
@@ -499,120 +421,106 @@
       cart = [];
     }
 
-    const cartItemsEl = document.getElementById("cartItems");
-    const subtotalText = document.getElementById("subtotalText");
-    const shippingText = document.getElementById("shippingText");
-    const totalText = document.getElementById("totalText");
-
     let subtotal = 0;
+    const cartItemsEl = document.getElementById("cartItems");
 
-    function renderCart() {
-      if (!cart.length) {
-        cartItemsEl.innerHTML = '<div class="cart-empty">Keranjang kosong.</div>';
-        subtotal = 0;
-        updateTotals();
-        return;
-      }
+   function renderCart() {     
+   if (!cart.length) {
+    cartItemsEl.innerHTML =
+      '<div class="cart-empty">Keranjang kosong.</div>';
+    subtotal = 0;
+    updateTotals();
+    return;
+  }
 
-      cartItemsEl.innerHTML = "";
-      subtotal = 0;
+  cartItemsEl.innerHTML = "";
+  subtotal = 0;
 
-      cart.forEach((entry) => {
-        const lineTotal = entry.product.price * entry.qty;
-        subtotal += lineTotal;
+  cart.forEach((entry) => {
+    const lineTotal = entry.product.price * entry.qty;
+    subtotal += lineTotal;
 
-        const row = document.createElement("div");
-        row.className = "cart-item";
-        row.innerHTML = `
-          <div class="cart-item-main">
-            <div class="cart-name">${entry.product.name}</div>
-            <div class="cart-meta">
-              Size: <strong>${entry.size || "-"}</strong> · Qty: ${entry.qty}
-            </div>
-          </div>
-          <div class="summary-value">${formatRupiah(lineTotal)}</div>
-        `;
-        cartItemsEl.appendChild(row);
-      });
-
-      updateTotals();
-    }
-
-    // ========= TABEL ONGKIR (EDIT DI SINI KALAU MAU) =========
-    const shippingMap = {
-  // Sumatra
-  aceh: 70000,
-  sumut: 40000,
-  sumbar: 38000,
-  riau: 40000,
-  kepri: 35000,
-  jambi: 25000,
-  sumsel: 10000,    // kiriman dari Sumatra Selatan -> lebih murah ke lokal
-  bengkulu: 30000,
-  lampung: 18000,
-  babel: 35000,
-
-  // Kalimantan
-  kalbar: 50000,
-  kalteng: 52000,
-  kalsel: 48000,
-  kaltim: 58000,
-  kalut: 75000,
-
-  // Jawa & sekitarnya
+    const row = document.createElement("div");
+    row.className = "cart-item";
+    row.innerHTML = `
+      <div class="cart-item-main">
+        <div class="cart-name">${entry.product.name}</div>
+        <div class="cart-meta">
+          Size: <strong>${entry.size || "-"}</strong> · Qty: ${entry.qty}
+        </div>
+      </div>
+      <div class="summary-value">${formatRupiah(lineTotal)}</div>
+    `;
+    cartItemsEl.appendChild(row);
+  });
+}
+    // ===== ONGKIR & QRIS (GLOBAL) =====
+const shippingMap = {
   jakarta: 26000,
-  banten: 28000,
   jabar: 30000,
   jateng: 34000,
-  yogya: 36000,
   jatim: 38000,
-
-  // Bali & Nusa Tenggara
-  bali: 45000,
-  ntb: 60000,
-  ntt: 90000,
-
-  // Sulawesi
-  sulut: 80000,
-  sulbar: 75000,
-  sulteng: 75000,
-  sulsel: 60000,
-  sultra: 85000,
-  gorontalo: 90000,
-
-  // Maluku
-  malut: 120000,
-  maluku: 100000,
-
-  // Papua
-  papua_barat: 135000,
-  papua: 140000,
-  papua_selatan: 150000,
-  papua_tengah: 150000,
-  papua_pegunungan: 170000
+  bali: 45000
 };
 
-    function getShippingCost() {
-      const prov = document.getElementById("province").value;
-      return shippingMap[prov] || 0;
-    }
+function getShippingCost() {
+  const prov = document.getElementById("province").value;
+  return shippingMap[prov] || 0;
+}
 
-    const payTotalEl = document.getElementById("payTotal");
-    function updateTotals() {
-  const shipping = getShippingCost();
-  const total = subtotal + shipping;
+function checkShowQRIS() {
+  const fields = [
+    "name","phone","province","city",
+    "district","postcode","address","payMethod"
+  ];
 
-  subtotalText.textContent = formatRupiah(subtotal);
-  shippingText.textContent = formatRupiah(shipping);
-  totalText.textContent = formatRupiah(total);
+  const filled = fields.every(id =>
+    document.getElementById(id)?.value.trim()
+  );
 
-  if (payTotalEl) {
-    payTotalEl.textContent = formatRupiah(total);
+  const qris = document.getElementById("qrisBox");
+  const totalQRIS = document.getElementById("payTotalQRIS");
+
+  if (filled && document.getElementById("payMethod").value.includes("QRIS")) {
+    qris.style.display = "block";
+    totalQRIS.textContent =
+      formatRupiah(subtotal + getShippingCost());
+  } else {
+    qris.style.display = "none";
   }
 }
 
+    const payTotalEl = document.getElementById("payTotal");
+   function updateTotals() {
+  const shipping = getShippingCost();
+  const total = subtotal + shipping;
+
+  document.getElementById("subtotalText").textContent =
+    formatRupiah(subtotal);
+  document.getElementById("shippingText").textContent =
+    formatRupiah(shipping);
+  document.getElementById("totalText").textContent =
+    formatRupiah(total);
+
+  checkShowQRIS();
+}
+
     // ========= EVENT: UBAH PROVINSI =========
-    document.getElementById("province").addEventListener("change", updateTotals);
+   document.addEventListener("DOMContentLoaded", () => {
+  renderCart();
+  updateTotals();
+   
+  [
+    "name","phone","province","city",
+    "district","postcode","address","payMethod"
+  ].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener("input", updateTotals);
+      el.addEventListener("change", updateTotals);
+    }
+  });
+});
 
     // ========= KIRIM KE WHATSAPP =========
     document.getElementById("waButton").addEventListener("click", () => {
@@ -725,11 +633,6 @@ Mohon dicek, terima kasih.`;
   const waUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(messagePlain)}`;
   window.open(waUrl, "_blank");
 
-  // kosongkan cart di browser
- // localStorage.removeItem("pbo_cart");
-  //cart = [];
- // renderCart();
-
   // restore button (opsional)
   setTimeout(() => {
     waBtn.disabled = false;
@@ -741,8 +644,6 @@ Mohon dicek, terima kasih.`;
     // Tahun footer
     document.getElementById("yearSpan").textContent = new Date().getFullYear();
 
-    // Render awal
-    renderCart();
   </script>
 </body>
 </html>
