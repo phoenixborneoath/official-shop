@@ -296,6 +296,24 @@
   font-weight: 700;
   letter-spacing: 0.08em;
 }
+    .btn-qris-download {
+  margin-top: 12px;
+  width: 100%;
+  padding: 0.6rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(148,163,184,0.25);
+  background: transparent;
+  color: #e5e7eb;
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.btn-qris-download:hover {
+  border-color: #38bdf8;
+  box-shadow: 0 0 14px rgba(56,189,248,0.35);
+}
   </style>
 </head>
 <body>
@@ -411,8 +429,12 @@
 
   <!-- QRIS -->
   <div id="qrisBox" class="qris-box">
-  <img src="images/qris-bca.png" class="qris-img">
+  <img src="images/qris-bca.png" class="qris-img" id="qrisImage">
   <div id="payTotalQRIS" class="qris-total">Rp 0</div>
+
+  <button type="button" class="btn-qris-download" onclick="downloadQRIS()">
+    Download QRIS
+  </button>
 </div>
 
   <button id="waButton" class="btn-wa">Kirim ke WhatsApp</button>
@@ -668,7 +690,17 @@ Mohon dicek, terima kasih.`;
 
     // Tahun footer
     document.getElementById("yearSpan").textContent = new Date().getFullYear();
+ function downloadQRIS() {
+    const img = document.getElementById("qrisImage");
+    if (!img) return;
 
-  </script>
+    const link = document.createElement("a");
+    link.href = img.src;
+    link.download = "QRIS-PHOENIXBORNE-OATH.png";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+</script>
 </body>
 </html>
