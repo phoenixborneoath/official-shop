@@ -66,7 +66,7 @@ const PRODUCTS = [
     category: "season1",
     price: 289000,
     originalPrice: null,
-    badge: "First article",
+    badge: "new article",
     isNew: false,
     discount: "New Arrival",
     stockStatus: "Ready Stock",
