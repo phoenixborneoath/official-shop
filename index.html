@@ -1313,11 +1313,11 @@
   </div>
 
       <div class="products-toolbar">
-        <button class="tag-filter active" data-filter="all">All</button>
-        <button class="tag-filter" data-filter="ready">Ready</button>
-        <button class="tag-filter" data-filter="limited">Limited</button>
-        <button class="tag-filter" data-filter="soldout">Sold Out</button>
-      </div>
+  <button class="tag-filter active" data-filter="all">All</button>
+  <button class="tag-filter" data-filter="season1">Season 1</button>
+  <button class="tag-filter" data-filter="article">Article</button>
+  <button class="tag-filter" data-filter="soldout">Sold Out</button>
+</div>
 
       <div class="products-grid" id="productsGrid">
         <!-- JS will inject product cards -->
@@ -1411,9 +1411,27 @@
     function renderProducts(filter = "all") {
   productsGrid.innerHTML = "";
 
-  const filtered = products.filter(p =>
-    filter === "all" ? true : p.category === filter
-  );
+  const filtered = products.filter(p => {
+  if (filter === "all") return true;
+
+  // 🔥 SEASON 1 = produk ready stock
+  if (filter === "season1") {
+    return p.stockStatus.toLowerCase().includes("ready");
+  }
+
+  // 🔥 ARTICLE = artikel utama brand
+  if (filter === "article") {
+    return p.category === "limited";
+  }
+
+  // 🔥 SOLD OUT
+  if (filter === "soldout") {
+    return p.category === "soldout" ||
+           p.stockStatus.toLowerCase().includes("sold");
+  }
+
+  return true;
+});
 
   filtered.forEach(prod => {
 
