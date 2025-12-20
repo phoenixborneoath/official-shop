@@ -1470,12 +1470,14 @@ if (status.includes("ready")) {
     card.innerHTML = `
       <div class="${badgeClass}">${badgeLabel}</div>
 
-      <div class="product-media">
-        <img src="${prod.cover}" alt="${prod.name}">
-      </div>
+     <div class="product-media" onclick="goToProduct('${prod.slug}')">
+  <img src="${prod.cover}" alt="${prod.name}">
+</div>
 
-      <div class="product-body" onclick="goToProduct('${prod.slug}')">
-        <div class="product-name">${prod.name}</div>
+      <div class="product-body">
+        <div class="product-name" onclick="goToProduct('${prod.slug}')">
+  ${prod.name}
+</div>
 
         <div class="product-meta-row">
           <div>
@@ -1491,22 +1493,20 @@ if (status.includes("ready")) {
           ${prod.discount ? `<span class="discount">${prod.discount}</span>` : ""}
         </div>
 
-        <div class="sizes-row">
+       <div class="sizes-row">
   ${
     Object.entries(prod.sizes).map(([size, available]) => `
       <span
-        class="size-pill 
-${available ? "" : "size-disabled"} 
-${allSizesSoldOut ? "size-disabled" : ""}"
+        class="size-pill ${available ? "" : "size-disabled"}"
         data-size="${size}"
         data-product-id="${prod.id}"
-        ${available ? "" : "aria-disabled='true'"}
       >
         ${size}
       </span>
     `).join("")
   }
 </div>
+
 
       <div class="product-footer">
         <button
@@ -1638,11 +1638,7 @@ ${allSizesSoldOut ? "size-disabled" : ""}"
   const product = products.find(p => p.id === productId);
   if (!product) return;
      
-      if (!selectedSizes[productId]) {
-    alert("Silakan pilih size terlebih dahulu.");
-    return;
-  }
-
+    
   const size = selectedSizes[productId];
   if (!size) {
     alert("Silakan pilih size terlebih dahulu.");
@@ -1752,88 +1748,6 @@ productsGrid.addEventListener("click", (e) => {
 });
   
 updateCartUI();
-</script>
-
-<!-- ✅ TEMPEL SCRIPT SLIDE + MODAL DI SINI -->
-<script>
-  // ====== SLIDE GAMBAR PRODUK (GANTI PATH GAMBAR DI SINI) ======
-const productSlides = {};
-PRODUCTS.forEach(p => {
-  productSlides[p.id] = p.images;
-});
-
-// ====== PASTIKAN ID ELEMEN SAMA DENGAN YANG ADA DI HTML ======
-const productsGridEl = document.getElementById("productsGrid");
-const imageModal = document.getElementById("imageModal");
-const modalImage = document.getElementById("modalImage");
-const closeImageModal = document.getElementById("closeImageModal");
-const prevImageBtn = document.getElementById("prevImage");
-const nextImageBtn = document.getElementById("nextImage");
-
-  let currentList = [];
-  let currentIndex = 0;
-
-  function openModalWith(list, index = 0) {
-  if (!list || !list.length) return;
-  currentList = list;
-  currentIndex = index;
-  modalImage.src = currentList[currentIndex];
-  imageModal.classList.add("show");
-  document.body.style.overflow = "hidden"; // disable scroll background
-}
-
-function closeImageModalFn() {
-  imageModal.classList.remove("show");
-  document.body.style.overflow = ""; // restore scroll
-}
-
-// keyboard ESC
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && imageModal.classList.contains("show")) {
-    closeImageModalFn();
-  }
-});
-
-function changeImage(step) {
-  if (!currentList.length) return;
-  const len = currentList.length;
-  currentIndex = (currentIndex + step + len) % len;
-  modalImage.src = currentList[currentIndex];
-}
-
-closeImageModal.addEventListener("click", closeImageModalFn);
-imageModal.addEventListener("click", (e) => {
-  if (e.target === imageModal) closeImageModalFn();
-});
-nextImageBtn.addEventListener("click", (e) => {
-  e.stopPropagation();
-  changeImage(1);
-});
-prevImageBtn.addEventListener("click", (e) => {
-  e.stopPropagation();
-  changeImage(-1);
-});
-
-if (productsGridEl) {
-  productsGridEl.addEventListener("click", (e) => {
-    const media = e.target.closest(".product-media img");
-    if (!media) return;
-
-    const card = media.closest(".product-card");
-    if (!card) return;
-
-    const id = card.dataset.id;
-    let slides = productSlides[id];
-
-    if (!slides || !slides.length) {
-      const img = media.querySelector("img");
-      if (!img) return;
-      slides = [img.src];
-    }
-
-    openModalWith(slides, 0);
-  });
-}
 </script>
 
 <footer>
