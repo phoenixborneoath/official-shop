@@ -1637,6 +1637,11 @@ ${allSizesSoldOut ? "size-disabled" : ""}"
    function addToCart(productId) {
   const product = products.find(p => p.id === productId);
   if (!product) return;
+     
+      if (!selectedSizes[productId]) {
+    alert("Silakan pilih size terlebih dahulu.");
+    return;
+  }
 
   const size = selectedSizes[productId];
   if (!size) {
@@ -1727,19 +1732,25 @@ if (targetSlug) {
 }
 
 productsGrid.addEventListener("click", (e) => {
-  const pill = e.target.closest(".size-pill:not(.size-disabled)");
-  if (!pill) return;
+  const pill = e.target.closest(".size-pill");
 
-  const productId = Number(pill.getAttribute("data-product-id"));
-  const size = pill.getAttribute("data-size");
+  if (!pill || pill.classList.contains("size-disabled")) return;
 
-  const sizesRow = pill.parentElement;
-  sizesRow.querySelectorAll(".size-pill").forEach(el => el.classList.remove("active"));
+  const productId = Number(pill.dataset.productId);
+  const size = pill.dataset.size;
+
+  // hapus active size lain di produk yang sama
+  const card = pill.closest(".product-card");
+  card.querySelectorAll(".size-pill").forEach(p =>
+    p.classList.remove("active")
+  );
 
   pill.classList.add("active");
+
+  // SIMPAN SIZE (INI KUNCI UTAMA)
   selectedSizes[productId] = size;
 });
-
+  
 updateCartUI();
 </script>
 
