@@ -131,10 +131,11 @@
       
       card.innerHTML = `
         <img 
-       src="${p.cover}" 
-       alt="${p.name}" 
+        src="${p.cover}" 
+        alt="${p.name}" 
+        class="product-img"
+        data-slug="${p.slug}"
        style="cursor:pointer"
-       onclick="goToProduct('${p.slug}')"
       >
         <div class="name">${p.name}</div>
         <div class="price">
@@ -151,31 +152,15 @@
 
   renderProductsPage();
 
-    const params = new URLSearchParams(window.location.search);
-const targetSlug = params.get("product");
+   grid.addEventListener("click", e => {
+  const img = e.target.closest(".product-img");
+  if (!img) return;
 
-if (targetSlug) {
-  const targetProduct = products.find(p => p.slug === targetSlug);
+  const slug = img.dataset.slug;
+  if (!slug) return;
 
-  if (targetProduct) {
-    // scroll ke section produk
-    const section = document.getElementById("products");
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
-    }
-
-    // kasih highlight visual (opsional tapi keren)
-    setTimeout(() => {
-      const card = document.querySelector(
-        `.product-card[data-id="${targetProduct.id}"]`
-      );
-      if (card) {
-        card.style.boxShadow = "0 0 0 2px #ef4444, 0 0 30px rgba(239,68,68,0.6)";
-        card.scrollIntoView({ behavior: "smooth", block: "center" });
-      }
-    }, 400);
-  }
-}
+  window.location.href = "index.html?product=" + slug;
+});
 </script>
 </body>
 </html>
