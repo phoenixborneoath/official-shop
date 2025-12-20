@@ -1391,84 +1391,11 @@
 </div>
 
   <script>
-    // ------- DATA PRODUK (EDIT DI SINI) ---------
-    const products = [
-       {
-    id: 1,
-    name: "PHOENIXBORNE TEE",
-    slug: "phoenix-borne-tee",
-    category: "limited",
-    price: 289000,
-    originalPrice: null,
-    badge: "First article",
-    isNew: false,
-    discount: "New Arrival",
-    sizes: {
-  S: true,
-  M: true,
-  L: true,
-  XL: true,
-  XXL: false
-},
-    stockStatus: "Ready Stock",
-    image: "images/pborne.jpg",
-    images: [
-      "images/pborne.jpg",
-      "images/petir.jpg",
-      "images/size.jpg"
-    ]
-  },
-  {
-    id: 1,
-    name: "PHOENIXBORNE TEE",
-    slug: "phoenix-borne-tee",
-    category: "limited",
-    price: 289000,
-    originalPrice: null,
-    badge: "First article",
-    isNew: false,
-    discount: "New Arrival",
-    sizes: {
-  S: true,
-  M: true,
-  L: true,
-  XL: true,
-  XXL: false
-},
-    stockStatus: "Ready Stock",
-    image: "images/pborne.jpg",
-    images: [
-      "images/pborne.jpg",
-      "images/petir.jpg",
-      "images/size.jpg"
-    ]
-  },
-  {
-    id: 2,
-    name: "COMING SOON TEE",
-    slug: "coming-soon-tee",
-    category: "soldout",
-    price: 0,
-    originalPrice: null,
-    badge: "Sold Out",
-    isNew: false,
-    discount: "",
-   sizes: {
-  S: false,
-  M: false,
-  L: false,
-  XL: false,
-  XXL: false
-},
-    stockStatus: "Sold Out",
-    image: "images/cooming.jpg",
-    images: [
-      "images/cooming.jpg",
-      "images/petir.jpg",
-      "images/size.jpg"
-    ]
-  }
-];
+   <script src="products-data.js"></script>
+  
+  <script>
+  const products = PRODUCTS;
+   
 
     // ------- UTIL: FORMAT RUPIAH ----------
     const formatRupiah = (value) =>
@@ -1761,10 +1688,10 @@ updateCartUI();
 <!-- ✅ TEMPEL SCRIPT SLIDE + MODAL DI SINI -->
 <script>
   // ====== SLIDE GAMBAR PRODUK (GANTI PATH GAMBAR DI SINI) ======
-const productSlides = {
-  1: ["images/pborne.jpg", "images/petir.jpg", "images/size.jpg"],
-  2: ["images/cooming.jpg", "images/petir.jpg", "images/size.jpg"],
-};
+const productSlides = {};
+PRODUCTS.forEach(p => {
+  productSlides[p.id] = p.images;
+});
 
 // ====== PASTIKAN ID ELEMEN SAMA DENGAN YANG ADA DI HTML ======
 const productsGridEl = document.getElementById("productsGrid");
