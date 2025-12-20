@@ -1684,6 +1684,34 @@
     });
 
     renderProducts("all");
+  const params = new URLSearchParams(window.location.search);
+const targetSlug = params.get("product");
+
+if (targetSlug) {
+  const targetProduct = products.find(p => p.slug === targetSlug);
+
+  if (targetProduct) {
+    const section = document.getElementById("products");
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+
+    setTimeout(() => {
+      const card = document.querySelector(
+        `.product-card[data-id="${targetProduct.id}"]`
+      );
+
+      if (card) {
+        card.style.boxShadow =
+          "0 0 0 2px #ef4444, 0 0 32px rgba(239,68,68,0.6)";
+        card.scrollIntoView({
+          behavior: "smooth",
+          block: "center"
+        });
+      }
+    }, 400);
+  }
+}
 
 productsGrid.addEventListener("click", (e) => {
   const pill = e.target.closest(".size-pill:not(.size-disabled)");
