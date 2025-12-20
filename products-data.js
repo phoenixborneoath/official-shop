@@ -62,7 +62,7 @@ const PRODUCTS = [
   {
     id: 3,
     name: "PHOENIXBORNE TEE",
-    slug: "phoenix-borne-tee",
+    slug: "phoenix-borne-tee2",
     category: "season1",
     price: 289000,
     originalPrice: null,
