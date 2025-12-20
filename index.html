@@ -9,66 +9,6 @@
   <link rel="manifest" href="manifest.webmanifest" />
 <meta name="theme-color" content="#050507">
   <style>
-    @media (min-width: 721px) {
-  .mobile-nav-bar {
-    display: none !important;
-  }
-}
-
-/* MOBILE */
-@media (max-width: 720px) {
-  .nav-inner > .nav-links {
-    display: none;
-  }
-}
-    /* BAR KHUSUS MENU MOBILE */
-.mobile-nav-bar {
-  display: none;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-  background: rgba(0,0,0,0.85);
-}
-
-/* MENU TOGGLE */
-.menu-toggle {
-  display: none;
-  background: none;
-  border: none;
-  color: #fff;
-  font-size: 1.6rem;
-  cursor: pointer;
-}
-
-/* MOBILE NAV BAR */
-.mobile-nav-bar {
-  display: none;
-  background: rgba(0,0,0,0.9);
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-}
-
-/* MOBILE MODE */
-@media (max-width: 720px) {
-  .menu-toggle {
-    display: block;
-  }
-
-  .mobile-nav-bar {
-    display: block;
-  }
-
-  .mobile-nav-bar .nav-links {
-    display: none;
-    justify-content: center;
-    gap: 1.6rem;
-    padding: 0.7rem 1rem;
-    font-size: 0.75rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-  }
-
-  .mobile-nav-bar .nav-links.show {
-    display: flex;
-  }
-}
     .cart-button span:first-child {
   color: #ffffff;
   text-shadow:
@@ -442,7 +382,32 @@
       gap: 1.4rem;
       min-height: 480px;
     }
+    .hero-mobile-nav {
+  display: none;
+  gap: 1.4rem;
+  margin: 0.6rem 0 0.4rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
 
+.hero-mobile-nav a {
+  color: var(--muted);
+}
+
+.hero-mobile-nav a:hover {
+  color: var(--text);
+}
+
+@media (max-width: 720px) {
+  .hero-mobile-nav {
+    display: flex;
+  }
+
+  .nav-inner .nav-links {
+    display: none;
+  }
+}
     .badge-row {
       display: flex;
       flex-wrap: wrap;
@@ -1259,21 +1224,18 @@
     </div>
   </header>
   
-  <div class="mobile-nav-bar">
-  <nav class="nav-links">
-    <a href="/products.html">Products</a>
-    <a href="/about.html">About</a>
-    <a href="#faq">Faq</a>
-  </nav>
-</div>
-
   <!-- PAGE CONTENT -->
   <main class="page">
   <section class="hero">
 
   <div class="hero-left">
     <h1>Phoenixborne Oath</h1>
-
+    
+  <nav class="hero-mobile-nav">
+   <a href="/products.html">Products</a>
+   <a href="/about.html">About</a>
+   <a href="#faq">Faq</a>
+ </nav>
     <p class="hero-desc">
       <strong>Phoenixborne Oath</strong> adalah brand streetwear metal Indonesia
       yang lahir dari abu kehancuran.
@@ -1852,7 +1814,8 @@ if (productsGridEl) {
 </script>
 
 <footer>
-  <span>© <span id="yearSpan"></span> PHOENIXBORNE OATH. All Rights Reserved.</span>
+  <span>© <span id="yearSpan"></span></span>
+  <span>PHOENIXBORNE OATH. All Rights Reserved.</span>
 </footer>
 
 <script>
@@ -1868,15 +1831,6 @@ if ("serviceWorker" in navigator) {
       .catch(err => console.error("SW registration failed:", err));
   });
 }
-</script>
-
-<script>
-  const menuToggle = document.getElementById("menuToggle");
-  const mobileNav = document.querySelector(".mobile-nav-bar .nav-links");
-
-  menuToggle.addEventListener("click", () => {
-    mobileNav.classList.toggle("show");
-  });
 </script>
 </body>
 </html>
