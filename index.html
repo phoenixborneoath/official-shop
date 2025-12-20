@@ -1394,8 +1394,19 @@
 
 <script>
   const products = PRODUCTS;
-   
+  function sortProductsForDisplay(products) {
+  return products.slice().sort((a, b) => {
+    const aSold = a.category === "soldout";
+    const bSold = b.category === "soldout";
 
+    // produk ready di atas
+    if (aSold !== bSold) return aSold ? 1 : -1;
+
+    // produk terbaru (id lebih besar) di atas
+    return b.id - a.id;
+  });
+}
+   
     // ------- UTIL: FORMAT RUPIAH ----------
     const formatRupiah = (value) =>
       new Intl.NumberFormat("id-ID", {
@@ -1435,6 +1446,19 @@
 
   // 3️⃣ RENDER
   filtered.forEach(prod => {
+    const allSizesSoldOut = Object.values(prod.sizes).every(v => !v);
+
+// logic warna stock
+const status = prod.stockStatus.toLowerCase();
+let stockClass = "";
+
+if (status.includes("ready")) {
+  stockClass = "stock-ready";
+} else if (status.includes("low")) {
+  stockClass = "stock-low";
+} else if (status.includes("sold")) {
+  stockClass = "stock-sold";
+}
 
     // 2️⃣ BUAT CARD
     const card = document.createElement("article");
@@ -1567,7 +1591,7 @@
         row.innerHTML = `
         <div class="cart-item">
          <div class="cart-thumb">
-          <img src="${entry.product.image}" alt="${entry.product.name}" class="cart-thumb-img">
+          <img src="${entry.product.cover}" alt="${entry.product.name}" class="cart-thumb-img">
          </div>
           <div class="cart-info">
             <div class="cart-info-top">
