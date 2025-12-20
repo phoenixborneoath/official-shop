@@ -118,14 +118,32 @@
       currency: "IDR",
       maximumFractionDigits: 0
     }).format(value);
+    
+     function sortProductsForDisplay(list) {
+    return list.slice().sort((a, b) => {
+      const getPriority = (p) => {
+        const status = p.stockStatus.toLowerCase();
+        if (status.includes("ready")) return 0;
+        if (status.includes("low")) return 1;
+        if (status.includes("sold")) return 2;
+        return 3;
+      };
+
+      const priorityA = getPriority(a);
+      const priorityB = getPriority(b);
+
+      if (priorityA !== priorityB) {
+        return priorityA - priorityB;
+      }
+
+      return b.id - a.id;
+    });
+  }
 
   function renderProductsPage() {
   grid.innerHTML = "";
 
-  products
-    .slice() // supaya data asli tidak rusak
-    .sort((a, b) => b.id - a.id) // id terbesar (terbaru) di atas
-    .forEach(p => {
+  sortProductsForDisplay(products).forEach(p => {
       const card = document.createElement("article");
       card.className = "card";
       
