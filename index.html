@@ -888,11 +888,6 @@
 .stock-sold {
   color: #9ca3af; /* abu-abu */
 }
-
-    .stock-low {
-      color: #f97316;
-    }
-
     /* CART DRAWER */
 
     .cart-drawer-backdrop {
@@ -1394,6 +1389,9 @@
 
 <script>
   const products = PRODUCTS;
+  function goToProduct(slug) {
+  window.location.href = `/?product=${slug}#products`;
+}
   function sortProductsForDisplay(products) {
   return products.slice().sort((a, b) => {
     const aSold = a.category === "soldout";
@@ -1476,12 +1474,14 @@ if (status.includes("ready")) {
         <img src="${prod.cover}" alt="${prod.name}">
       </div>
 
-      <div class="product-body">
+      <div class="product-body" onclick="goToProduct('${prod.slug}')">
         <div class="product-name">${prod.name}</div>
 
         <div class="product-meta-row">
           <div>
-            <span class="price">${formatRupiah(prod.price)}</span>
+           <span class="price">
+  ${prod.price ? formatRupiah(prod.price) : "—"}
+</span>
             ${
               prod.originalPrice
                 ? `<span class="price-original">${formatRupiah(prod.originalPrice)}</span>`
@@ -1495,7 +1495,9 @@ if (status.includes("ready")) {
   ${
     Object.entries(prod.sizes).map(([size, available]) => `
       <span
-        class="size-pill ${available ? "" : "size-disabled"}"
+        class="size-pill 
+${available ? "" : "size-disabled"} 
+${allSizesSoldOut ? "size-disabled" : ""}"
         data-size="${size}"
         data-product-id="${prod.id}"
         ${available ? "" : "aria-disabled='true'"}
