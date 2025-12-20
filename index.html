@@ -8,15 +8,6 @@
   <link rel="manifest" href="manifest.webmanifest" />
 <meta name="theme-color" content="#050507">
   <style>
- .hero > p {
-  color: #d1d5db;
-  -webkit-text-fill-color: #d1d5db;
-  opacity: 1;
-  filter: none;
-}
-    .hero > p {
-  isolation: isolate;
-}
     .size-disabled {
   opacity: 0.35;
   position: relative;
@@ -416,8 +407,10 @@
       max-width: 480px;
       line-height: 1.7;
     }
-
-    .hero-cta-row {
+    .hero > h1 {
+     color: var(--muted);
+   }
+     .hero-cta-row {
       display: flex;
       flex-wrap: wrap;
       gap: 0.8rem;
@@ -1182,37 +1175,43 @@
 
   <!-- PAGE CONTENT -->
   <main class="page">
-    <!-- HERO -->
-    <section class="hero">
+   <section class="hero">
   <h1>Phoenixborne Oath</h1>
 
-  <p>
-    Phoenixborne Oath adalah brand streetwear metal Indonesia yang lahir dari abu kehancuran.
-    Setiap artikel membawa filosofi kebangkitan, sumpah, dan identitas yang tidak tunduk.
-  </p>
-      <div class="hero-left">
-        <div class="badge-row">
-          <span class="badge badge-hot">Drop Limited</span>
-          <span class="badge">Streetwear / Metal</span>
-          <span>Indonesia</span>
-        </div>
-        <h2 class="hero-title">
-       <span>OFFICIAL RELEASE</span>
+  <div class="hero-left">
+
+    <p class="hero-sub">
+      Phoenixborne Oath adalah brand streetwear metal Indonesia yang lahir dari abu kehancuran.
+      Setiap artikel membawa filosofi kebangkitan, sumpah, dan identitas yang tidak tunduk.
+    </p>
+
+    <div class="badge-row">
+      <span class="badge badge-hot">Drop Limited</span>
+      <span class="badge">Streetwear / Metal</span>
+      <span>Indonesia</span>
+    </div>
+
+    <h2 class="hero-title">
+      <span>OFFICIAL RELEASE</span>
       <span class="hero-heading">Phoenixborne</span>
-       </h2>
-        <p class="hero-sub">
-          Koleksi kaos eksklusif dengan cerita di setiap desain. Dirilis dalam jumlah terbatas,
-          tanpa restock. Begitu habis, hanya tinggal Cerita.
-        </p>
-        <div class="hero-cta-row">
-  <button class="btn-primary" id="scrollToShopBtn">
-    <span>Shop Now</span>
-    <span class="icon">↗</span>
-  </button>
-  <p class="hero-note">
-    Next drop <strong>online only</strong> di website ini.
-  </p>
-</div>
+    </h2>
+
+    <p class="hero-sub">
+      Koleksi kaos eksklusif dengan cerita di setiap desain. Dirilis dalam jumlah terbatas,
+      tanpa restock. Begitu habis, hanya tinggal Cerita.
+    </p>
+
+    <div class="hero-cta-row">
+      <button class="btn-primary" id="scrollToShopBtn">
+        <span>Shop Now</span>
+        <span class="icon">↗</span>
+      </button>
+      <p class="hero-note">
+        Next drop <strong>online only</strong> di website ini.
+      </p>
+    </div>
+
+  </div>
 
       <div class="hero-right">
         <div class="hero-glow"></div>
