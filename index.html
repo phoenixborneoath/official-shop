@@ -4,10 +4,63 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="google-site-verification" content="cBJK1CUkKkvVy8DBg3QzVckxUsUqY2IiqrhsPF_G7mw" />
-  <title>PHOENIXBORNE OATH — Official Streetwear metal Brand Indonesia</title>
+  <meta name="description" content="Phoenixborne Oath adalah brand streetwear metal Indonesia yang lahir dari filosofi kebangkitan. Koleksi terbatas, tanpa restock.">
+  <title>Phoenixborne Oath — Official Streetwear Metal Brand Indonesia</title>
   <link rel="manifest" href="manifest.webmanifest" />
 <meta name="theme-color" content="#050507">
   <style>
+    .cart-button span:first-child {
+  color: #ffffff;
+  text-shadow:
+    0 0 6px rgba(255,255,255,0.6),
+    0 0 14px rgba(255,255,255,0.35);
+}
+
+/* OPSIONAL: glow lembut ke tombol cart */
+.cart-button {
+  border-color: rgba(255,255,255,0.25);
+  box-shadow:
+    0 0 12px rgba(255,255,255,0.15),
+    inset 0 0 8px rgba(255,255,255,0.05);
+}
+
+/* hover lebih hidup */
+.cart-button:hover {
+  box-shadow:
+    0 0 22px rgba(255,255,255,0.35),
+    0 0 40px rgba(248,113,113,0.25);
+}
+    .menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+
+@media (max-width: 720px) {
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-links {
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+    background: rgba(0,0,0,0.95);
+    flex-direction: column;
+    gap: 1.2rem;
+    padding: 1.2rem;
+    display: none;
+    z-index: 100;
+  }
+
+  .nav-links.show {
+    display: flex;
+  }
+}
     .size-disabled {
   opacity: 0.35;
   position: relative;
@@ -379,17 +432,12 @@
       box-shadow: 0 0 30px rgba(248, 113, 113, 0.7);
     }
 
-    .hero-title {
-      font-size: clamp(2.2rem, 3.1vw, 2.9rem);
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      line-height: 1.2;
-    }
-
-    .hero-title,
-.hero-title span {
-  color: #f9fafb;
+   .hero-title {
+  font-size: clamp(2.2rem, 3.1vw, 2.9rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  line-height: 1.2;
   background: none;
   -webkit-background-clip: initial;
   -webkit-text-fill-color: #f9fafb;
@@ -400,12 +448,12 @@
       color: transparent;
       text-shadow: 0 0 38px rgba(249, 115, 22, 0.7);
     }
-
+    .hero-desc,
     .hero-sub {
-      color: var(--muted);
-      font-size: 0.92rem;
-      max-width: 480px;
-      line-height: 1.7;
+    color: var(--muted);
+     font-size: 0.92rem;
+     max-width: 480px;
+    line-height: 1.7;
     }
      .hero-cta-row {
       display: flex;
@@ -663,10 +711,6 @@
 
       .nav-inner {
         padding-inline: 1rem;
-      }
-
-      .nav-links {
-        display: none;
       }
 
       .hero {
@@ -1166,6 +1210,11 @@
       <a href="/about.html">About</a>
       <a href="#faq">Faq</a>
     </nav>
+      
+      <button class="menu-toggle" id="menuToggle" aria-label="Open navigation menu">
+       ☰
+      </button>
+      
       <button class="cart-button" id="openCartBtn">
         <span>Cart</span>
         <span class="cart-count" id="cartCount">0</span>
@@ -1175,14 +1224,17 @@
 
   <!-- PAGE CONTENT -->
   <main class="page">
-   <section class="hero">
-  <h1>Phoenixborne Oath</h1>
+  <section class="hero">
+
   <div class="hero-left">
-   <p class="hero-sub">
-  <strong>Phoenixborne Oath</strong> adalah brand streetwear metal Indonesia yang lahir dari abu kehancuran.
-  Setiap artikel membawa filosofi kebangkitan, sumpah, dan identitas yang tidak tunduk.
-  <a href="/about.html" style="text-decoration:underline;">Pelajari ceritanya</a>.
-</p>
+    <h1>Phoenixborne Oath</h1>
+
+    <p class="hero-desc">
+      <strong>Phoenixborne Oath</strong> adalah brand streetwear metal Indonesia
+      yang lahir dari abu kehancuran.
+      Setiap artikel membawa filosofi kebangkitan, sumpah, dan identitas yang tidak tunduk.
+      <a href="/about.html" style="text-decoration:underline;">Pelajari ceritanya</a>.
+    </p>
 
     <div class="badge-row">
       <span class="badge badge-hot">Drop Limited</span>
@@ -1209,12 +1261,12 @@
         Next drop <strong>online only</strong> di website ini.
       </p>
     </div>
-      <div class="hero-right">
+     <div class="hero-right">
         <div class="hero-glow"></div>
         <div class="hero-card">
          <div class="hero-product">
           <img src="images/highlight.jpg"
-           alt="Reborn From Ashes Tee"
+           alt="Phoenixborne Oath Reborn From Ashes Tee"
            class="hero-product-img">
           </div>
           <div>
@@ -1244,14 +1296,12 @@
 
     <!-- PRODUCTS -->
     <section id="products">
-      <div class="section-header">
-        <div>
-          <div class="section-title">Collection</div>
-          <div class="section-sub">Pilih artikel favoritmu.</div>
-        </div>
-        <div class="section-sub">
-        </div>
-      </div>
+  <div class="section-header">
+    <div>
+      <div class="section-title">Collection</div>
+      <div class="section-sub">Pilih artikel favoritmu.</div>
+    </div>
+  </div>
 
       <div class="products-toolbar">
         <button class="tag-filter active" data-filter="all">All</button>
@@ -1773,6 +1823,15 @@ if ("serviceWorker" in navigator) {
       .catch(err => console.error("SW registration failed:", err));
   });
 }
+</script>
+
+<script>
+  const menuToggle = document.getElementById("menuToggle");
+  const navLinks = document.querySelector(".nav-links");
+
+  menuToggle.addEventListener("click", () => {
+    navLinks.classList.toggle("show");
+  });
 </script>
 </body>
 </html>
