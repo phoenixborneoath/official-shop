@@ -100,27 +100,55 @@
     <h1>Products</h1>
     <p class="sub">Official release dari Phoenixborne Oath</p>
 
-    <section class="grid">
-
-      <article class="card">
-        <img src="images/pborne.jpg" alt="Phoenixborne Tee">
-        <div class="name">Phoenixborne Tee</div>
-        <div class="price">Rp 289.000</div>
-        <div class="note">Limited Drop</div>
-      </article>
-
-      <article class="card">
-        <img src="images/cooming.jpg" alt="Coming Soon Tee">
-        <div class="name">Coming Soon Tee</div>
-        <div class="price">—</div>
-        <div class="note">Sold Out / Upcoming</div>
-      </article>
-
+   <section class="grid" id="productsGrid">
+     
     </section>
 
     <a href="/" class="back">← Kembali ke Homepage</a>
 
   </main>
+  <script src="products-data.js"></script>
+  <script>
+  const products = PRODUCTS;
+  const grid = document.getElementById("productsGrid");
+
+  const formatRupiah = (value) =>
+    new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+      maximumFractionDigits: 0
+    }).format(value);
+
+  function renderProductsPage() {
+  grid.innerHTML = "";
+
+  products
+    .slice() // supaya data asli tidak rusak
+    .sort((a, b) => b.id - a.id) // id terbesar (terbaru) di atas
+    .forEach(p => {
+      const card = document.createElement("article");
+      card.className = "card";
+      card.onclick = () => {
+      window.location.href = "/#products";
+     };
+      
+      card.innerHTML = `
+        <img src="${p.cover}" alt="${p.name}">
+        <div class="name">${p.name}</div>
+        <div class="price">
+          ${p.price ? formatRupiah(p.price) : "—"}
+        </div>
+        <div class="note">
+          ${p.category === "soldout" ? "Sold Out / Upcoming" : "Limited Drop"}
+        </div>
+      `;
+
+      grid.appendChild(card);
+    });
+}
+
+  renderProductsPage();
+</script>
 </body>
 </html>
 
