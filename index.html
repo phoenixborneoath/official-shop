@@ -1408,40 +1408,33 @@
     const productsGrid = document.getElementById("productsGrid");
     const filterButtons = document.querySelectorAll(".tag-filter");
     
-    function renderProducts(filter = "all") {
+   function renderProducts(filter = "all") {
   productsGrid.innerHTML = "";
 
-  const filtered = sortProductsForDisplay(
-  products.filter(p => {
+  // 1️⃣ SORT DULU: Ready > Sold Out > Terbaru
+  const sorted = sortProductsForDisplay(products);
+
+  // 2️⃣ BARU FILTER (PAKAI DATA PASTI, BUKAN includes)
+  const filtered = sorted.filter(p => {
     if (filter === "all") return true;
+
     if (filter === "season1") {
-      return p.stockStatus.toLowerCase().includes("ready");
+      return p.stockStatus === "Ready Stock";
     }
+
     if (filter === "article") {
       return p.category === "limited";
     }
+
     if (filter === "soldout") {
-      return p.stockStatus.toLowerCase().includes("sold");
+      return p.category === "soldout";
     }
+
     return true;
-  })
-);
+  });
 
+  // 3️⃣ RENDER
   filtered.forEach(prod => {
-
-    const allSizesSoldOut = Object.values(prod.sizes).every(v => !v);
-
-    // 1️⃣ LOGIC WARNA STOCK
-    const status = prod.stockStatus.toLowerCase();
-    let stockClass = "";
-
-    if (status.includes("ready")) {
-      stockClass = "stock-ready";
-    } else if (status.includes("low")) {
-      stockClass = "stock-low";
-    } else if (status.includes("sold")) {
-      stockClass = "stock-sold";
-    }
 
     // 2️⃣ BUAT CARD
     const card = document.createElement("article");
