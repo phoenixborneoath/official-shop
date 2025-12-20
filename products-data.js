@@ -57,8 +57,10 @@ const PRODUCTS = [
     ],
 
     cover: "images/cooming.jpg"
-    {
-    id: 1,
+    },
+
+  {
+    id: 3,
     name: "PHOENIXBORNE TEE",
     slug: "phoenix-borne-tee",
     category: "season1",
