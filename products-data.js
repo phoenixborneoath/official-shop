@@ -5,7 +5,7 @@ const PRODUCTS = [
     id: 1,
     name: "PHOENIXBORNE TEE",
     slug: "phoenix-borne-tee",
-    category: "limited",
+    category: "season1",
     price: 289000,
     originalPrice: null,
     badge: "First article",
@@ -57,5 +57,32 @@ const PRODUCTS = [
     ],
 
     cover: "images/cooming.jpg"
+    {
+    id: 1,
+    name: "PHOENIXBORNE TEE",
+    slug: "phoenix-borne-tee",
+    category: "season1",
+    price: 289000,
+    originalPrice: null,
+    badge: "First article",
+    isNew: false,
+    discount: "New Arrival",
+    stockStatus: "Ready Stock",
+
+    sizes: {
+      S: true,
+      M: true,
+      L: true,
+      XL: true,
+      XXL: false
+    },
+
+    images: [
+      "images/petir.jpg",
+      "images/petir.jpg",
+      "images/size.jpg"
+    ],
+
+    cover: "images/petir.jpg"
   }
 ];
