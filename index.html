@@ -1470,7 +1470,7 @@ if (status.includes("ready")) {
     card.innerHTML = `
       <div class="${badgeClass}">${badgeLabel}</div>
 
-     <div class="product-media" onclick="goToProduct('${prod.slug}')">
+     <div class="product-media js-open-gallery" data-id="${prod.id}">
   <img src="${prod.cover}" alt="${prod.name}">
 </div>
 
@@ -1746,6 +1746,108 @@ productsGrid.addEventListener("click", (e) => {
   // SIMPAN SIZE (INI KUNCI UTAMA)
   selectedSizes[productId] = size;
 });
+
+  // ========= IMAGE MODAL + SLIDER =========
+const imageModal = document.getElementById("imageModal");
+const modalImage = document.getElementById("modalImage");
+const closeImageModalBtn = document.getElementById("closeImageModal");
+const prevImageBtn = document.getElementById("prevImage");
+const nextImageBtn = document.getElementById("nextImage");
+
+let galleryImages = [];
+let galleryIndex = 0;
+
+function normalizeImages(prod) {
+  // Dukungan 3 kemungkinan struktur data:
+  // 1) prod.images: ["a.jpg","b.jpg"]
+  // 2) prod.gallery: ["a.jpg","b.jpg"]
+  // 3) fallback: hanya cover
+  const imgs = (prod.images && prod.images.length ? prod.images
+            : prod.gallery && prod.gallery.length ? prod.gallery
+            : prod.cover ? [prod.cover]
+            : []);
+  return imgs;
+}
+
+function showGalleryImage(index) {
+  if (!galleryImages.length) return;
+  galleryIndex = (index + galleryImages.length) % galleryImages.length;
+  modalImage.src = galleryImages[galleryIndex];
+}
+
+function openImageModalForProduct(productId, startIndex = 0) {
+  const prod = products.find(p => p.id === Number(productId));
+  if (!prod) return;
+
+  galleryImages = normalizeImages(prod);
+  if (!galleryImages.length) return;
+
+  imageModal.classList.add("show");
+  imageModal.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+
+  showGalleryImage(startIndex);
+}
+
+function closeImageModal() {
+  imageModal.classList.remove("show");
+  imageModal.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+  modalImage.src = "";
+  galleryImages = [];
+  galleryIndex = 0;
+}
+
+function prevGallery() {
+  showGalleryImage(galleryIndex - 1);
+}
+function nextGallery() {
+  showGalleryImage(galleryIndex + 1);
+}
+
+// Klik gambar produk => buka modal
+productsGrid.addEventListener("click", (e) => {
+  const media = e.target.closest(".js-open-gallery");
+  if (!media) return;
+  const id = media.getAttribute("data-id");
+  openImageModalForProduct(id, 0);
+});
+
+// tombol nav
+if (prevImageBtn) prevImageBtn.addEventListener("click", (e) => { e.stopPropagation(); prevGallery(); });
+if (nextImageBtn) nextImageBtn.addEventListener("click", (e) => { e.stopPropagation(); nextGallery(); });
+if (closeImageModalBtn) closeImageModalBtn.addEventListener("click", (e) => { e.stopPropagation(); closeImageModal(); });
+
+// klik backdrop (area gelap) untuk close
+if (imageModal) {
+  imageModal.addEventListener("click", (e) => {
+    if (e.target === imageModal) closeImageModal();
+  });
+}
+
+// ESC untuk close
+window.addEventListener("keydown", (e) => {
+  if (!imageModal.classList.contains("show")) return;
+  if (e.key === "Escape") closeImageModal();
+  if (e.key === "ArrowLeft") prevGallery();
+  if (e.key === "ArrowRight") nextGallery();
+});
+
+// Swipe kiri/kanan di HP
+let touchStartX = 0;
+let touchEndX = 0;
+
+modalImage.addEventListener("touchstart", (e) => {
+  touchStartX = e.changedTouches[0].screenX;
+}, { passive: true });
+
+modalImage.addEventListener("touchend", (e) => {
+  touchEndX = e.changedTouches[0].screenX;
+  const dx = touchEndX - touchStartX;
+  if (Math.abs(dx) < 40) return;
+  if (dx > 0) prevGallery();
+  else nextGallery();
+}, { passive: true });
   
 updateCartUI();
 </script>
