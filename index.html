@@ -15,6 +15,23 @@
 <link href="https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap" rel="stylesheet">
 
   <style>
+    .hero-left > h1{
+  width: 100%;
+  text-align: center;
+}
+
+/* 2) Nav mobile (PRODUCTS ABOUT FAQ) di tengah */
+.hero-left .hero-mobile-nav{
+  width: 100%;
+  display: flex;              /* pastikan flex aktif */
+  justify-content: center;    /* center menu */
+  text-align: center;
+}
+
+/* 3) Biar elemen lain (deskripsi, badge, dll) tetap seperti semula */
+.hero-left{
+  align-items: flex-start;    /* jangan center semua isi hero-left */
+}
     .hero-left > h1.hero-metal{
   width: 100%;
   text-align: center;
