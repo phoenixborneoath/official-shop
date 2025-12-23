@@ -14,6 +14,24 @@
 <link rel="apple-touch-icon" href="/icons/googlelogo.jpg">
 
   <style>
+    .cta-btn.primary{
+  background: rgba(255,255,255,.10);
+  border-color: rgba(255,255,255,.26);
+}
+    .back-icon{
+  width: 18px;
+  height: 18px;
+  display: block;
+  opacity: .9;
+  filter: drop-shadow(0 0 6px rgba(255,255,255,.18));
+}
+    .bolt-icon{
+  width: 18px;
+  height: 18px;
+  display: block;
+  filter: drop-shadow(0 0 6px rgba(255,255,255,.30))
+          drop-shadow(0 0 16px rgba(190,200,220,.18));
+}
     .cta-wrap{
   margin-top: 18px;
   display: flex;
@@ -170,13 +188,29 @@
 
    <div class="cta-wrap">
   <a class="cta-btn primary" href="/products.html" aria-label="Lihat Koleksi / Products">
-    <span class="cta-mark" aria-hidden="true">⚡</span>
+    <span class="cta-mark" aria-hidden="true">
+  <svg class="bolt-icon" viewBox="0 0 24 24" aria-hidden="true">
+    <defs>
+      <linearGradient id="silverBoltAbout" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#ffffff"/>
+        <stop offset="0.45" stop-color="#dfe3ea"/>
+        <stop offset="1" stop-color="#b7bcc6"/>
+      </linearGradient>
+    </defs>
+    <path d="M13 2L3 14h7l-1 8 12-14h-7l-1-6z" fill="url(#silverBoltAbout)"/>
+  </svg>
+</span>
     Lihat Koleksi / Products
     <span class="cta-arrow" aria-hidden="true">→</span>
   </a>
 
   <a class="cta-btn ghost" href="/index.html" aria-label="Kembali ke Homepage">
-    <span class="cta-mark" aria-hidden="true">⟲</span>
+    <span class="cta-mark" aria-hidden="true">
+  <svg class="back-icon" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M12 5a7 7 0 1 1-6.3 4H3l3.5-3.5L10 9H7.8A5.2 5.2 0 1 0 12 6.8V5z"
+          fill="#dfe3ea"/>
+  </svg>
+</span>
     Kembali ke Homepage
   </a>
 </div>
