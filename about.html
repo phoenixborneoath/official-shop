@@ -14,79 +14,42 @@
 <link rel="apple-touch-icon" href="/icons/googlelogo.jpg">
 
   <style>
-    .cta-btn.primary{
-  background: rgba(255,255,255,.10);
-  border-color: rgba(255,255,255,.26);
-}
-    .back-icon{
-  width: 18px;
-  height: 18px;
-  display: block;
-  opacity: .9;
-  filter: drop-shadow(0 0 6px rgba(255,255,255,.18));
-}
-    .bolt-icon{
-  width: 18px;
-  height: 18px;
-  display: block;
-  filter: drop-shadow(0 0 6px rgba(255,255,255,.30))
-          drop-shadow(0 0 16px rgba(190,200,220,.18));
-}
-    .cta-wrap{
-  margin-top: 18px;
+    .manifesto-cta{
+  margin-top: 22px;
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
   align-items: center;
 }
 
-/* Base tombol */
-.cta-btn{
+.mcta-btn{
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  padding: 12px 16px;
+  padding: 14px 18px;
   border-radius: 14px;
   text-decoration: none;
-  letter-spacing: .2px;
-  border: 1px solid rgba(255,255,255,.18);
-  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.22);
+  background: rgba(255,255,255,.08);
   color: rgba(255,255,255,.92);
+  font-weight: 700;
+  letter-spacing: .2px;
   transition: transform .15s ease, background .15s ease, border-color .15s ease, box-shadow .15s ease;
-  cursor: pointer;
-  user-select: none;
 }
 
-/* Biar jelas bisa diklik */
-.cta-btn:hover{
+.mcta-btn:hover{
   transform: translateY(-1px);
-  background: rgba(255,255,255,.10);
-  border-color: rgba(255,255,255,.28);
+  background: rgba(255,255,255,.12);
+  border-color: rgba(255,255,255,.30);
   box-shadow: 0 10px 26px rgba(0,0,0,.35);
 }
 
-.cta-btn:active{ transform: translateY(0); }
-
-.cta-btn:focus-visible{
+.mcta-btn:focus-visible{
   outline: 2px solid rgba(255,255,255,.55);
   outline-offset: 3px;
 }
 
-/* Tombol utama lebih “menonjol” (tidak sama rata) */
-.cta-btn.primary{
-  padding: 14px 18px;
-  font-weight: 700;
-}
-
-/* Tombol kedua lebih “ringan” */
-.cta-btn.ghost{
-  background: transparent;
-  border-color: rgba(255,255,255,.14);
-  color: rgba(255,255,255,.78);
-}
-
-/* Ikon/tanda */
-.cta-mark{
+.mcta-mark{
   width: 28px;
   height: 28px;
   display: inline-flex;
@@ -95,11 +58,21 @@
   border-radius: 10px;
   background: rgba(255,255,255,.10);
   border: 1px solid rgba(255,255,255,.12);
+  opacity: .95;
 }
 
-.cta-arrow{
-  margin-left: 6px;
-  opacity: .9;
+.mcta-arrow{ opacity: .9; }
+
+.mcta-link{
+  color: rgba(255,255,255,.78);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,.18);
+  padding-bottom: 2px;
+}
+
+.mcta-link:hover{
+  color: rgba(255,255,255,.92);
+  border-bottom-color: rgba(255,255,255,.30);
 }
     body {
       margin: 0;
@@ -186,32 +159,15 @@
       bahkan ketika dunia menuntut untuk menyerah.
     </p>
 
-   <div class="cta-wrap">
-  <a class="cta-btn primary" href="/products.html" aria-label="Lihat Koleksi / Products">
-    <span class="cta-mark" aria-hidden="true">
-  <svg class="bolt-icon" viewBox="0 0 24 24" aria-hidden="true">
-    <defs>
-      <linearGradient id="silverBoltAbout" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#ffffff"/>
-        <stop offset="0.45" stop-color="#dfe3ea"/>
-        <stop offset="1" stop-color="#b7bcc6"/>
-      </linearGradient>
-    </defs>
-    <path d="M13 2L3 14h7l-1 8 12-14h-7l-1-6z" fill="url(#silverBoltAbout)"/>
-  </svg>
-</span>
-    Lihat Koleksi / Products
-    <span class="cta-arrow" aria-hidden="true">→</span>
+   <div class="manifesto-cta">
+  <a class="mcta-btn" href="https://phoenixborneoath.com/" target="_blank" rel="noopener">
+    <span class="mcta-mark" aria-hidden="true">⟁</span>
+    Masuk ke Official Store
+    <span class="mcta-arrow" aria-hidden="true">→</span>
   </a>
 
-  <a class="cta-btn ghost" href="/index.html" aria-label="Kembali ke Homepage">
-    <span class="cta-mark" aria-hidden="true">
-  <svg class="back-icon" viewBox="0 0 24 24" aria-hidden="true">
-    <path d="M12 5a7 7 0 1 1-6.3 4H3l3.5-3.5L10 9H7.8A5.2 5.2 0 1 0 12 6.8V5z"
-          fill="#dfe3ea"/>
-  </svg>
-</span>
-    Kembali ke Homepage
+  <a class="mcta-link" href="/" aria-label="Kembali ke Official Realm">
+    Kembali ke Official Realm
   </a>
 </div>
 
