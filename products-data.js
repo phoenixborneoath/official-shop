@@ -24,7 +24,7 @@ const PRODUCTS = [
     images: [
       "images/cooming.jpg",
       "images/petir.jpg",
-      "images/size.jpg"
+      "images/size chart.png"
     ],
 
     cover: "images/cooming.jpg"
