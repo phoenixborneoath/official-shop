@@ -14,11 +14,11 @@ const PRODUCTS = [
     stockStatus: "Ready Stock",
 
     sizes: {
-      S: true,
-      M: true,
-      L: true,
-      XL: true,
-      XXL: true,
+      S: false,
+      M: false,
+      L: false,
+      XL: false,
+      XXL: false,
     },
 
     images: [
