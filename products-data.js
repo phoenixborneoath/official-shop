@@ -27,6 +27,6 @@ const PRODUCTS = [
       "images/sizechart.jpg"
     ],
 
-    cover: "images/cooming.jpg"
+    cover: "images/productsgate.jpg"
   }
 ];
