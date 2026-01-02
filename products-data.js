@@ -22,7 +22,7 @@ const PRODUCTS = [
     },
 
     images: [
-      "images/cooming.jpg",
+      "images/brokengate.jpg",
       "images/petir.jpg",
       "images/sizechart.jpg"
     ],
