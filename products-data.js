@@ -3,7 +3,7 @@
 const PRODUCTS = [
   {
     id: 1,
-    name: "COOMING SOON",
+    name: "BROKEN GATE TEE",
     slug: "phoenix-borne-tee",
     category: "season1",
     price: 289000,
