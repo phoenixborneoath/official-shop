@@ -22,11 +22,11 @@ const PRODUCTS = [
     },
 
     images: [
-      "images/brokengate.jpg",
+      "images/slide1.png",
       "images/slide2.png",
       "images/T-shirt chart.png"
     ],
 
-    cover: "images/productsgate.jpg"
+    cover: "images/display.png"
   }
 ];
