@@ -22,11 +22,10 @@ const PRODUCTS = [
     },
 
     images: [
-      "images/slide1.png",
-      "images/slide2.png",
-      "images/T-shirt chart.png"
-    ],
-
-    cover: "images/display.png"
+  "images/phoenixborne-oath-broken-gate-tee-front.jpg",
+  "images/phoenixborne-oath-broken-gate-tee-back.jpg",
+  "images/phoenixborne-oath-broken-gate-size-chart.jpg"
+],
+cover: "images/phoenixborne-oath-broken-gate-cover.jpg"
   }
 ];
