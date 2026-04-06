@@ -15,10 +15,10 @@ const PRODUCTS = [
 
     sizes: {
       S: true,
-      M: false,
-      L: false,
-      XL: false,
-      XXL: false,
+      M: true,
+      L: true,
+      XL: true,
+      XXL: true,
     },
 
     images: [
