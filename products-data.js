@@ -24,7 +24,7 @@ const PRODUCTS = [
     images: [
   "images/phoenixborne-oath-broken-gate-tee-front.jpg",
   "images/phoenixborne-oath-broken-gate-tee-back.jpg",
-  "images/phoenixborne-oath-broken-gate-size-chart.jpg"
+  "images/phoenixborne-oath-broken-gate-size-chart1.jpg"
 ],
 cover: "images/phoenixborne-oath-broken-gate-cover.jpg"
   }
