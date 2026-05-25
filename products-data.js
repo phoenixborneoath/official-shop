@@ -6,7 +6,7 @@ const PRODUCTS = [
     name: "BROKEN GATE TEE",
     slug: "phoenix-borne-tee",
     category: "season1",
-    price: 289000,
+    price: 199000,
     originalPrice: null,
     badge: "First article",
     isNew: false,
