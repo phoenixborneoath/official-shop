@@ -11,7 +11,7 @@ const PRODUCTS = [
     badge: "First article",
     isNew: false,
     discount: "New Arrival",
-    stockStatus: "Ready Stock",
+    stockStatus: "Low Stock",
 
     sizes: {
       S: true,
