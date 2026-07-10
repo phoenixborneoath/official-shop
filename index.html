@@ -1550,16 +1550,16 @@
     if (filter === "all") return true;
 
     if (filter === "season1") {
-      return p.stockStatus === "Ready Stock";
-    }
+    return p.category === "season1";
+}
 
-    if (filter === "article") {
-      return p.category === "limited";
-    }
+if (filter === "article") {
+    return p.category === "article";
+}
 
-    if (filter === "soldout") {
-      return p.category === "soldout";
-    }
+if (filter === "soldout") {
+    return p.category === "soldout";
+}
 
     return true;
   });
