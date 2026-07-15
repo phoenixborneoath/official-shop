@@ -16,7 +16,7 @@ const PRODUCTS = [
     sizes: {
       S: true,
       M: false,
-      L: true,
+      L: false,
       XL: true,
       XXL: true,
     },
