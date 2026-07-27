@@ -311,6 +311,381 @@
     margin-bottom:0;
 
 }
+   /* ==========================
+   ARTWORK
+========================== */
+
+.artwork{
+
+    padding:120px 0;
+
+    background:#050505;
+
+}
+
+.symbol-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:35px;
+
+    margin-top:60px;
+
+}
+
+.symbol-card{
+
+    border:1px solid rgba(255,255,255,.08);
+
+    padding:40px;
+
+    transition:.3s;
+
+}
+
+.symbol-card:hover{
+
+    border-color:#666;
+
+    transform:translateY(-6px);
+
+}
+
+.symbol-card h3{
+
+    font-size:26px;
+
+    color:#ffffff;
+
+    margin-bottom:20px;
+
+}
+
+.symbol-card p{
+
+    color:#bdbdbd;
+
+    line-height:1.9;
+
+    font-size:17px;
+
+}
+
+   /* ==========================
+   OFFICIAL QUOTE
+========================== */
+
+.official-quote{
+
+    padding:140px 0;
+
+    background:#0a0a0a;
+
+    text-align:center;
+
+}
+
+.quote-label{
+
+    display:block;
+
+    font-size:13px;
+
+    letter-spacing:5px;
+
+    color:#777;
+
+    margin-bottom:35px;
+
+}
+
+.official-quote blockquote{
+
+    max-width:900px;
+
+    margin:auto;
+
+    font-family:'Cinzel',serif;
+
+    font-size:46px;
+
+    line-height:1.6;
+
+    color:#ffffff;
+
+}
+
+.official-quote p{
+
+    margin-top:45px;
+
+    color:#888;
+
+    letter-spacing:3px;
+
+    text-transform:uppercase;
+
+}
+
+   /* ==========================
+   GALLERY
+========================== */
+
+.gallery{
+
+    padding:120px 0;
+
+    background:#080808;
+
+}
+
+.gallery-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:22px;
+
+    margin-top:60px;
+
+}
+
+.gallery-item{
+
+    overflow:hidden;
+
+    border:1px solid rgba(255,255,255,.08);
+
+}
+
+.gallery-item.large{
+
+    grid-column:1 / -1;
+
+}
+
+.gallery-item img{
+
+    width:100%;
+
+    display:block;
+
+    transition:.5s;
+
+}
+
+.gallery-item:hover img{
+
+    transform:scale(1.03);
+
+}
+
+   /* ==========================
+   ARTICLE INFORMATION
+========================== */
+
+.article-spec{
+
+    padding:120px 0;
+
+    background:#050505;
+
+}
+
+.spec-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:25px;
+
+    margin-top:60px;
+
+}
+
+.spec-item{
+
+    padding:28px 32px;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    transition:.3s;
+
+}
+
+.spec-item:hover{
+
+    border-color:#666;
+
+    transform:translateY(-4px);
+
+}
+
+.spec-item span{
+
+    display:block;
+
+    color:#777;
+
+    font-size:13px;
+
+    letter-spacing:3px;
+
+    text-transform:uppercase;
+
+    margin-bottom:10px;
+
+}
+
+.spec-item strong{
+
+    font-size:24px;
+
+    color:#ffffff;
+
+    font-weight:600;
+
+}
+
+   /* ==========================
+   ARCHIVE FOOTER
+========================== */
+
+.archive-footer{
+
+    padding:90px 0 70px;
+
+    background:#050505;
+
+    text-align:center;
+
+}
+
+.archive-nav{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:40px;
+
+    flex-wrap:wrap;
+
+}
+
+.archive-link{
+
+    color:#bdbdbd;
+
+    text-decoration:none;
+
+    letter-spacing:1px;
+
+    transition:.3s;
+
+}
+
+.archive-link:hover{
+
+    color:#ffffff;
+
+}
+
+.next-article span{
+
+    display:block;
+
+    font-size:12px;
+
+    letter-spacing:4px;
+
+    color:#777;
+
+    margin-bottom:12px;
+
+}
+
+.coming-soon{
+
+    color:#ffffff;
+
+    text-decoration:none;
+
+    font-family:'Cinzel',serif;
+
+    font-size:20px;
+
+}
+
+.footer-divider{
+
+    width:100%;
+
+    height:1px;
+
+    background:rgba(255,255,255,.08);
+
+    margin:60px 0;
+
+}
+
+.footer-divider.small{
+
+    margin:45px 0 35px;
+
+}
+
+.footer-links{
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:40px;
+
+    flex-wrap:wrap;
+
+}
+
+.footer-links a{
+
+    color:#9b9b9b;
+
+    text-decoration:none;
+
+    transition:.3s;
+
+}
+
+.footer-links a:hover{
+
+    color:#ffffff;
+
+}
+
+.copyright p{
+
+    color:#ffffff;
+
+    margin-bottom:8px;
+
+    letter-spacing:2px;
+
+}
+
+.copyright span{
+
+    color:#777;
+
+    font-size:14px;
+
+}
 
 </style>
 
@@ -474,6 +849,259 @@
                 awal dari perjalanan yang dijalani dengan keyakinan bahwa
                 setiap perubahan selalu dimulai dari langkah pertama.
             </p>
+
+        </div>
+
+    </div>
+
+</section>
+   <section class="artwork">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <span>OFFICIAL SYMBOLISM</span>
+
+            <h2>Makna di Balik Artwork</h2>
+
+        </div>
+
+        <div class="symbol-grid">
+
+            <div class="symbol-card">
+
+                <h3>Gerbang yang Dilewati</h3>
+
+                <p>
+                    Gerbang yang rusak bukanlah simbol kehancuran,
+                    melainkan simbol dari batas yang telah dilewati.
+                    Ia menjadi pengingat bahwa setiap perubahan dimulai
+                    ketika seseorang berani meninggalkan kehidupan yang
+                    tidak lagi membawanya menuju tujuan.
+                </p>
+
+            </div>
+
+            <div class="symbol-card">
+
+                <h3>Tiga Founder</h3>
+
+                <p>
+                    Tiga sosok dalam artwork merepresentasikan tiga
+                    founder Phoenixborne Oath. Masing-masing memiliki
+                    karakter dan kekuatan yang berbeda, tetapi berjalan
+                    menuju satu tujuan yang sama.
+                </p>
+
+            </div>
+
+            <div class="symbol-card">
+
+                <h3>Melangkah Bersama</h3>
+
+                <p>
+                    Mereka tidak berlari. Mereka berjalan. Perjalanan
+                    tidak selalu tentang siapa yang paling cepat,
+                    melainkan siapa yang tetap melangkah ketika keadaan
+                    belum berubah.
+                </p>
+
+            </div>
+
+            <div class="symbol-card">
+
+                <h3>Sang Phoenix</h3>
+
+                <p>
+                    Phoenix melambangkan kebangkitan. Bukan karena tidak
+                    pernah jatuh, tetapi karena selalu memilih bangkit
+                    setiap kali kehidupan memaksanya untuk memulai
+                    kembali.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+   <section class="official-quote">
+
+    <div class="container">
+
+        <span class="quote-label">
+            OFFICIAL QUOTE
+        </span>
+
+        <blockquote>
+
+            "Perubahan tidak datang ketika jalan terbuka.
+            Perubahan datang ketika kamu berani melangkah."
+
+        </blockquote>
+
+        <p>
+
+            — Phoenixborne Oath
+
+        </p>
+
+    </div>
+
+</section>
+
+   <section class="gallery">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <span>OFFICIAL GALLERY</span>
+
+            <h2>Galeri Article</h2>
+
+        </div>
+
+        <div class="gallery-grid">
+
+            <div class="gallery-item large">
+                <img src="../images/broken-gate-01.jpg" alt="BROKEN GATE Hero">
+            </div>
+
+            <div class="gallery-item">
+                <img src="../images/broken-gate-02.jpg" alt="Front">
+            </div>
+
+            <div class="gallery-item">
+                <img src="../images/broken-gate-03.jpg" alt="Back">
+            </div>
+
+            <div class="gallery-item">
+                <img src="../images/broken-gate-04.jpg" alt="Detail">
+            </div>
+
+            <div class="gallery-item">
+                <img src="../images/broken-gate-05.jpg" alt="Model">
+            </div>
+
+            <div class="gallery-item large">
+                <img src="../images/broken-gate-06.jpg" alt="Lifestyle">
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+   <section class="article-spec">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <span>OFFICIAL RECORD</span>
+
+            <h2>Article Information</h2>
+
+        </div>
+
+        <div class="spec-grid">
+
+            <div class="spec-item">
+                <span>Collection</span>
+                <strong>Season I</strong>
+            </div>
+
+            <div class="spec-item">
+                <span>Article</span>
+                <strong>BROKEN GATE</strong>
+            </div>
+
+            <div class="spec-item">
+                <span>Release</span>
+                <strong>2026</strong>
+            </div>
+
+            <div class="spec-item">
+                <span>Status</span>
+                <strong>Released</strong>
+            </div>
+
+            <div class="spec-item">
+                <span>Fit</span>
+                <strong>Regular</strong>
+            </div>
+
+            <div class="spec-item">
+                <span>Material</span>
+                <strong>Cotton Combed 20s</strong>
+            </div>
+
+            <div class="spec-item">
+                <span>Artwork</span>
+                <strong>Original Artwork</strong>
+            </div>
+
+            <div class="spec-item">
+                <span>Origin</span>
+                <strong>Indonesia</strong>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+   <section class="archive-footer">
+
+    <div class="container">
+
+        <div class="archive-nav">
+
+            <a href="../season-1.html" class="archive-link">
+                ← Back to Season I
+            </a>
+
+            <div class="next-article">
+
+                <span>ARTICLE II</span>
+
+                <a href="#" class="coming-soon">
+                    Coming Soon →
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="footer-divider"></div>
+
+        <div class="footer-links">
+
+            <a href="/">Official Website</a>
+
+            <a href="https://instagram.com/phoenixborneoath" target="_blank">
+                Instagram
+            </a>
+
+            <a href="https://tiktok.com/@phoenixborne.oath" target="_blank">
+                TikTok
+            </a>
+
+        </div>
+
+        <div class="footer-divider small"></div>
+
+        <div class="copyright">
+
+            <p>© 2026 Phoenixborne Oath</p>
+
+            <span>All Rights Reserved.</span>
 
         </div>
 
