@@ -226,14 +226,6 @@
 
 }
 
-.section-title h2{
-
-    font-size:44px;
-
-    color:#fff;
-
-}
-
 .synopsis-box{
 
     max-width:850px;
@@ -687,6 +679,84 @@
 
 }
 
+   /* ==========================
+   RESPONSIVE
+========================== */
+
+@media (max-width: 768px){
+
+    .hero{
+        min-height:100vh;
+        padding:80px 25px;
+    }
+
+    .hero h1{
+        font-size:50px;
+        line-height:1;
+    }
+
+    .hero-description{
+        font-size:18px;
+    }
+
+    .hero-meta{
+
+    flex-direction:column;
+
+    gap:10px;
+
+  }
+    .info-grid,
+    .symbol-grid,
+    .gallery-grid,
+    .spec-grid{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .gallery-item.large{
+
+        grid-column:auto;
+
+    }
+
+    .archive-nav{
+
+        flex-direction:column;
+        gap:35px;
+
+    }
+
+    .footer-links{
+
+        flex-direction:column;
+        gap:18px;
+
+    }
+
+   .section-title h2{
+
+    font-size:34px;
+
+}
+
+.info-card,
+.symbol-card,
+.spec-item{
+
+    padding:24px;
+
+}
+
+.official-quote blockquote{
+
+    font-size:30px;
+
+}
+
+}
+
 </style>
 
 </head>
@@ -972,11 +1042,15 @@
             </div>
 
             <div class="gallery-item">
-                <img src="../images/broken-gate-02.jpg" alt="Front">
+                <img src="../images/broken-gate-02.jpg"
+     alt="Front"
+     loading="lazy">
             </div>
 
             <div class="gallery-item">
-                <img src="../images/broken-gate-03.jpg" alt="Back">
+                <img src="../images/broken-gate-02.jpg"
+     alt="Back"
+     loading="lazy">
             </div>
 
             <div class="gallery-item">
