@@ -32,15 +32,39 @@
   </url>
 
   <url>
-  <loc>https://phoenixborneoath.com/articles/filosofi-phoenixborne-oath.html</loc>
+    <loc>https://phoenixborneoath.com/articles/filosofi-phoenixborne-oath.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+</url>
+  
+  <url>
+  <loc>https://phoenixborneoath.com/articles/cerita-lahirnya-phoenixborne-oath.html</loc>
+  <changefreq>monthly</changefreq>
   <priority>0.8</priority>
 </url>
 
   <url>
-  <loc>https://phoenixborneoath.com/articles/cerita-lahirnya-phoenixborne-oath.html</loc>
-  <lastmod>2026-07-12</lastmod>
-  <changefreq>monthly</changefreq>
-  <priority>0.80</priority>
+    <loc>https://phoenixborneoath.com/articles/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+</url>
+
+  <url>
+    <loc>https://phoenixborneoath.com/articles/season-1.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+</url>
+
+  <url>
+    <loc>https://phoenixborneoath.com/articles/broken-gate.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+</url>
+
+  <url>
+    <loc>https://phoenixborneoath.com/articles/mengapa-limited-release.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
 </url>
 
 </urlset>
