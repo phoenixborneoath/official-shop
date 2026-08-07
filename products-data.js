@@ -14,7 +14,7 @@ const PRODUCTS = [
     stockStatus: "Low Stock",
 
     sizes: {
-      S: true,
+      S: false,
       M: false,
       L: false,
       XL: true,
