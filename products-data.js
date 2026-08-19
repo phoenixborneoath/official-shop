@@ -10,10 +10,11 @@ const PRODUCTS = [
     originalPrice: null,
     badge: "First article",
     isNew: false,
-    discount: null",
+    discount: "New Arrival",
     stockStatus: "Low Stock",
 
     sizes: {
+      S: true,
       S: false,
       M: false,
       L: false,
@@ -27,34 +28,5 @@ const PRODUCTS = [
   "images/phoenixborne-oath-broken-gate-size-chart1.jpg"
 ],
 cover: "images/phoenixborne-oath-broken-gate-cover.jpg"
-    },
-
-  {
-    id: 2,
-    name: "PHOENIXBORNE TEE",
-    slug: "phoenix-borne-tee",
-    category: "season1",
-    price: 199000,
-    originalPrice: null,
-    badge: "new article",
-    isNew: false,
-    discount: "New Arrival",
-    stockStatus: "Cooming soon",
-
-    sizes: {
-      S: false,
-      M: false,
-      L: false,
-      XL: false,
-      XXL: false,
-    },
-
-    images: [
-      "images/phoenixborne-tee-front.jpg",
-      "images/phoenixborne-tee-back.jpg",
-      "images/phoenixborne-tee-size-chart2.jpg"
-    ],
-
-    cover: "images/phoenixborne-tee-cover.jpg"
   }
 ];
