@@ -14,7 +14,7 @@ const PRODUCTS = [
     stockStatus: "Low Stock",
 
     sizes: {
-      S: true,
+      S: false,
       S: false,
       M: false,
       L: false,
@@ -72,19 +72,19 @@ cover: "images/phoenixborne-oath-broken-gate-cover.jpg"
     stockStatus: "Ready Stock",
 
     sizes: {
-      S: true,
-      M: true,
-      L: true,
-      XL: true,
+      S: false,
+      M: false,
+      L: false,
+      XL: false,
       XXL: false
     },
 
     images: [
-      "images/petir.jpg",
-      "images/petir.jpg",
-      "images/size.jpg"
+      "images/phoenixborne-tee-front.jpg",
+      "images/phoenixborne-tee-back.jpg",
+      "images/phoenixborne-tee-size-chart2.jpg"
     ],
 
-    cover: "images/petir.jpg"
+    cover: "images/phoenixborne-tee-cover.jpg"
   }
 ];
