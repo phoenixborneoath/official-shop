@@ -520,20 +520,45 @@ body{
     .hero{
         min-height:100vh;
         padding:80px 20px;
+        overflow:hidden;
+    }
+
+    .article-number{
+        font-size:12px;
+        letter-spacing:5px;
     }
 
     .hero h1{
-        font-size:50px;
-        line-height:1;
+        font-size:42px;
+        line-height:1.1;
+        letter-spacing:0;
+        width:100%;
+        max-width:100%;
+        overflow-wrap:break-word;
+        word-break:normal;
+        text-align:center;
+        margin:20px 0 30px;
     }
 
     .hero-description{
-        font-size:18px;
+        font-size:17px;
+        line-height:1.9;
+    }
+
+    .hero-divider{
+        width:130px;
+        margin:40px auto;
     }
 
     .hero-meta{
         flex-direction:column;
         gap:10px;
+        margin-top:40px;
+    }
+
+    .hero-meta span{
+        font-size:11px;
+        letter-spacing:3px;
     }
 
     .symbol-grid,
