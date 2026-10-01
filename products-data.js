@@ -47,7 +47,7 @@ cover: "images/phoenixborne-oath-broken-gate-cover.jpg"
       M: false,
       L: false,
       XL: false,
-      XXL: false
+      XXL: false,
     },
 
     images: [
@@ -64,7 +64,7 @@ cover: "images/phoenixborne-oath-broken-gate-cover.jpg"
     name: "PHOENIXBORNE TEE",
     slug: "phoenix-borne-tee2",
     category: "season1",
-    price: 289000,
+    price: 199000,
     originalPrice: null,
     badge: "new article",
     isNew: false,
@@ -72,11 +72,11 @@ cover: "images/phoenixborne-oath-broken-gate-cover.jpg"
     stockStatus: "Ready Stock",
 
     sizes: {
-      S: false,
-      M: false,
-      L: false,
-      XL: false,
-      XXL: false
+      S: true,
+      M: true,
+      L: true,
+      XL: true,
+      XXL: true,
     },
 
     images: [
